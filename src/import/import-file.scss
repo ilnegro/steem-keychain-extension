@@ -1,0 +1,66 @@
+@import '../common-style/common-style.scss';
+@import '../common-ui/common-ui.scss';
+@import '../popup/steem/steem-app.component.scss';
+@import '../popup/evm/evm-app.component.scss';
+
+.theme {
+  &.light {
+    @include spread-map($light);
+  }
+  &.dark {
+    @include spread-map($dark);
+  }
+  background-color: var(--background-color);
+  @include background-bottom;
+}
+
+html {
+  height: 100%;
+  body {
+    margin: 0px;
+    height: 100%;
+    #root {
+      display: block;
+      height: 100%;
+      .import-file {
+        height: 100%;
+        @include background-top;
+        color: var(--main-font-color);
+        padding: 24px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        row-gap: 24px;
+        font-size: 16px;
+
+        @include dialogs-title-panel();
+        .caption {
+          @include caption();
+        }
+
+        .feedback {
+          a {
+            color: $sky;
+          }
+        }
+
+        .upload-panel {
+          display: flex;
+          flex-direction: column;
+          row-gap: 16px;
+          flex: 1;
+
+          .file-input {
+            visibility: hidden;
+          }
+        }
+        .button-panel {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          column-gap: 8px;
+        }
+      }
+    }
+  }
+}

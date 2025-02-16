@@ -1,0 +1,18 @@
+.back-to-top {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  height: 46px;
+  width: 46px;
+  background: $sky;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  div {
+    height: 33px;
+    width: 33px;
+  }
+}

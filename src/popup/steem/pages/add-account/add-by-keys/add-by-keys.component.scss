@@ -1,0 +1,18 @@
+.add-by-keys-page {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  height: 100%;
+  .caption {
+    @include caption();
+    font-size: a {
+      color: $sky;
+    }
+  }
+
+  .form-container {
+    @include pageLayoutRowGap;
+    row-gap: 32px;
+    margin-top: 16px;
+  }
+}

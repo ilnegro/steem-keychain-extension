@@ -1,0 +1,22 @@
+.menu {
+  border-radius: 12px;
+  border: 1px solid var(--menu-border-color);
+  background: var(--menu-background);
+  margin: 0px 18px;
+
+  .menu-item-container {
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      .menu-item {
+        border-radius: 12px 12px 0px 0px;
+      }
+    }
+    &:last-child {
+      .menu-item {
+        border-radius: 0px 0px 12px 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "lib": ["ES6", "DOM"],
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "strict": true,
+    "target": "ES6",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@common-style/*": ["./src/common-style/*"],
+      "@popup/*": ["./src/popup/*"],
+      "@hiveapp/*": ["src/popup/steem/*"],
+      "@background/*": ["./src/background/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@reference-data/*": ["./src/reference-data/*"],
+      "@api/*": ["./src/api/*"],
+      "react": ["./node_modules/@types/react"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/__tests__/*"] // TODO Comment when working on tests
+}

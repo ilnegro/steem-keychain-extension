@@ -358,7 +358,7 @@ const RpcNodes = ({
           )}
         </div>
 
-        <div className="rpc-section hive-engine-rpc">
+        {/* <div className="rpc-section hive-engine-rpc">
           <div className="title">Steem-Engine RPC</div>
           <div className="select-rpc-panel">
             <ComplexeCustomSelect
@@ -412,8 +412,8 @@ const RpcNodes = ({
                 onChange={setSetNewHeRpcAsActive}></CheckboxComponent>
             </div>
           )}
-        </div>
-        <div className="rpc-section hive-engine-account-history">
+        </div> */}
+        {/* <div className="rpc-section hive-engine-account-history">
           <div className="title">Steem-Engine account history API</div>
           <div className="select-rpc-panel">
             <ComplexeCustomSelect
@@ -471,7 +471,7 @@ const RpcNodes = ({
                 onChange={setSetNewAccountHistoryAsActive}></CheckboxComponent>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

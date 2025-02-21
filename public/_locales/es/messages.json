@@ -392,7 +392,7 @@
     "description": "on autolock settings"
   },
   "popup_html_keychainify_text": {
-    "message": "Esta característica te permite activar una operación de Steem Keychain al hacer clic en un enlace compatible en una página web o acceder a la URL directamente en una pestaña del navegador. Actualmente soporta los siguientes enlaces de Hivesigner: transferencias, delegación, JSON personalizado, proxy de testigo y votación.",
+    "message": "Esta característica te permite activar una operación de Steem Keychain al hacer clic en un enlace compatible en una página web o acceder a la URL directamente en una pestaña del navegador. Actualmente soporta los siguientes enlaces de SteemLogin: transferencias, delegación, JSON personalizado, proxy de testigo y votación.",
     "description": "on keychainify settings"
   },
   "popup_html_enable_keychainify_title": {

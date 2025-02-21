@@ -58,7 +58,7 @@
     "decimal.js": "10.4.3",
     "flatlist-react": "1.5.0",
     "hive-keychain-commons": "https://github.com/faisalamin9696/steem-keychain-commons",
-    "hive-tx": "github:faisalamin9696/hive-tx-js",
+    "hive-tx": "github:faisalamin9696/steem-tx-js",
     "joi": "^17.13.3",
     "keychain-sdk": "^0.7.0",
     "locate-path": "7.1.1",

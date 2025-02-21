@@ -35,11 +35,11 @@ export default {
 
   isUrlSupported: function (url: string) {
     return (
-      url.includes('hivesigner.com/sign/transfer') ||
-      url.includes('hivesigner.com/sign/account-witness-vote') ||
-      url.includes('hivesigner.com/sign/delegate-vesting-shares') ||
-      url.includes('hivesigner.com/sign/custom-json') ||
-      url.includes('hivesigner.com/sign/account-witness-proxy')
+      url.includes('steemlogin.com/sign/transfer') ||
+      url.includes('steemlogin.com/sign/account-witness-vote') ||
+      url.includes('steemlogin.com/sign/delegate-vesting-shares') ||
+      url.includes('steemlogin.com/sign/custom-json') ||
+      url.includes('steemlogin.com/sign/account-witness-proxy')
     );
   },
 
@@ -62,9 +62,9 @@ export default {
     switch (true) {
       /**
        * Transfer fund
-       * i.e. : https://hivesigner.com/sign/transfer?to=lecaillon&amount=1%20HIVE
+       * i.e. : https://steemlogin.com/sign/transfer?to=lecaillon&amount=1%20HIVE
        */
-      case url.includes('hivesigner.com/sign/transfer'):
+      case url.includes('steemlogin.com/sign/transfer'):
         defaults = {
           from: null,
           to: null,
@@ -89,10 +89,10 @@ export default {
 
       /**
        * Delegate Steem Power
-       * i.e. : https://hivesigner.com/sign/delegate-vesting-shares?delegatee=keychain&vesting_shares=100%20HP
+       * i.e. : https://steemlogin.com/sign/delegate-vesting-shares?delegatee=keychain&vesting_shares=100%20HP
        */
-      case url.includes('hivesigner.com/sign/delegate-vesting-shares') ||
-        url.includes('hivesigner.com/sign/delegate_vesting_shares'):
+      case url.includes('steemlogin.com/sign/delegate-vesting-shares') ||
+        url.includes('steemlogin.com/sign/delegate_vesting_shares'):
         defaults = {
           delegator: null,
           delegatee: null,
@@ -113,10 +113,10 @@ export default {
         break;
       /**
        * Vote for witness
-       * i.e. : https://hivesigner.com/sign/account-witness-vote?witness=faisalamin&approve=1
+       * i.e. : https://steemlogin.com/sign/account-witness-vote?witness=faisalamin&approve=1
        */
-      case url.includes('hivesigner.com/sign/account-witness-vote') ||
-        url.includes('hivesigner.com/sign/account_witness_vote'):
+      case url.includes('steemlogin.com/sign/account-witness-vote') ||
+        url.includes('steemlogin.com/sign/account_witness_vote'):
         defaults = {
           account: null,
           witness: null,
@@ -134,10 +134,10 @@ export default {
         break;
       /**
        * Chose a proxy
-       * i.e. : https://hivesigner.com/sign/account-witness-proxy?proxy=faisalamin
+       * i.e. : https://steemlogin.com/sign/account-witness-proxy?proxy=faisalamin
        */
-      case url.includes('https://hivesigner.com/sign/account-witness-proxy') ||
-        url.includes('https://hivesigner.com/sign/account_witness_proxy'):
+      case url.includes('https://steemlogin.com/sign/account-witness-proxy') ||
+        url.includes('https://steemlogin.com/sign/account_witness_proxy'):
         defaults = {
           account: null,
           proxy: '',
@@ -149,10 +149,10 @@ export default {
         break;
       /**
        * Broadcast a custom-json
-       * i.e. : https://hivesigner.com/sign/custom-json?required_posting_auths=%5Bfaisalamin%5D&id=custom&json=%7B%22hive%22%3A%22keychain%22%7D
+       * i.e. : https://steemlogin.com/sign/custom-json?required_posting_auths=%5Bfaisalamin%5D&id=custom&json=%7B%22hive%22%3A%22keychain%22%7D
        */
-      case url.includes('https://hivesigner.com/sign/custom-json') ||
-        url.includes('https://hivesigner.com/sign/custom_json'):
+      case url.includes('https://steemlogin.com/sign/custom-json') ||
+        url.includes('https://steemlogin.com/sign/custom_json'):
         defaults = {
           required_auths: null,
           required_posting_auths: null,

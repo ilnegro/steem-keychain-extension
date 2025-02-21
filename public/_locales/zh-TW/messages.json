@@ -296,7 +296,7 @@
     "description": "on autolock settings"
   },
   "popup_html_keychainify_text": {
-    "message": "此功能允許您在點擊網頁上支援的連結或直接在瀏覽器標籤頁中存取 URL 時觸發 Keychain 操作。 目前支持以下 Hivesigner 連結：轉讓、委託、自定義 JSON、見證代理和投票。",
+    "message": "此功能允許您在點擊網頁上支援的連結或直接在瀏覽器標籤頁中存取 URL 時觸發 Keychain 操作。 目前支持以下 SteemLogin 連結：轉讓、委託、自定義 JSON、見證代理和投票。",
     "description": "on keychainify settings"
   },
   "popup_html_enable_keychainify_title": {

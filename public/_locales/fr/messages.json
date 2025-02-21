@@ -300,7 +300,7 @@
     "description": "on autolock settings"
   },
   "popup_html_keychainify_text": {
-    "message": "Cette fonctionnalité vous permet de réaliser une opération Steem Keychain lorsque vous cliquez sur un lien pris en charge sur une page Web ou en accédant directement à l'URL dans un onglet du navigateur. Prend actuellement en charge les liens Hivesigner suivants : transferts, délégation, JSON personnalisé, proxy témoin et votes.",
+    "message": "Cette fonctionnalité vous permet de réaliser une opération Steem Keychain lorsque vous cliquez sur un lien pris en charge sur une page Web ou en accédant directement à l'URL dans un onglet du navigateur. Prend actuellement en charge les liens SteemLogin suivants : transferts, délégation, JSON personnalisé, proxy témoin et votes.",
     "description": "on keychainify settings"
   },
   "popup_html_enable_keychainify_title": {

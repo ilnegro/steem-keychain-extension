@@ -296,7 +296,7 @@
     "description": "on autolock settings"
   },
   "popup_html_keychainify_text": {
-    "message": "此功能允许您在点击网页上支援的连结或直接在浏览器标籤页中存取 URL 时触发 Keychain 操作。 目前支持以下 Hivesigner 连结：转让、委託、自定义 JSON、见證代理和投票。",
+    "message": "此功能允许您在点击网页上支援的连结或直接在浏览器标籤页中存取 URL 时触发 Keychain 操作。 目前支持以下 SteemLogin 连结：转让、委託、自定义 JSON、见證代理和投票。",
     "description": "on keychainify settings"
   },
   "popup_html_enable_keychainify_title": {

@@ -1,3 +1,4 @@
+import { SteemTxUtils } from '@popup/steem/utils/steem-tx.utils';
 import axios from 'axios';
 import { Rpc } from 'src/interfaces/rpc.interface';
 import { DefaultRpcs } from 'src/reference-data/default-rpc.list';
@@ -97,18 +98,24 @@ const checkRpcStatus = async (uri: string) => {
     },
   );
   try {
-    const result = await axios.get(
-      ['DEFAULT', 'https://api.steemit.com'].includes(uri)
-        ? 'https://api.steemit.com'
-        : `${uri}/health`,
-      {
-        timeout: 10000,
-      },
-    );
-    if (result?.data?.error) {
-      return false;
+    const result = await SteemTxUtils.getData('condenser_api.get_config', []);
+    if (result?.STEEM_ADDRESS_PREFIX) {
+      return true;
     }
-    return true;
+    return false;
+
+    // const result = await axios.get(
+    //   ['DEFAULT', 'https://api.steemit.com'].includes(uri)
+    //     ? 'https://api.steemit.com'
+    //     : `${uri}/health`,
+    //   {
+    //     timeout: 10000,
+    //   },
+    // );
+    // if (result?.data?.error) {
+    //   return false;
+    // }
+    // return true;
   } catch (err) {
     Logger.error('error', err);
     return false;

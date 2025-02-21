@@ -9,9 +9,10 @@
   position: relative;
   background: var(--button-background-color);
   border-radius: 48px;
+  border: 0px;
 
   &:not(.disabled):hover {
-    box-shadow: 0px 13px 9px 0px $sky-shadow;
+    box-shadow: 0px 8px 9px 0px $sky-shadow;
   }
 
   &.disabled {
@@ -19,12 +20,12 @@
     opacity: 0.6; // Optional: Visually indicate it's disabled
   }
 
-  // &.success-button {
-  //   background-color: $green-success;
-  //   &:hover {
-  //     box-shadow: 0px 13px 9px 0px $green-success-shadow;
-  //   }
-  // }
+  &.success-button {
+    background-color: $green-success;
+    &:hover {
+      box-shadow: 0px 8px 9px 0px $green-success-shadow;
+    }
+  }
 
   &.tall {
     height: 58px;

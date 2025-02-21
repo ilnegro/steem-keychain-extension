@@ -189,7 +189,7 @@ const RpcNodes = ({
     setCustomRpcs(await RpcUtils.getCustomRpcs());
   };
 
-  const deleteCustomHiveRPC = async (
+  const deleteCustomSteemRPC = async (
     item: OptionItem,
     event: BaseSyntheticEvent,
   ) => {
@@ -200,7 +200,7 @@ const RpcNodes = ({
     initCustomRpcList();
   };
 
-  const saveNewHiveRpc = () => {
+  const saveNewSteemRpc = () => {
     if (
       !addRpcNodeUri.length ||
       (addRpcNodeTestnet && !addRpcNodeChainId.length)
@@ -300,7 +300,7 @@ const RpcNodes = ({
                 }
                 setSelectedItem={(item: RpcListItem) => setActiveRpc(item.rpc)}
                 background="white"
-                onDelete={deleteCustomHiveRPC}
+                onDelete={deleteCustomSteemRPC}
               />
               <div
                 className={`round-button ${
@@ -319,7 +319,7 @@ const RpcNodes = ({
                 <span>{chrome.i18n.getMessage('popup_html_add_rpc_text')}</span>
                 <SVGIcon
                   icon={SVGIcons.MENU_RPC_SAVE_BUTTON}
-                  onClick={() => saveNewHiveRpc()}
+                  onClick={() => saveNewSteemRpc()}
                 />
               </div>
               <Separator type="horizontal" />
@@ -329,7 +329,7 @@ const RpcNodes = ({
                 value={addRpcNodeUri}
                 onChange={setAddRpcNodeUri}
                 placeholder={'popup_html_rpc_node'}
-                onEnterPress={saveNewHiveRpc}
+                onEnterPress={saveNewSteemRpc}
               />
               <CheckboxComponent
                 dataTestId="checkbox-add-rpc-test-node"
@@ -345,7 +345,7 @@ const RpcNodes = ({
                   onChange={setAddRpcNodeChainId}
                   placeholder="Chain Id"
                   skipPlaceholderTranslation={true}
-                  onEnterPress={saveNewHiveRpc}
+                  onEnterPress={saveNewSteemRpc}
                 />
               )}
 

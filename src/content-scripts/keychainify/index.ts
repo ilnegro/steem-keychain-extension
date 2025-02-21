@@ -77,7 +77,7 @@ let contentScript: Props = {
     },
 
     /**
-     * Verify all anchors to find HiveSigner links
+     * Verify all anchors to find Keychain links
      */
     checkAnchors: function () {
       let anchors: NodeListOf<HTMLAnchorElement> = document.querySelectorAll(

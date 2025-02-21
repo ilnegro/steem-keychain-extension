@@ -59,5 +59,4 @@ Before contributing to Steem Keychain, contact us on [Discord](https://discord.c
 - [Landing page](https://keychain.steempro.com)
 - [Support Discord](https://discord.com/invite/Bsf98vMg6U)
 - [Keychain for Chromium browsers](https://chrome.google.com/webstore/detail/steemkeychain/jhgnbkkipaallpehbohjmkbjofjdmeid?hl=en)
-//TODO
 - [Keychain for Firefox](https://addons.mozilla.org/en-US/firefox/addon/steemkeychain/)

@@ -243,7 +243,7 @@ const Delegations = ({
           let success = await DelegationUtils.delegateVestingShares(
             activeAccount.name!,
             form.username,
-            FormatUtils.fromHP(
+            FormatUtils.fromSP(
               form.amount.toString(),
               globalProperties!,
             ).toFixed(6) + ' VESTS',

@@ -157,7 +157,7 @@ const IncomingOutgoing = ({
           let success = await DelegationUtils.delegateVestingShares(
             activeAccount.name!,
             username!,
-            FormatUtils.fromHP(value.toString(), globalProperties!).toFixed(6) +
+            FormatUtils.fromSP(value.toString(), globalProperties!).toFixed(6) +
               ' VESTS',
             activeAccount.keys.active!,
             options,

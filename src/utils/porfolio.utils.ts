@@ -27,16 +27,16 @@ const loadAndSetRPCsAndApis = async () => {
     LocalStorageKeyEnum.CURRENT_RPC,
   );
   let rpc = current_rpc || Config.rpc.DEFAULT;
-  const HiveEngineConfig = {
+  const SteemEngineConfig = {
     rpc: Config.steemEngine.rpc,
     mainnet: Config.steemEngine.mainnet,
     accountHistoryApi: Config.steemEngine.accountHistoryApi,
   };
 
   SteemTxUtils.setRpc(rpc);
-  SteemEngineConfigUtils.setActiveApi(HiveEngineConfig.rpc);
+  SteemEngineConfigUtils.setActiveApi(SteemEngineConfig.rpc);
   SteemEngineConfigUtils.setActiveAccountHistoryApi(
-    HiveEngineConfig.accountHistoryApi,
+    SteemEngineConfig.accountHistoryApi,
   );
 };
 
@@ -50,9 +50,11 @@ const loadUsersTokens = async (
   for (const username of accountNames) {
     currentAccountIndex++;
     if (onProgress) onProgress(currentAccountIndex, username);
-    let tokensBalance: TokenBalance[] = await TokensUtils.getUserBalance(
-      username,
-    );
+    let tokensBalance: TokenBalance[] = [];
+
+    // await TokensUtils.getUserBalance(
+    //   username,
+    // );
     tempTokenBalanceList.push({
       username: username,
       tokensBalance: tokensBalance,
@@ -80,24 +82,21 @@ const getPortfolio = async (
   onProgress?: (currentAccountIndex: number, currentAccount: string) => void,
 ) => {
   await PortfolioUtils.loadAndSetRPCsAndApis();
-  const [globals, price, rewardFund] = await Promise.all([
+  const [globals] = await Promise.all([
     DynamicGlobalPropertiesUtils.getDynamicGlobalProperties(),
-    SteemUtils.getCurrentMedianHistoryPrice(),
-    SteemUtils.getRewardFund(),
   ]);
-  const [prices, usersTokens, tokensMarket] = await Promise.all([
+  const [prices, usersTokens] = await Promise.all([
     CurrencyPricesUtils.getPrices() as unknown as CurrencyPrices,
     loadUsersTokens(
       extendedAccounts.map((acc: ExtendedAccount) => acc.name),
       onProgress,
     ),
-    loadTokenMarket(),
+    // loadTokenMarket(),
   ]);
 
   const tokensFullList = getTokensFullList(usersTokens);
 
   const portfolio: UserPortfolio[] = [];
-  const tokens = await TokensUtils.getAllTokens();
   const hiddenTokensList =
     (await LocalStorageUtils.getValueFromLocalStorage(
       LocalStorageKeyEnum.HIDDEN_TOKENS,
@@ -106,8 +105,8 @@ const getPortfolio = async (
     const userPortfolio = generateUserLayerTwoPortolio(
       userTokens,
       prices,
-      tokensMarket,
-      tokens,
+      // tokensMarket,
+      // tokens,
       hiddenTokensList,
     );
     portfolio.push({
@@ -148,7 +147,7 @@ const getPortfolio = async (
       Asset.fromString(savings_sbd_balance.toString()).amount +
       lockedInOrders.sbd;
     const totalVESTS = Asset.fromString(vesting_shares.toString()).amount;
-    const totalHP = FormatUtils.toSP(totalVESTS.toString(), globals);
+    const totalSP = FormatUtils.toSP(totalVESTS.toString(), globals);
     userPortfolio.balances.push({
       symbol: 'STEEM',
       balance: totalSTEEM,
@@ -161,17 +160,14 @@ const getPortfolio = async (
     });
     userPortfolio.balances.push({
       symbol: 'SP',
-      balance: totalHP,
-      usdValue: totalHP * (prices.steem.usd ?? 1),
+      balance: totalSP,
+      usdValue: totalSP * (prices.steem.usd ?? 1),
     });
   }
   for (const userPortfolio of portfolio) {
     let totalUSD = 0;
-    let totalSteem = 0;
+    let totalHive = 0;
     for (const balance of userPortfolio.balances) {
-      const tokenMarket = tokensMarket.find(
-        (tm) => tm.symbol === balance.symbol,
-      );
       totalUSD += balance.usdValue;
     }
     userPortfolio.totalUSD = totalUSD;
@@ -181,7 +177,6 @@ const getPortfolio = async (
 
   return [portfolio, orderedTokenList];
 };
-
 const getOrderedTokenFullList = (
   tokensFullList: string[],
   portfolio: UserPortfolio[],
@@ -205,8 +200,8 @@ const getOrderedTokenFullList = (
 const generateUserLayerTwoPortolio = (
   userTokens: { username: string; tokensBalance: TokenBalance[] },
   prices: CurrencyPrices,
-  tokensMarket: TokenMarket[],
-  tokens: Token[],
+  // tokensMarket: TokenMarket[],
+  // tokens: Token[],
   hiddenTokensList: string[],
 ) => {
   const userLayerTwoPortfolio: PortfolioBalance[] = [];
@@ -215,7 +210,7 @@ const generateUserLayerTwoPortolio = (
   );
   for (const userToken of userTokensList) {
     userLayerTwoPortfolio.push(
-      getPortfolioHETokenData(userToken, tokensMarket, prices, tokens),
+      getPortfolioHETokenData(userToken, prices),
     );
   }
   return userLayerTwoPortfolio;
@@ -238,16 +233,14 @@ const getTokensFullList = (
 
 const getPortfolioHETokenData = (
   tokenBalanceItem: TokenBalance,
-  tokenMarket: TokenMarket[],
   currencyPrices: CurrencyPrices,
-  tokens: Token[],
+  // tokens: Token[],
 ): PortfolioBalance => {
-  const totalBalanceUsdValue = TokensUtils.getHiveEngineTokenValue(
-    tokenBalanceItem,
-    tokenMarket,
-    currencyPrices!.steem!,
-    tokens,
-  );
+  // const totalBalanceUsdValue = TokensUtils.getHiveEngineTokenValue(
+  //   tokenBalanceItem,
+  //   currencyPrices!.steem!,
+  //   // tokens,
+  // );
   return {
     symbol: tokenBalanceItem.symbol,
     balance:
@@ -256,7 +249,7 @@ const getPortfolioHETokenData = (
       +tokenBalanceItem.stake +
       +tokenBalanceItem.pendingUndelegations +
       +tokenBalanceItem.pendingUnstake,
-    usdValue: totalBalanceUsdValue,
+    usdValue: 0,
   };
 };
 

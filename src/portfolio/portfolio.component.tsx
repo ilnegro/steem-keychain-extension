@@ -75,6 +75,7 @@ const Portfolio = () => {
         extendedAccounts,
         onCreatingPortfolioProgress,
       );
+
       setTableColumnsHeaders(orderedTokenList as string[]);
       setPortfolioData(portfolio as UserPortfolio[]);
 

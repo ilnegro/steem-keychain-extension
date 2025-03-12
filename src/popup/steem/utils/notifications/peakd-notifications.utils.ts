@@ -699,7 +699,7 @@ const getNotifications = async (
           message = 'notification_delegation';
           messageParams = [
             payload.delegator,
-            FormatUtils.toFormattedHP(
+            FormatUtils.toFormattedSP(
               payload.vesting_shares.toString().replace('VESTS', ''),
               globalProperties,
             ),
@@ -762,7 +762,7 @@ const getNotifications = async (
       case 'withdraw_vesting': {
         message = 'bgd_ops_pd';
         messageParams = [
-          FormatUtils.toFormattedHP(
+          FormatUtils.toFormattedSP(
             payload.vesting_shares.toString().replace('VESTS', ''),
             globalProperties,
           ),
@@ -797,7 +797,7 @@ const getNotifications = async (
           payload.author,
           FormatUtils.withCommas(payload.sbd_payout, 3),
           FormatUtils.withCommas(payload.steem_payout, 3),
-          FormatUtils.toFormattedHP(
+          FormatUtils.toFormattedSP(
             payload.vesting_payout.toString().replace('VESTS', ''),
             globalProperties,
           ),
@@ -811,7 +811,7 @@ const getNotifications = async (
         message = 'notification_curation_reward';
         messageParams = [
           payload.curator,
-          FormatUtils.toFormattedHP(
+          FormatUtils.toFormattedSP(
             payload.reward.toString().replace('VESTS', ''),
             globalProperties,
           ),
@@ -844,7 +844,7 @@ const getNotifications = async (
           message = 'notification_fill_power_down';
           messageParams = [
             payload.to_account,
-            FormatUtils.toFormattedHP(
+            FormatUtils.toFormattedSP(
               payload.withdrawn.toString().replace('VESTS', ''),
               globalProperties,
             ),
@@ -853,7 +853,7 @@ const getNotifications = async (
           message = 'notification_fill_power_down_other_account';
           messageParams = [
             payload.to_account,
-            FormatUtils.toFormattedHP(
+            FormatUtils.toFormattedSP(
               payload.withdrawn.toString().replace('VESTS', ''),
               globalProperties,
             ),
@@ -888,7 +888,7 @@ const getNotifications = async (
         message = 'notification_returned_vesting_delegation';
         messageParams = [
           payload.account,
-          FormatUtils.toFormattedHP(
+          FormatUtils.toFormattedSP(
             payload.vesting_shares.toString().replace('VESTS', ''),
             globalProperties,
           ),
@@ -901,7 +901,7 @@ const getNotifications = async (
           payload.benefactor,
           FormatUtils.withCommas(payload.sbd_payout, 3),
           FormatUtils.withCommas(payload.steem_payout, 3),
-          FormatUtils.toFormattedHP(
+          FormatUtils.toFormattedSP(
             payload.vesting_payout.toString().replace('VESTS', ''),
             globalProperties,
           ),
@@ -915,7 +915,7 @@ const getNotifications = async (
         message = 'notification_producer_reward';
         messageParams = [
           payload.producer,
-          FormatUtils.toFormattedHP(
+          FormatUtils.toFormattedSP(
             payload.vesting_shares.toString().replace('VESTS', ''),
             globalProperties,
           ),

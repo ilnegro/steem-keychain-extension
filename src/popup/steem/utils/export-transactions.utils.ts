@@ -1,9 +1,12 @@
-import { Asset, Operation, TransferOperation } from '@hiveio/dhive';
+import { Asset, TransferOperation } from '@hiveio/dhive';
+import {
+  SdsOperationName,
+  SdsTransaction,
+} from '@interfaces/transaction.interface';
 import TransactionUtils from '@popup/steem/utils/transaction.utils';
 import moment from 'moment';
 import { KeychainError } from 'src/keychain-error';
 import Logger from 'src/utils/logger.utils';
-import { utils as DHiveUtils } from '@hiveio/dhive';
 
 const proposal_fee = 87;
 
@@ -15,7 +18,7 @@ interface ExportTransactionOperation {
   to?: string;
   amount: number;
   currency: string;
-  operationType: Operation;
+  operationType: SdsOperationName;
 }
 
 // const fetchTransaction = async (
@@ -299,18 +302,18 @@ const fetchTransaction = async (
   endDate?: Date,
   feedBack?: (percentage: number) => void,
 ): Promise<ExportTransactionOperation[] | undefined> => {
-  const MAX_LIMIT = 20;
+  const MAX_LIMIT = 10000;
   const lastTransaction = await TransactionUtils.getLastTransaction(username);
+  if (!startDate) startDate = moment().subtract(1, 'day').toDate();
+  if (!endDate) endDate = moment().toDate();
 
   let start = lastTransaction;
-  let limit = Math.min(start, 20);
+  let limit = Math.min(start, MAX_LIMIT);
 
-  let rawTransactions: any[] = [];
-
+  let rawTransactions: SdsTransaction[] = [];
   let operations: ExportTransactionOperation[] = [];
   let forceStop = false;
   let percentageDuration;
-  endDate = new Date();
   if (startDate) {
     percentageDuration = endDate.getTime() - new Date(startDate).getTime();
   }
@@ -324,18 +327,21 @@ const fetchTransaction = async (
       );
       for (let i = rawTransactions.length - 1; i >= 0; i--) {
         const tx = rawTransactions[i];
-        const operationPayload = tx[1].op[1];
-        const operationType = tx[1].op[0];
-        const transactionInfo = tx[1];
+        const operationPayload = tx.op[1];
+        const operationType = tx.op[0];
+        const transactionInfo = tx;
 
-        const date = process.env.IS_FIREFOX
-          ? moment(transactionInfo.timestamp)
-          : moment(transactionInfo.timestamp + 'z');
-        const localDatetime = date.format('yyyy-MM-DD HH:mm:ss');
-        if (endDate && date.isSameOrAfter(moment(endDate).add(1, 'day'), 'day'))
+        const dateString = moment(transactionInfo.time * 1000);
+        const localDatetime = dateString.format('yyyy-MM-DD HH:mm:ss');
+
+        if (
+          endDate &&
+          dateString.isSameOrAfter(moment(endDate).add(1, 'day'), 'day')
+        ) {
           continue;
+        }
 
-        if (startDate && date.isBefore(moment(startDate), 'day')) {
+        if (startDate && dateString.isAfter(moment(startDate), 'day')) {
           forceStop = true;
           break;
         }
@@ -343,8 +349,8 @@ const fetchTransaction = async (
         const operation: ExportTransactionOperation = {
           operationType: operationType,
           datetime: localDatetime,
-          transactionId: transactionInfo.trx_id,
-          blockNumber: transactionInfo.block,
+          transactionId: transactionInfo.id.toString(),
+          blockNumber: transactionInfo.block_num,
           to: 'NA',
           amount: 0,
           currency: 'NA',
@@ -352,8 +358,7 @@ const fetchTransaction = async (
         };
 
         switch (operationType) {
-          case 'transfer':
-          case 'fill_recurrent_transfer': {
+          case 'transfer': {
             const transferOperation = operationPayload as TransferOperation[1];
             const asset = Asset.fromString(transferOperation.amount.toString());
             operations.push({
@@ -415,37 +420,6 @@ const fetchTransaction = async (
               currency: asset.symbol,
             });
             asset = Asset.fromString(operationPayload.amount_in.toString());
-            operations.push({
-              ...operation,
-              from: operationPayload.owner,
-              to: operationPayload.owner,
-              amount: asset.amount,
-              currency: asset.symbol,
-            });
-            break;
-          }
-          case 'fill_collateralized_convert_request': {
-            let asset = Asset.fromString(
-              operationPayload.amount_out.toString(),
-            );
-            operations.push({
-              ...operation,
-              from: operationPayload.owner,
-              to: operationPayload.owner,
-              amount: asset.amount,
-              currency: asset.symbol,
-            });
-            asset = Asset.fromString(operationPayload.amount_in.toString());
-            operations.push({
-              ...operation,
-              from: operationPayload.owner,
-              to: operationPayload.owner,
-              amount: asset.amount,
-              currency: asset.symbol,
-            });
-            asset = Asset.fromString(
-              operationPayload.excess_collateral.toString(),
-            );
             operations.push({
               ...operation,
               from: operationPayload.owner,
@@ -567,18 +541,6 @@ const fetchTransaction = async (
               });
             break;
           }
-          case 'proposal_fee': {
-            let asset = Asset.fromString(operationPayload.fee.toString());
-            if (asset.amount > 0)
-              operations.push({
-                ...operation,
-                to: operationPayload.treasury,
-                from: operationPayload.creator,
-                amount: asset.amount,
-                currency: asset.symbol,
-              });
-            break;
-          }
           default:
             Logger.log(`missing ${operationType}`);
             break;
@@ -588,21 +550,21 @@ const fetchTransaction = async (
       if (startDate && percentageDuration) {
         // take care of date
         const tx = rawTransactions[rawTransactions.length - 1];
-        const transactionInfo = tx[1];
-        const date = moment(transactionInfo.timestamp + 'z').toDate();
+        const transactionInfo = tx;
+        const date = moment(moment(transactionInfo.time * 1000) + 'z').toDate();
 
         const passedDuration = endDate.getTime() - date.getTime();
         percentage = (passedDuration / percentageDuration) * 100;
       } else {
         // use lastTransaction
         const index =
-          lastTransaction - rawTransactions[rawTransactions.length - 1][0];
+          lastTransaction - rawTransactions[rawTransactions.length - 1].id;
         percentage = (index / lastTransaction) * 100;
       }
       // sendBack percentage
       if (feedBack) feedBack(percentage);
 
-      start = Math.min(start - 20, rawTransactions[0][0] - 1);
+      start = Math.min(start - MAX_LIMIT, rawTransactions[0].id - 1);
     } while (start > MAX_LIMIT && !forceStop);
     return operations;
   } catch (err) {
@@ -640,7 +602,6 @@ const downloadTransactions = async (
   if (!operations) {
     throw new KeychainError('export_transactions_fetching_error');
   }
-
   const csv = generateCSV(operations);
   var data = new Blob([csv], {
     type: 'text/plain',

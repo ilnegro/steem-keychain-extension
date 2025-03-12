@@ -220,7 +220,7 @@ const walletInfoSectionItem = ({
                   $
                   {TokensUtils.getHiveEngineTokenValue(
                     tokenBalance,
-                    tokenMarket,
+                    // tokenMarket,
                     steem,
                     [tokenInfo],
                   ).toFixed(2)}{' '}

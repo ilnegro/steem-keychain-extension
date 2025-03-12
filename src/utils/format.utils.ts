@@ -30,11 +30,11 @@ const toSP = (vests: string, props?: DynamicGlobalProperties) =>
       parseFloat(props.total_vesting_shares + '')
     : 0;
 
-const toFormattedHP = (vests: number, props?: DynamicGlobalProperties) => {
+const toFormattedSP = (vests: number, props?: DynamicGlobalProperties) => {
   return `${toSP(vests.toString(), props).toFixed(3)} SP`;
 };
 
-const fromHP = (sp: string, props: DynamicGlobalProperties) =>
+const fromSP = (sp: string, props: DynamicGlobalProperties) =>
   (parseFloat(sp) / parseFloat(props.total_vesting_fund_steem + '')) *
   parseFloat(props.total_vesting_shares + '');
 
@@ -164,8 +164,8 @@ const getOrdinalLabelTranslation = (active_rank: string) => {
 const FormatUtils = {
   withCommas,
   toSP,
-  toFormattedHP,
-  fromHP,
+  toFormattedSP,
+  fromSP,
   formatCurrencyValue,
   nFormatter,
   hasMoreThanXDecimal,

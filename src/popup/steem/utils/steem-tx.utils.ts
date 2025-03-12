@@ -45,6 +45,15 @@ const sendOperation = async (
   confirmation?: boolean,
   options?: TransactionOptions,
 ): Promise<TransactionResult | null> => {
+  operations.forEach((operation) => {
+    const expiration = operation[1]?.expiration;
+    if (expiration && typeof expiration === 'number') {
+      operation[1].expiration = new Date(expiration * 1000)
+        .toISOString()
+        .split('.')[0];
+    }
+  });
+
   const transactionResult =
     await SteemTxUtils.createSignAndBroadcastTransaction(
       operations,

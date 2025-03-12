@@ -1,6 +1,6 @@
 {
   "name": "steem-keychain",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "Steem keychain",
   "main": "index.js",
   "directories": {
@@ -47,7 +47,7 @@
   },
   "homepage": "https://github.com/faisalamin9696/steem-keychain#readme",
   "dependencies": {
-    "@hiveio/dhive": "https://github.com/faisalamin9696/dhive",
+    "@hiveio/dhive": "github:faisalamin9696/dhive",
     "@hiveio/hive-js": "2.0.4",
     "@hookform/resolvers": "3.1.1",
     "@types/chrome": "^0.0.243",

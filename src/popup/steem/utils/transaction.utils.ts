@@ -1,5 +1,4 @@
 import { fetchSds } from '@api/sds';
-import { DynamicGlobalProperties } from '@hiveio/dhive';
 import {
   ClaimAccount,
   ClaimReward,
@@ -20,6 +19,7 @@ import {
   WithdrawSavings,
 } from '@interfaces/transaction.interface';
 import SteemUtils from '@popup/steem/utils/steem.utils';
+import { DynamicGlobalProperties } from '@steempro/dsteem';
 import moment from 'moment';
 import { KeychainError } from 'src/keychain-error';
 import FormatUtils from 'src/utils/format.utils';

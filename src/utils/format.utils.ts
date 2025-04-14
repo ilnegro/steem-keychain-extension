@@ -1,6 +1,7 @@
-import { Asset, DynamicGlobalProperties } from '@hiveio/dhive';
 import { CurrencyPrices } from '@interfaces/bittrex.interface';
 import { GlobalProperties } from '@interfaces/global-properties.interface';
+import {  Asset, DynamicGlobalProperties } from '@steempro/dsteem';
+import { Asset as CommonAsset } from '@steempro/steem-keychain-commons';
 
 const withCommas = (nb: string, decimals = 3, removeTrailingZeros = false) => {
   const currency = nb.split(' ')[1];
@@ -117,7 +118,7 @@ const fromNaiAndSymbol = (obj: any) => {
 
 const getAmountFromNai = (obj: any) => {
   const res = fromNaiAndSymbol(obj);
-  return Asset.fromString(res).amount;
+  return CommonAsset.fromString(res).amount;
 };
 
 const removeHtmlTags = (str: string) => {

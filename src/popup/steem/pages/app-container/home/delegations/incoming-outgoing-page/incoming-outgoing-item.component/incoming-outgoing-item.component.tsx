@@ -21,7 +21,7 @@ import {
 import { DelegationType } from '@popup/steem/pages/app-container/home/delegations/delegation-type.enum';
 import CurrencyUtils from '@popup/steem/utils/currency.utils';
 import { DelegationUtils } from '@popup/steem/utils/delegation.utils';
-import { KeychainKeyTypes } from 'hive-keychain-commons';
+import { KeychainKeyTypes } from '@steempro/steem-keychain-commons';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ConnectedProps, connect } from 'react-redux';

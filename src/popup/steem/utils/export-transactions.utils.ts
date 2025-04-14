@@ -1,14 +1,13 @@
-import { Asset, TransferOperation } from '@hiveio/dhive';
 import {
   SdsOperationName,
   SdsTransaction,
 } from '@interfaces/transaction.interface';
 import TransactionUtils from '@popup/steem/utils/transaction.utils';
+import { TransferOperation } from '@steempro/dsteem';
+import { Asset as CommonAsset } from '@steempro/steem-keychain-commons';
 import moment from 'moment';
 import { KeychainError } from 'src/keychain-error';
 import Logger from 'src/utils/logger.utils';
-
-const proposal_fee = 87;
 
 interface ExportTransactionOperation {
   datetime: string;
@@ -87,7 +86,7 @@ interface ExportTransactionOperation {
 //         switch (operationType[0]) {
 //           case 'transfer':
 //             const transferOperation = operationPayload as TransferOperation[1];
-//             const asset = Asset.fromString(transferOperation.amount.toString());
+//             const asset = CommonAsset.fromString(transferOperation.amount.toString());
 //             operations.push({
 //               ...operation,
 //               from: transferOperation.from,
@@ -98,7 +97,7 @@ interface ExportTransactionOperation {
 //             break;
 
 //           case 'interest': {
-//             const asset = Asset.fromString(
+//             const asset = CommonAsset.fromString(
 //               operationPayload.interest.toString(),
 //             );
 //             operations.push({
@@ -111,7 +110,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           case 'transfer_to_vesting': {
-//             const asset = Asset.fromString(operationPayload.amount.toString());
+//             const asset = CommonAsset.fromString(operationPayload.amount.toString());
 //             operations.push({
 //               ...operation,
 //               from: operationPayload.from,
@@ -122,7 +121,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           case 'fill_vesting_withdraw': {
-//             const asset = Asset.fromString(
+//             const asset = CommonAsset.fromString(
 //               operationPayload.deposited.toString(),
 //             );
 //             operations.push({
@@ -135,7 +134,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           case 'fill_convert_request': {
-//             let asset = Asset.fromString(
+//             let asset = CommonAsset.fromString(
 //               operationPayload.amount_out.toString(),
 //             );
 //             operations.push({
@@ -145,7 +144,7 @@ interface ExportTransactionOperation {
 //               amount: asset.amount,
 //               currency: asset.symbol,
 //             });
-//             asset = Asset.fromString(operationPayload.amount_in.toString());
+//             asset = CommonAsset.fromString(operationPayload.amount_in.toString());
 //             operations.push({
 //               ...operation,
 //               from: operationPayload.owner,
@@ -156,7 +155,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           // case 'producer_reward' as any: {
-//           //   let asset = Asset.fromString(
+//           //   let asset = CommonAsset.fromString(
 //           //     operationPayload.vesting_shares.toString(),
 //           //   );
 //           //   operations.push({
@@ -168,7 +167,7 @@ interface ExportTransactionOperation {
 //           //   break;
 //           // }
 //           case 'claim_reward_balance': {
-//             let asset = Asset.fromString(
+//             let asset = CommonAsset.fromString(
 //               operationPayload.reward_steem.toString(),
 //             );
 //             if (asset.amount > 0)
@@ -178,7 +177,7 @@ interface ExportTransactionOperation {
 //                 amount: asset.amount,
 //                 currency: asset.symbol,
 //               });
-//             asset = Asset.fromString(operationPayload.reward_sbd.toString());
+//             asset = CommonAsset.fromString(operationPayload.reward_sbd.toString());
 //             if (asset.amount > 0)
 //               operations.push({
 //                 ...operation,
@@ -186,7 +185,7 @@ interface ExportTransactionOperation {
 //                 amount: asset.amount,
 //                 currency: asset.symbol,
 //               });
-//             asset = Asset.fromString(operationPayload.reward_vests.toString());
+//             asset = CommonAsset.fromString(operationPayload.reward_vests.toString());
 //             if (asset.amount > 0)
 //               operations.push({
 //                 ...operation,
@@ -197,7 +196,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           case 'escrow_release': {
-//             let asset = Asset.fromString(
+//             let asset = CommonAsset.fromString(
 //               operationPayload.sbd_amount.toString(),
 //             );
 //             if (asset.amount > 0)
@@ -208,7 +207,7 @@ interface ExportTransactionOperation {
 //                 amount: asset.amount,
 //                 currency: asset.symbol,
 //               });
-//             asset = Asset.fromString(operationPayload.steem_amount.toString());
+//             asset = CommonAsset.fromString(operationPayload.steem_amount.toString());
 //             if (asset.amount > 0)
 //               operations.push({
 //                 ...operation,
@@ -221,7 +220,7 @@ interface ExportTransactionOperation {
 //           }
 //           case 'account_create':
 //           case 'account_create_with_delegation': {
-//             let asset = Asset.fromString(operationPayload.fee.toString());
+//             let asset = CommonAsset.fromString(operationPayload.fee.toString());
 //             if (asset.amount > 0)
 //               operations.push({
 //                 ...operation,
@@ -232,7 +231,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           case 'proposal_pay' as any: {
-//             let asset = Asset.fromString(operationPayload.payment.toString());
+//             let asset = CommonAsset.fromString(operationPayload.payment.toString());
 //             if (asset.amount > 0)
 //               operations.push({
 //                 ...operation,
@@ -244,7 +243,7 @@ interface ExportTransactionOperation {
 //             break;
 //           }
 //           case 'fill_order': {
-//             let asset = Asset.fromString(
+//             let asset = CommonAsset.fromString(
 //               operationPayload.current_pays.toString(),
 //             );
 //             if (asset.amount > 0)
@@ -255,7 +254,7 @@ interface ExportTransactionOperation {
 //                 amount: asset.amount,
 //                 currency: asset.symbol,
 //               });
-//             asset = Asset.fromString(operationPayload.open_pays.toString());
+//             asset = CommonAsset.fromString(operationPayload.open_pays.toString());
 //             if (asset.amount > 0)
 //               operations.push({
 //                 ...operation,
@@ -360,7 +359,7 @@ const fetchTransaction = async (
         switch (operationType) {
           case 'transfer': {
             const transferOperation = operationPayload as TransferOperation[1];
-            const asset = Asset.fromString(transferOperation.amount.toString());
+            const asset = CommonAsset.fromString(transferOperation.amount.toString());
             operations.push({
               ...operation,
               from: transferOperation.from,
@@ -371,7 +370,7 @@ const fetchTransaction = async (
             break;
           }
           case 'interest': {
-            const asset = Asset.fromString(
+            const asset = CommonAsset.fromString(
               operationPayload.interest.toString(),
             );
             operations.push({
@@ -384,7 +383,7 @@ const fetchTransaction = async (
             break;
           }
           case 'transfer_to_vesting': {
-            const asset = Asset.fromString(operationPayload.amount.toString());
+            const asset = CommonAsset.fromString(operationPayload.amount.toString());
             operations.push({
               ...operation,
               from: operationPayload.from,
@@ -395,7 +394,7 @@ const fetchTransaction = async (
             break;
           }
           case 'fill_vesting_withdraw': {
-            const asset = Asset.fromString(
+            const asset = CommonAsset.fromString(
               operationPayload.deposited.toString(),
             );
             operations.push({
@@ -409,7 +408,7 @@ const fetchTransaction = async (
           }
 
           case 'fill_convert_request': {
-            let asset = Asset.fromString(
+            let asset = CommonAsset.fromString(
               operationPayload.amount_out.toString(),
             );
             operations.push({
@@ -419,7 +418,7 @@ const fetchTransaction = async (
               amount: asset.amount,
               currency: asset.symbol,
             });
-            asset = Asset.fromString(operationPayload.amount_in.toString());
+            asset = CommonAsset.fromString(operationPayload.amount_in.toString());
             operations.push({
               ...operation,
               from: operationPayload.owner,
@@ -431,7 +430,7 @@ const fetchTransaction = async (
           }
 
           case 'producer_reward': {
-            let asset = Asset.fromString(
+            let asset = CommonAsset.fromString(
               operationPayload.vesting_shares.toString(),
             );
             operations.push({
@@ -443,7 +442,7 @@ const fetchTransaction = async (
             break;
           }
           case 'claim_reward_balance': {
-            let asset = Asset.fromString(
+            let asset = CommonAsset.fromString(
               operationPayload.reward_steem.toString(),
             );
             if (asset.amount > 0)
@@ -453,7 +452,7 @@ const fetchTransaction = async (
                 amount: asset.amount,
                 currency: asset.symbol,
               });
-            asset = Asset.fromString(operationPayload.reward_sbd.toString());
+            asset = CommonAsset.fromString(operationPayload.reward_sbd.toString());
             if (asset.amount > 0)
               operations.push({
                 ...operation,
@@ -461,7 +460,7 @@ const fetchTransaction = async (
                 amount: asset.amount,
                 currency: asset.symbol,
               });
-            asset = Asset.fromString(operationPayload.reward_vests.toString());
+            asset = CommonAsset.fromString(operationPayload.reward_vests.toString());
             if (asset.amount > 0)
               operations.push({
                 ...operation,
@@ -472,7 +471,7 @@ const fetchTransaction = async (
             break;
           }
           case 'escrow_release': {
-            let asset = Asset.fromString(
+            let asset = CommonAsset.fromString(
               operationPayload.sbd_amount.toString(),
             );
             if (asset.amount > 0)
@@ -483,7 +482,7 @@ const fetchTransaction = async (
                 amount: asset.amount,
                 currency: asset.symbol,
               });
-            asset = Asset.fromString(operationPayload.steem_amount.toString());
+            asset = CommonAsset.fromString(operationPayload.steem_amount.toString());
             if (asset.amount > 0)
               operations.push({
                 ...operation,
@@ -496,7 +495,7 @@ const fetchTransaction = async (
           }
           case 'account_create':
           case 'account_create_with_delegation': {
-            let asset = Asset.fromString(operationPayload.fee.toString());
+            let asset = CommonAsset.fromString(operationPayload.fee.toString());
             if (asset.amount > 0)
               operations.push({
                 ...operation,
@@ -507,7 +506,7 @@ const fetchTransaction = async (
             break;
           }
           case 'proposal_pay': {
-            let asset = Asset.fromString(operationPayload.payment.toString());
+            let asset = CommonAsset.fromString(operationPayload.payment.toString());
             if (asset.amount > 0)
               operations.push({
                 ...operation,
@@ -519,7 +518,7 @@ const fetchTransaction = async (
             break;
           }
           case 'fill_order': {
-            let asset = Asset.fromString(
+            let asset = CommonAsset.fromString(
               operationPayload.current_pays.toString(),
             );
             if (asset.amount > 0)
@@ -530,7 +529,7 @@ const fetchTransaction = async (
                 amount: asset.amount,
                 currency: asset.symbol,
               });
-            asset = Asset.fromString(operationPayload.open_pays.toString());
+            asset = CommonAsset.fromString(operationPayload.open_pays.toString());
             if (asset.amount > 0)
               operations.push({
                 ...operation,

@@ -1,4 +1,4 @@
-import { Operation, OperationName, VirtualOperationName } from '@hiveio/dhive';
+import { OperationName, VirtualOperationName } from '@steempro/dsteem';
 
 export type CustomTransactionType = 'savings' | 'power_up_down';
 export interface Transactions {

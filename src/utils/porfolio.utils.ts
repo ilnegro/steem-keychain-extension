@@ -1,15 +1,14 @@
-import { Asset, ExtendedAccount } from '@hiveio/dhive';
 import { CurrencyPrices } from '@interfaces/bittrex.interface';
 import { Rpc } from '@interfaces/rpc.interface';
-import { Token, TokenBalance, TokenMarket } from '@interfaces/tokens.interface';
+import { TokenBalance, TokenMarket } from '@interfaces/tokens.interface';
 import CurrencyPricesUtils from '@popup/steem/utils/currency-prices.utils';
 import { DynamicGlobalPropertiesUtils } from '@popup/steem/utils/dynamic-global-properties.utils';
-import { HiveInternalMarketUtils } from '@popup/steem/utils/steem-internal-market.utils';
 import { SteemTxUtils } from '@popup/steem/utils/steem-tx.utils';
-import SteemUtils from '@popup/steem/utils/steem.utils';
 import { SteemEngineConfigUtils } from '@popup/steem/utils/steemengine-config.utils';
 import TokensUtils from '@popup/steem/utils/tokens.utils';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
+import { ExtendedAccount } from '@steempro/dsteem';
+import { Asset as CommonAsset } from '@steempro/steem-keychain-commons';
 import Config from 'src/config';
 import {
   PortfolioBalance,
@@ -85,22 +84,24 @@ const getPortfolio = async (
   const [globals] = await Promise.all([
     DynamicGlobalPropertiesUtils.getDynamicGlobalProperties(),
   ]);
+
   const [prices, usersTokens] = await Promise.all([
     CurrencyPricesUtils.getPrices() as unknown as CurrencyPrices,
     loadUsersTokens(
       extendedAccounts.map((acc: ExtendedAccount) => acc.name),
       onProgress,
     ),
+
     // loadTokenMarket(),
   ]);
 
   const tokensFullList = getTokensFullList(usersTokens);
-
   const portfolio: UserPortfolio[] = [];
   const hiddenTokensList =
     (await LocalStorageUtils.getValueFromLocalStorage(
       LocalStorageKeyEnum.HIDDEN_TOKENS,
     )) || [];
+
   for (const userTokens of usersTokens) {
     const userPortfolio = generateUserLayerTwoPortolio(
       userTokens,
@@ -134,19 +135,22 @@ const getPortfolio = async (
     } = extendedAccounts.find(
       (extAcc) => extAcc.name === userPortfolio.account,
     )!;
-    const lockedInOrders =
-      await HiveInternalMarketUtils.getHiveInternalMarketOrders(
-        userPortfolio.account,
-      );
+    // const lockedInOrders =
+    //   await HiveInternalMarketUtils.getHiveInternalMarketOrders(
+    //     userPortfolio.account,
+    //   );
+
+    const lockedInOrders = { steem: 0, sbd: 0 };
     const totalSTEEM =
-      Asset.fromString(balance.toString()).amount +
-      Asset.fromString(savings_balance.toString()).amount +
+      CommonAsset.fromString(balance.toString()).amount +
+      CommonAsset.fromString(savings_balance.toString()).amount +
       lockedInOrders.steem;
     const totalSBD =
-      Asset.fromString(sbd_balance.toString()).amount +
-      Asset.fromString(savings_sbd_balance.toString()).amount +
+      CommonAsset.fromString(sbd_balance.toString()).amount +
+      CommonAsset.fromString(savings_sbd_balance.toString()).amount +
       lockedInOrders.sbd;
-    const totalVESTS = Asset.fromString(vesting_shares.toString()).amount;
+
+    const totalVESTS = CommonAsset.fromString(vesting_shares.toString()).amount;
     const totalSP = FormatUtils.toSP(totalVESTS.toString(), globals);
     userPortfolio.balances.push({
       symbol: 'STEEM',
@@ -164,6 +168,7 @@ const getPortfolio = async (
       usdValue: totalSP * (prices.steem.usd ?? 1),
     });
   }
+
   for (const userPortfolio of portfolio) {
     let totalUSD = 0;
     let totalHive = 0;
@@ -209,9 +214,7 @@ const generateUserLayerTwoPortolio = (
     (token) => !hiddenTokensList.includes(token.symbol),
   );
   for (const userToken of userTokensList) {
-    userLayerTwoPortfolio.push(
-      getPortfolioHETokenData(userToken, prices),
-    );
+    userLayerTwoPortfolio.push(getPortfolioHETokenData(userToken, prices));
   }
   return userLayerTwoPortfolio;
 };

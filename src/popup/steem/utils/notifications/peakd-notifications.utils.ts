@@ -1,5 +1,4 @@
 import { PeakDNotificationsApi } from '@api/peakd-notifications';
-import { Asset, DynamicGlobalProperties } from '@hiveio/dhive';
 import { ActiveAccount } from '@interfaces/active-account.interface';
 import { KeyType } from '@interfaces/keys.interface';
 import { LocalAccount } from '@interfaces/local-account.interface';
@@ -13,6 +12,9 @@ import {
   NotificationType,
 } from '@interfaces/notifications.interface';
 import { CustomJsonUtils } from '@popup/steem/utils/custom-json.utils';
+import { DynamicGlobalProperties } from '@steempro/dsteem';
+import { Asset as CommonAsset } from '@steempro/steem-keychain-commons';
+
 import moment from 'moment';
 import FormatUtils from 'src/utils/format.utils';
 
@@ -695,7 +697,7 @@ const getNotifications = async (
         break;
       }
       case 'delegate_vesting_shares': {
-        if (Asset.fromString(payload.vesting_shares).amount > 0) {
+        if (CommonAsset.fromString(payload.vesting_shares).amount > 0) {
           message = 'notification_delegation';
           messageParams = [
             payload.delegator,

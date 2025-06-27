@@ -10,3 +10,8 @@ coverage
 *.code-workspace
 _releases
 .notes
+node_modules/
+build/
+ios/
+android/
+*.log

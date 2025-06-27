@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Notification } from '@interfaces/notifications.interface';
 import { RootState } from '@popup/multichain/store';
 import moment from 'moment';
@@ -99,7 +100,7 @@ export const NotificationPanel = ({
                     <div
                       className="message"
                       dangerouslySetInnerHTML={{
-                        __html: chrome.i18n.getMessage(
+                        __html: getMessage(
                           notif.message,
                           notif.messageParams,
                         ),

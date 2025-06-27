@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { AccountVestingRoutesDifferences } from '@interfaces/vesting-routes.interface';
 import {
   addToLoadingList,
@@ -34,12 +35,12 @@ const VestingRoutesPopup = ({
         operations={loadingState.loadingOperations}
       />
       <div className="popup-title">
-        {chrome.i18n.getMessage('popup_html_vesting_routes_title')}
+        {getMessage('popup_html_vesting_routes_title')}
       </div>
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage(
+          __html: getMessage(
             'popup_html_vesting_routes_warning_message',
           ),
         }}></div>

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import Joi, { PartialSchemaMap } from 'joi';
 import { capitalize } from 'lodash';
 import { FieldError } from 'react-hook-form';
@@ -15,7 +16,7 @@ const parseJoiError = (error: FieldError) => {
   Logger.error('Error in form: ', error);
   if (error.type === 'number.min')
     return capitalize(error.message?.replace(/"/g, ''));
-  let errMessage = chrome.i18n.getMessage(
+  let errMessage = getMessage(
     FormValidationError[error.type],
     error.ref?.value ? [error.ref.value] : [],
   );

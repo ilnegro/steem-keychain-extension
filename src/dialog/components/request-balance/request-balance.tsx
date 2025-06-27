@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Rpc } from '@interfaces/rpc.interface';
 import AccountUtils from '@popup/steem/utils/account.utils';
 import CurrencyUtils, {
@@ -51,7 +52,7 @@ const RequestBalance = ({ rpc, username, amount, currency }: Props) => {
       content={
         balance.length
           ? parseFloat(newBalance) < 0
-            ? chrome.i18n.getMessage('dialog_insufficient_balance')
+            ? getMessage('dialog_insufficient_balance')
             : `${balance} => ${newBalance}`
           : '...'
       }

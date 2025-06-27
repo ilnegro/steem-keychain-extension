@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
@@ -65,7 +66,7 @@ const SelectKeys = ({
         data-testid="select-keys-page-caption"
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_import_success'),
+          __html: getMessage('popup_html_import_success'),
         }}></div>
 
       <CheckboxPanelComponent

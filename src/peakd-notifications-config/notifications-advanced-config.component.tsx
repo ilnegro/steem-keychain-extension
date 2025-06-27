@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import { Message } from '@interfaces/message.interface';
 import {
@@ -172,7 +173,7 @@ const NotificationsAdvancedConfigPage = () => {
   };
 
   const saveConfig = async () => {
-    if (window.confirm(chrome.i18n.getMessage('notification_confirm_save')))
+    if (window.confirm(getMessage('notification_confirm_save')))
       if (selectedAccount?.keys.posting) {
         setReady(false);
         const response = await PeakDNotificationsUtils.saveConfiguration(
@@ -195,7 +196,7 @@ const NotificationsAdvancedConfigPage = () => {
       } else {
         setMessage({
           key: 'popup_missing_key',
-          params: [chrome.i18n.getMessage('posting')],
+          params: [getMessage('posting')],
           type: MessageType.ERROR,
         } as Message);
       }
@@ -234,11 +235,11 @@ const NotificationsAdvancedConfigPage = () => {
           <div className="title-panel">
             <SVGIcon icon={SVGIcons.KEYCHAIN_LOGO_ROUND_SMALL} />
             <div className="title">
-              {chrome.i18n.getMessage('html_popup_settings_notifications')}
+              {getMessage('html_popup_settings_notifications')}
             </div>
           </div>
           <div className="caption">
-            {chrome.i18n.getMessage(
+            {getMessage(
               'html_popup_settings_notifications_caption',
             )}
           </div>

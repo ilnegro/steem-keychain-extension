@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Conversion } from '@interfaces/conversion.interface';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
 import { RootState } from '@popup/multichain/store';
@@ -16,6 +17,7 @@ import React, { useEffect, useState } from 'react';
 import { ConnectedProps, connect } from 'react-redux';
 import { SVGIcons } from 'src/common-ui/icons.enum';
 import FormatUtils from 'src/utils/format.utils';
+import AccountUtils from '@popup/steem/utils/account.utils';
 
 const WalletInfoSection = ({
   activeAccount,
@@ -35,7 +37,9 @@ PropsFromRedux) => {
   const [delegationAmount, setDelegationAmount] = useState<string | number>(
     '...',
   );
-
+  const [timeBalance, setTimeBalance] = useState<number>(0); // Stato per il balance di TIME
+  const [timeLoading, setTimeLoading] = useState(true); // Stato per il caricamento
+  
   // const [filteredTokenList, setFilteredTokenList] = useState<TokenBalance[]>();
   // const [hiddenTokens, setHiddenTokens] = useState<string[]>([]);
   // const [tokenFilter, setTokenFilter] = useState('');
@@ -78,8 +82,23 @@ PropsFromRedux) => {
         globalProperties.globals,
       );
       setDelegationAmount(delegation);
+
+        const fetchTimeBalance = async () => {
+        try {
+          setTimeLoading(true);
+          const balance = await AccountUtils.getTime(activeAccount.name!);
+          setTimeBalance(balance);
+        } catch (err) {
+          setTimeBalance(0);
+        } finally {
+          setTimeLoading(false);
+        }
+      };
+      fetchTimeBalance();
+
     }
   }, [activeAccount.name]);
+  
 
   // useEffect(() => {
   //   if (userTokens.loading) {
@@ -113,7 +132,7 @@ PropsFromRedux) => {
     });
     if (pendingSbdConversions.length > 0) {
       // setHbdRowInfoContent(
-      //   chrome.i18n.getMessage('popup_html_pending_conversions', [
+      //   getMessage('popup_html_pending_conversions', [
       //     pendingHbdConversions.length.toString(),
       //     'STEEM',
       //   ]),
@@ -126,7 +145,7 @@ PropsFromRedux) => {
 
     if (pendingHiveConversions.length > 0) {
       // setHiveRowInfoContent(
-      //   chrome.i18n.getMessage('popup_html_pending_conversions', [
+      //   getMessage('popup_html_pending_conversions', [
       //     pendingHiveConversions.length.toString(),
       //     'STEEM',
       //   ]),
@@ -144,7 +163,7 @@ PropsFromRedux) => {
           mainValue={activeAccount.account.balance}
           mainValueLabel={currencyLabels.steem}
           subValue={activeAccount.account.savings_balance}
-          subValueLabel={chrome.i18n.getMessage('popup_html_wallet_savings')}
+          subValueLabel={getMessage('popup_html_wallet_savings')}
         />
         <WalletInfoSectionItemComponent
           tokenSymbol="SBD"
@@ -152,7 +171,7 @@ PropsFromRedux) => {
           mainValue={activeAccount.account.sbd_balance}
           mainValueLabel={currencyLabels.sbd}
           subValue={activeAccount.account.savings_sbd_balance}
-          subValueLabel={chrome.i18n.getMessage('popup_html_wallet_savings')}
+          subValueLabel={getMessage('popup_html_wallet_savings')}
         />
         <WalletInfoSectionItemComponent
           tokenSymbol="SP"
@@ -164,12 +183,18 @@ PropsFromRedux) => {
           mainValueLabel={currencyLabels.sp}
           subValue={delegationAmount}
           subValueLabel={
-            chrome.i18n.getMessage('popup_html_delegations').length <= 5
-              ? chrome.i18n.getMessage('popup_html_delegations')
-              : chrome.i18n.getMessage('popup_html_delegations').slice(0, 5) +
+            getMessage('popup_html_delegations').length <= 5
+              ? getMessage('popup_html_delegations')
+              : getMessage('popup_html_delegations').slice(0, 5) +
                 '.'
           }
         />
+        <WalletInfoSectionItemComponent
+          tokenSymbol="TIME"
+          icon={SVGIcons.WALLET_TIME_LOGO}
+		  mainValue={timeLoading ? '...' : timeBalance}
+          mainValueLabel={currencyLabels.time}
+        />		
         {/* <div className="hive-engine-separator">
           <span>
             <SVGIcon icon={SVGIcons.STEEM_ENGINE} className="no-pointer" />
@@ -239,7 +264,7 @@ PropsFromRedux) => {
           <div className="no-token">
             <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
             <span className="text">
-              {chrome.i18n.getMessage('html_tokens_none_available')}
+              {getMessage('html_tokens_none_available')}
             </span>
           </div>
         )} */}

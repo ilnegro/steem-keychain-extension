@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import { encode } from '@hiveio/hive-js/lib/auth/memo';
@@ -31,8 +32,8 @@ export const encodeMessage = async (
       error,
       encoded,
       data,
-      await chrome.i18n.getMessage('bgd_ops_encode'),
-      await chrome.i18n.getMessage('bgd_ops_encode_err'),
+      await getMessage('bgd_ops_encode'),
+      await getMessage('bgd_ops_encode_err'),
     );
   }
 };

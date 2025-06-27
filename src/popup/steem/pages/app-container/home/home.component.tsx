@@ -31,6 +31,7 @@ import LocalStorageUtils from 'src/utils/localStorage.utils';
 import Logger from 'src/utils/logger.utils';
 import { VersionLogUtils } from 'src/utils/version-log.utils';
 import { WhatsNewUtils } from 'src/utils/whats-new.utils';
+import manifestJson from '../../../../../../manifest.json';
 
 const Home = ({
   activeAccount,
@@ -72,11 +73,12 @@ const Home = ({
     }
 
     // const versionLog = await VersionLogUtils.getLastVersion();
-    const extensionVersion = chrome.runtime
-      .getManifest()
-      .version.split('.')
-      .splice(0, 2)
-      .join('.');
+    const extensionVersion = manifestJson.version;
+//	chrome.runtime
+//      .getManifest()
+//      .version.split('.')
+//      .splice(0, 2)
+//      .join('.');
 
     if (
       extensionVersion !== lastVersionSeen 

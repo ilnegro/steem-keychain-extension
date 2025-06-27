@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/faisalamin9696/steem-keychain-extension.git"
+    "url": "git+https://github.com/ilnegro/steem-keychain-app.git"
   },
   "keywords": [
     "steem",
@@ -43,10 +43,13 @@
   "author": "faisalamin9696",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/faisalamin9696/steem-keychain-extension/issues"
+    "url": "https://github.com/ilnegro/steem-keychain-app/issues"
   },
   "homepage": "https://github.com/faisalamin9696/steem-keychain#readme",
   "dependencies": {
+    "@capacitor/app": "^7.0.1",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/preferences": "^7.0.1",
     "@hiveio/hive-js": "2.0.4",
     "@hookform/resolvers": "3.1.1",
     "@steempro/dsteem": "^1.0.4",
@@ -82,7 +85,7 @@
     "react-tabs": "3.2.3",
     "react-toastify": "8.2.0",
     "redux": "4.2.1",
-    "redux-thunk": "2.4.1",
+    "redux-thunk": "^2.4.1",
     "resolve-cwd": "3.0.0",
     "sass": "1.65.1",
     "scss-tokenizer": "0.4.3",

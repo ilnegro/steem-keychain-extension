@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { CreateClaimedAccount } from '@interfaces/transaction.interface';
 import { RootState } from '@popup/multichain/store';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
@@ -13,7 +14,7 @@ const CreateClaimedAccountTransaction = ({
   transaction,
 }: PropsFromRedux & CreateClaimedAccountTransactionProps) => {
   const getDetail = () => {
-    return chrome.i18n.getMessage(
+    return getMessage(
       'popup_html_wallet_info_create_claimed_account',
       [transaction.new_account_name],
     );

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Message } from '@interfaces/message.interface';
 import { MessageType } from '@reference-data/message-type.enum';
 import React, { useEffect } from 'react';
@@ -61,12 +62,12 @@ const MessageContainer = ({
           className={`title ${
             message.type === MessageType.SUCCESS ? 'success' : ''
           }`}>
-          {chrome.i18n.getMessage(getTitle(message.type))}
+          {getMessage(getTitle(message.type))}
         </div>
         <div
           className="message"
           dangerouslySetInnerHTML={{
-            __html: chrome.i18n.getMessage(message.key, message.params),
+            __html: getMessage(message.key, message.params),
           }}></div>
         <ButtonComponent
           additionalClass={

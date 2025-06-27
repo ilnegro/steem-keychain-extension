@@ -1,5 +1,7 @@
+import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { Rpc } from '@interfaces/rpc.interface';
-import { store } from '@popup/multichain/store';
+import { RootState } from '@popup/multichain/store';
 import { setActiveRpc } from '@popup/steem/actions/active-rpc.actions';
 import {
   setDisplayChangeRpcPopup,
@@ -8,8 +10,13 @@ import {
 import RpcUtils from '@popup/steem/utils/rpc.utils';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
 import LocalStorageUtils from 'src/utils/localStorage.utils';
+import { store } from '@popup/multichain/store';
+
+// Definisci il tipo di dispatch che supporta i thunk
+type AppDispatch = ThunkDispatch<RootState, unknown, any>;
 
 export const useWorkingRPC = async (activeRpc?: Rpc) => {
+  const dispatch: AppDispatch = store.dispatch; // Usa il tipo corretto
   const switchAuto = await LocalStorageUtils.getValueFromLocalStorage(
     LocalStorageKeyEnum.SWITCH_RPC_AUTO,
   );
@@ -19,10 +26,10 @@ export const useWorkingRPC = async (activeRpc?: Rpc) => {
   )) {
     if (await RpcUtils.checkRpcStatus(rpc.uri)) {
       if (switchAuto) {
-        store.dispatch(setActiveRpc(rpc));
+        await dispatch(setActiveRpc(rpc)); // Usa await per il thunk
       } else {
-        store.dispatch(setSwitchToRpc(rpc));
-        store.dispatch(setDisplayChangeRpcPopup(true));
+        dispatch(setSwitchToRpc(rpc));
+        dispatch(setDisplayChangeRpcPopup(true));
       }
       return;
     }

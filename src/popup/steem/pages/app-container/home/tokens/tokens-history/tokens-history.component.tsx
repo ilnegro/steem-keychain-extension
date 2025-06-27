@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   CommentCurationTransaction,
   CURATIONS_REWARDS_TYPES,
@@ -122,10 +123,10 @@ const TokensHistory = ({
             <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
             <div className="text">
               <div>
-                {chrome.i18n.getMessage('popup_html_transaction_list_is_empty')}
+                {getMessage('popup_html_transaction_list_is_empty')}
               </div>
               <div>
-                {chrome.i18n.getMessage(
+                {getMessage(
                   'popup_html_transaction_list_is_empty_try_clear_filter',
                 )}
               </div>
@@ -142,7 +143,7 @@ const TokensHistory = ({
               );
             }}>
             <span className="label">
-              {chrome.i18n.getMessage('popup_html_load_more')}
+              {getMessage('popup_html_load_more')}
             </span>
             <SVGIcon icon={SVGIcons.GLOBAL_ADD_CIRCLE}></SVGIcon>
           </div>

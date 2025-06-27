@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   addToLoadingList,
   removeFromLoadingList,
@@ -83,7 +84,7 @@ const AccountKeysList = ({
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: null,
       fields: [],
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_delete_account_confirmation_message',
         [activeAccount.name!],
       ),
@@ -102,8 +103,7 @@ const AccountKeysList = ({
         if (no_key_check && no_key_check.hasOwnProperty(activeAccount.name!)) {
           delete no_key_check[activeAccount.name!];
           if (Object.keys(no_key_check).length === 0) no_key_check = null;
-          LocalStorageUtils.saveValueInLocalStorage(
-            LocalStorageKeyEnum.NO_KEY_CHECK,
+      await LocalStorageUtils.saveValueInLocalStorage(            LocalStorageKeyEnum.NO_KEY_CHECK,
             no_key_check,
           );
         }
@@ -193,13 +193,13 @@ const AccountKeysList = ({
           <div className="overlay"></div>
           <div className="qr-code-popup">
             <div>
-              <h3>{chrome.i18n.getMessage('popup_html_qr_title')}</h3>
+              <h3>{getMessage('popup_html_qr_title')}</h3>
               <div className="qr-code-disclaimer">
                 <span>
-                  {chrome.i18n.getMessage('popup_html_qr_disclaimer1') + ' '}
+                  {getMessage('popup_html_qr_disclaimer1') + ' '}
                 </span>
                 <span>
-                  {chrome.i18n.getMessage('popup_html_qr_disclaimer2')}
+                  {getMessage('popup_html_qr_disclaimer2')}
                 </span>
               </div>
             </div>

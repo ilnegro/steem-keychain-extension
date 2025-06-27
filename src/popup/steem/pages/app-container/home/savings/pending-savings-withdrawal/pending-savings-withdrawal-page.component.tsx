@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { SavingsWithdrawal } from '@interfaces/savings.interface';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
@@ -31,7 +32,7 @@ const PendingSavingsWithdrawal = ({
       data-testid={`${Screen.PENDING_SAVINGS_WITHDRAWAL_PAGE}-page`}>
       <div className="list-panel">
         <div className="pending-disclaimer">
-          {chrome.i18n.getMessage('popup_html_withdraw_savings_until_message', [
+          {getMessage('popup_html_withdraw_savings_until_message', [
             currency,
           ])}
         </div>

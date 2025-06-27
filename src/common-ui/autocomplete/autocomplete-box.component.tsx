@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   AutoCompleteValue,
   AutoCompleteValues,
@@ -61,7 +62,7 @@ export const AutocompleteBox = ({
                 <div className="category" key={category.title}>
                   <span className="title">
                     {category.translateTitle
-                      ? chrome.i18n.getMessage(category.title)
+                      ? getMessage(category.title)
                       : category.title}
                   </span>
                   {category.values.map((autoCompleteItem, index) => (

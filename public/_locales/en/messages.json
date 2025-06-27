@@ -220,7 +220,7 @@
     "description": "Upon clicking on History"
   },
   "popup_html_setup_text": {
-    "message": "Enter your Steem account name and either the master password or the private posting or active key for that account below. Your master password will NOT be saved and will only be used to generate your private keys.<br/><br/> You may add / remove Steem accounts or keys at any time. If you need to create a new Steem account, you can do so at <a href=\"https://signup.steemit.com/\" target=\"_blank\" >signup.steemit.com</a>.",
+    "message": "Enter your Steem account name and either the master password or the private posting or active key for that account below. Your master password will NOT be saved and will only be used to generate your private keys.<br/><br/> You may add / remove Steem accounts or keys at any time. If you need to create a new Steem account, you can do so at <a href=\"https://steem-fanbase.com/accr.php/\" target=\"_blank\" >https://steem-fanbase.com/accr.php/</a>.",
     "description": "When adding new account"
   },
   "popup_html_setup": {
@@ -452,7 +452,7 @@
     "description": "on import / export settings"
   },
   "popup_html_about_text": {
-    "message": "<ul><li><span class='text'>Steem Keychain is configured and maintained by <a href=\"https://steempro.com/@faisalamin\" target=\"_blank\">@faisalamin</a>, a Steem witness. This Steem Keychain is a forked version of Hive Keychain by <a href=\"https://hive.blog/@stoodkev\" target=\"_blank\">@stoodkev</a>.</span></li><div class='separator horizontal'></div><li><span class='text'>Besides this extension, we provide a feature rich steem interface <a href=\"https://steempro.com\" target=\"_blank\">SteemPro</a> and various Steem tools.</span></li><div class='separator horizontal'></div><li><span class='text'>For more information on our products (browser extensions), visit our <a href='https://steempro.com' target='__blank'>landing page</a>.</span></li></ul>",
+    "message": "<ul><li><span class='text'>Steem Keychain is configured and maintained by <a href=\"https://steemit.com/@ilnegro\" target=\"_blank\">@ilnegro</a>, a Steem witness. This Steem Keychain is a forked version of Hive Keychain by <a href=\"https://hive.blog/@stoodkev\" target=\"_blank\">@stoodkev</a>.</span></li><div class='separator horizontal'></div><li><span class='text'>Besides this extension, we provide a feature rich steem interface <a href=\"https://steempro.com\" target=\"_blank\">SteemPro</a> and various Steem tools.</span></li><div class='separator horizontal'></div><li><span class='text'>For more information on our products (browser extensions), visit our <a href='https://steempro.com' target='__blank'>landing page</a>.</span></li></ul>",
     "description": "on about keychain"
   },
   "popup_html_delete_account": {
@@ -2084,7 +2084,7 @@
     "description": "Footer"
   },
   "html_popup_vote_faisalamin_witness_error_30_votes": {
-    "message": "You already voted for 30 witnesses. Please remove one before voting for @faisalamin",
+    "message": "You already voted for 30 witnesses. Please remove one before voting for @ilnegro",
     "description": "Error message when vote for faisalamin as witness with 30 votes"
   },
   "html_popup_vote_witness_error_30_votes": {
@@ -2092,7 +2092,7 @@
     "description": "Error message when vote for faisalamin as witness with 30 votes"
   },
   "html_popup_vote_faisalamin_witness_success": {
-    "message": "Successfully voted @faisalamin as a witness. Thanks for your support!",
+    "message": "Successfully voted @ilnegro as a witness. Thanks for your support!",
     "description": "Success message when vote for faisalamin as witness"
   },
   "html_popup_vote_cedricguillas_witness_success": {
@@ -2332,7 +2332,7 @@
     "description": "Node Rpc auto selection hint"
   },
   "popup_html_proxy_suggestion": {
-    "message": "Overwhelmed by governance votes? Set @faisalamin as proxy to automatically follow Keychain team witness and proposal votes. You can change this anytime from the governance menu.",
+    "message": "Overwhelmed by governance votes? Set @ilnegro as proxy to automatically follow Keychain team witness and proposal votes. You can change this anytime from the governance menu.",
     "description": "If no witness voted"
   },
   "popup_html_setting_proxy": {

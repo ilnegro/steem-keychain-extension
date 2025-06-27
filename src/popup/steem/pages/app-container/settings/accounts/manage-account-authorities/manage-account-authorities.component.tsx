@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
 import { AccountAuthoritiesListComponent } from '@popup/steem/pages/app-container/settings/accounts/manage-account-authorities/account-authorities-list/account-authorities-list.component';
@@ -21,7 +22,7 @@ const ManageAccountAuthorities = ({
       className="settings-manage-account-authorities"
       data-testid={`${Screen.SETTINGS_MANAGE_ACCOUNTS_AUTHORITIES}-page`}>
       <div className="text">
-        {chrome.i18n.getMessage('popup_html_manage_accounts_authorities_text')}
+        {getMessage('popup_html_manage_accounts_authorities_text')}
       </div>
 
       <SelectAccountSectionComponent fullSize background="white" />

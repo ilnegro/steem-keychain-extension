@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import {
   KeychainKeyTypes,
@@ -131,7 +132,7 @@ const Conversion = ({
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         conversionType === ConversionType.CONVERT_SBD_TO_STEEM
           ? 'popup_html_confirm_hbd_to_hive_conversion'
           : 'popup_html_confirm_hive_to_hbd_conversion',
@@ -214,13 +215,13 @@ const Conversion = ({
           onClick={goToPendingConversion}>
           <div className="pending-conversion-text">
             {totalPending} {watch('currency')}{' '}
-            {chrome.i18n.getMessage('popup_html_pending')}{' '}
+            {getMessage('popup_html_pending')}{' '}
           </div>
         </div>
       )}
 
       <FormContainer onSubmit={handleSubmit(handleButtonClick)}>
-        <div className="text">{chrome.i18n.getMessage(text)}</div>
+        <div className="text">{getMessage(text)}</div>
         <Separator fullSize type="horizontal" />
         <div className="form-fields">
           <div className="amount-panel">

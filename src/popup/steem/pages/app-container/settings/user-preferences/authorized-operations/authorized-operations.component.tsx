@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { NoConfirm, NoConfirmWebsite } from '@interfaces/no-confirm.interface';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
@@ -68,7 +69,7 @@ const AuthorizedOperations = ({
         filtered[website] = operations;
       } else {
         const op = Object.entries(operations).find((operation) => {
-          const readableOperation = chrome.i18n.getMessage(
+          const readableOperation = getMessage(
             `popup_${operation[0]
               .split(/(?=[A-Z])/)
               .join('_')
@@ -94,7 +95,7 @@ const AuthorizedOperations = ({
       data-testid={`${Screen.SETTINGS_AUTHORIZED_OPERATIONS}-page`}
       className="authorized-operations-page">
       <div className="introduction">
-        {chrome.i18n.getMessage('popup_html_pref_info')}
+        {getMessage('popup_html_pref_info')}
       </div>
 
       <SelectAccountSectionComponent
@@ -126,7 +127,7 @@ const AuthorizedOperations = ({
                     <div className="left-panel">
                       <div className="website">{website}</div>
                       <div className="operation-name">
-                        {chrome.i18n.getMessage(
+                        {getMessage(
                           `popup_${operation
                             .split(/(?=[A-Z])/)
                             .join('_')
@@ -149,14 +150,14 @@ const AuthorizedOperations = ({
       {(filterWebSites && Object.keys(filterWebSites).length === 0) ||
         (!filterWebSites && (
           <div className="no_pref">
-            {chrome.i18n.getMessage('popup_html_no_pref')}
+            {getMessage('popup_html_no_pref')}
           </div>
         ))}
 
       {filterValue.trim().length > 0 &&
         Object.keys(filterWebSites).length === 0 && (
           <div className="no_pref">
-            {chrome.i18n.getMessage('popup_html_nothing_found_using_filter')}
+            {getMessage('popup_html_nothing_found_using_filter')}
           </div>
         )}
     </div>

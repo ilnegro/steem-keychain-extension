@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RootState } from '@popup/multichain/store';
 import { ResourceItemComponent } from '@popup/steem/pages/app-container/home/resources-section/resource-item/resource-item.component';
 import SteemUtils from '@popup/steem/utils/steem.utils';
@@ -46,7 +47,7 @@ const ResourcesSection = ({
       setManaReadyIn(
         hasMana
           ? SteemUtils.getTimeBeforeFull(mana!)
-          : chrome.i18n.getMessage('html_popup_voting_no_hp'),
+          : getMessage('html_popup_voting_no_hp'),
       );
       setRcReadyIn(SteemUtils.getTimeBeforeFull(resources));
     }

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestTransfer } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import CurrencyUtils from '@popup/steem/utils/currency.utils';
@@ -27,10 +28,10 @@ const Transfer = (props: Props) => {
   let memoField = memo;
   if (memo.length) {
     if (memo.startsWith('#')) {
-      memoField = `${memo} (${chrome.i18n.getMessage('popup_encrypted')})`;
+      memoField = `${memo} (${getMessage('popup_encrypted')})`;
     }
   } else {
-    memoField = chrome.i18n.getMessage('popup_empty');
+    memoField = getMessage('popup_empty');
   }
 
   const renderUsername = () => {
@@ -46,7 +47,7 @@ const Transfer = (props: Props) => {
 
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_transfer')}
+      title={getMessage('dialog_title_transfer')}
       header={header}
       redHeader
       {...anonymousProps}

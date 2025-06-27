@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setHasFinishedSignup } from '@popup/multichain/actions/has-finished-signup.actions';
 import { forgetMk } from '@popup/multichain/actions/mk.actions';
 import {
@@ -48,7 +49,7 @@ const ClearAllData = ({
       <p
         className="introduction"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_clear_all_data_desc'),
+          __html: getMessage('popup_html_clear_all_data_desc'),
         }}></p>
 
       <div className="bottom-panel">

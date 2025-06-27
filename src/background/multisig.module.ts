@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   BackgroundMessage,
   MultisigDialogMessage,
@@ -233,7 +234,7 @@ const requestSignatures = async (
               } catch (err: any) {
                 chrome.runtime.sendMessage({
                   command: DialogCommand.SEND_DIALOG_ERROR,
-                  msg: { display_msg: await chrome.i18n.getMessage(err) },
+                  msg: { display_msg: await getMessage(err) },
                 });
                 resolve({ error: { message: err } });
               }
@@ -729,7 +730,8 @@ const openWindow = (data: MultisigData): void => {
       url: chrome.runtime.getURL('multisig-dialog.html'),
       type: 'popup',
       height: 600,
-      width: 435,
+//      width: 435,
+      width: 400,
       left: currentWindow.width! - 350 + currentWindow.left!,
       top: currentWindow.top!,
       focused: true,

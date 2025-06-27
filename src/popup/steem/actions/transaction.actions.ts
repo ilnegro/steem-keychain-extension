@@ -5,13 +5,14 @@ import { SteemActionType } from '@popup/steem/actions/action-type.enum';
 import TransactionUtils from '@popup/steem/utils/transaction.utils';
 
 export const initAccountTransactions =
-  (accountName: string): AppThunk =>
+  (accountName: string, currency: string): AppThunk =>
   async (dispatch, getState) => {
     const memoKey = getState().steem.accounts.find(
       (a: LocalAccount) => a.name === accountName,
     )!.keys.memo;
     const result = await TransactionUtils.getAccountTransactions(
       accountName,
+	  currency, 
       -1,
       store.getState().steem.globalProperties.globals!,
       memoKey!,
@@ -24,13 +25,14 @@ export const initAccountTransactions =
   };
 
 export const fetchAccountTransactions =
-  (accountName: string, start: number): AppThunk =>
+  (accountName: string, currency: string, start: number): AppThunk =>
   async (dispatch, getState) => {
     const memoKey = getState().steem.accounts.find(
       (a: LocalAccount) => a.name === accountName,
     )!.keys.memo;
     const result = await TransactionUtils.getAccountTransactions(
       accountName,
+      currency, 
       start,
       store.getState().steem.globalProperties.globals!,
       memoKey!,

@@ -32,9 +32,14 @@ import { SplashscreenComponent } from 'src/common-ui/splashscreen/splashscreen.c
 import Config from 'src/config';
 import { LocalAccount } from 'src/interfaces/local-account.interface';
 import { Screen } from 'src/reference-data/screen.enum';
+import getMessage from 'src/background/utils/i18n.utils';
 import { ColorsUtils } from 'src/utils/colors.utils';
 import { useWorkingRPC } from 'src/utils/rpc-switcher.utils';
+import LocalStorageUtils from 'src/utils/localStorage.utils';
+import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
+
 let rpc: string | undefined = '';
+
 const HiveApp = ({
   mk,
   accounts,
@@ -62,17 +67,20 @@ const HiveApp = ({
   const [isAppReady, setAppReady] = useState(false);
   const [initialRpc, setInitialRpc] = useState<Rpc>();
   const [displaySplashscreen, setDisplaySplashscreen] = useState(true);
+  const [isUnlocked, setIsUnlocked] = useState(false); // Stato per sblocco
 
   useEffect(() => {
+    // console.log('[HiveApp] Running initApplication');
     initApplication();
   }, []);
 
   useEffect(() => {
-    if (activeRpc?.uri !== 'NULL' && activeRpc?.uri !== rpc) {
+    if (activeRpc?.uri !== 'NULL' && activeRpc?.uri !== rpc && isUnlocked) {
+      // console.log(`[HiveApp] Active RPC changed, re-running initApplication: ${activeRpc?.uri}`);
       initApplication();
     }
     rpc = activeRpc?.uri;
-  }, [activeRpc]);
+  }, [activeRpc, isUnlocked]);
 
   useEffect(() => {
     const found = navigationStack.find(
@@ -82,18 +90,22 @@ const HiveApp = ({
     );
     if (
       isAppReady &&
+      isUnlocked &&
       (navigationStack.length === 0 || found) &&
       hasFinishedSignup
     ) {
+      // console.log('[HiveApp] App ready, initializing active account');
       if (accounts.length > 0) {
         initActiveAccount(accounts);
       }
       if (!appStatus.processingDecryptAccount) {
+        // console.log('[HiveApp] Selecting component');
         selectComponent(mk, accounts);
       }
     }
   }, [
     isAppReady,
+    isUnlocked,
     mk,
     accounts,
     hasFinishedSignup,
@@ -103,6 +115,7 @@ const HiveApp = ({
   useEffect(() => {
     if (displaySplashscreen) {
       if (appStatus.priceLoaded && appStatus.globalPropertiesLoaded) {
+        // console.log('[HiveApp] Hiding splashscreen');
         setTimeout(() => {
           setDisplaySplashscreen(false);
         }, Config.loader.minDuration);
@@ -110,83 +123,148 @@ const HiveApp = ({
     }
   }, [appStatus, displaySplashscreen]);
 
-  const initActiveRpc = async (rpc: Rpc) => {
-    const rpcStatusOk = await RpcUtils.checkRpcStatus(rpc.uri);
-    setDisplayChangeRpcPopup(!rpcStatusOk);
-    if (rpcStatusOk) {
-      setActiveRpc(rpc);
-    } else {
-      useWorkingRPC(rpc);
-    }
-  };
-
   const initApplication = async () => {
-    // ColorsUtils.downloadColors();
-    loadCurrencyPrices();
+    try {
+//      // console.log('[HiveApp] Starting initApplication');
+      // Pulizia temporanea per test
+//      // console.log('[HiveApp] Clearing ACCOUNTS for test');
+//      await LocalStorageUtils.removeFromLocalStorage(LocalStorageKeyEnum.ACCOUNTS);
 
-    const storedAccounts = await AccountUtils.hasStoredAccounts();
+      loadCurrencyPrices();
+      // console.log('[HiveApp] Called loadCurrencyPrices');
 
-    let accountsFromStorage: LocalAccount[] = [];
-    if (storedAccounts && mk) {
-      accountsFromStorage = await AccountUtils.getAccountsFromLocalStorage(mk);
-      setAccounts(accountsFromStorage);
-    }
+      const storedAccounts = await AccountUtils.hasStoredAccounts();
+      // console.log(`[HiveApp] Stored accounts exist: ${storedAccounts}`);
 
-    setAppReady(true);
-    await selectComponent(mk, accountsFromStorage);
+      let accountsFromStorage: LocalAccount[] = [];
+      if (storedAccounts && mk && isUnlocked) {
+        // console.log(`[HiveApp] Getting accounts with mk: ${mk}`);
+        try {
+          const fetchedAccounts = await AccountUtils.getAccountsFromLocalStorage(mk);
+          accountsFromStorage = fetchedAccounts || [];
+          // console.log(`[HiveApp] Accounts from storage: ${JSON.stringify(accountsFromStorage)}`);
+        } catch (error) {
+          console.error('[HiveApp] Failed to fetch accounts from storage:', error);
+          await LocalStorageUtils.removeFromLocalStorage(LocalStorageKeyEnum.ACCOUNTS);
+          // console.log('[HiveApp] Cleared corrupted ACCOUNTS from storage');
+          accountsFromStorage = [];
+        }
+        setAccounts(accountsFromStorage);
+      } else {
+        // console.log('[HiveApp] No stored accounts, mk, or not unlocked, skipping account load');
+        setAccounts([]);
+      }
 
-    const rpc = await RpcUtils.getCurrentRpc();
-    setInitialRpc(rpc);
-    await initActiveRpc(rpc);
-    loadGlobalProperties();
-    initHiveEngineConfigFromStorage();
+      setAppReady(true);
+      // console.log('[HiveApp] Set app ready');
+      await selectComponent(mk, accountsFromStorage);
+      // console.log('[HiveApp] selectComponent done');
 
-    if (accountsFromStorage.length > 0) {
-      initActiveAccount(accountsFromStorage);
-    }
-  };
+      const rpc = await RpcUtils.getCurrentRpc();
+      // console.log(`[HiveApp] Current RPC: ${JSON.stringify(rpc)}`);
+      setInitialRpc(rpc);
+      await initActiveRpc(rpc);
+      // console.log('[HiveApp] initActiveRpc done');
 
-  const initActiveAccount = async (accounts: LocalAccount[]) => {
-    const lastActiveAccountName =
-      await ActiveAccountUtils.getActiveAccountNameFromLocalStorage();
-    const lastActiveAccount = accounts.find(
-      (account: LocalAccount) => lastActiveAccountName === account.name,
-    );
-    loadActiveAccount(lastActiveAccount ? lastActiveAccount : accounts[0]);
-  };
+      loadGlobalProperties();
+      // console.log('[HiveApp] Called loadGlobalProperties');
+      initHiveEngineConfigFromStorage();
+      // console.log('[HiveApp] Called initHiveEngineConfigFromStorage');
 
-  const selectComponent = async (
-    mk: string,
-    accounts: LocalAccount[],
-  ): Promise<void> => {
-    if (mk && mk.length > 0 && accounts && accounts.length > 0) {
-      setDisplaySplashscreen(true);
-      navigateTo(Screen.HOME_PAGE, true);
-    } else if (mk && mk.length > 0) {
-      navigateTo(Screen.ACCOUNT_PAGE_INIT_ACCOUNT, true);
-    } else if (
-      mk &&
-      mk.length === 0 &&
-      accounts.length === 0 &&
-      !hasFinishedSignup
-    ) {
-      navigateTo(Screen.SIGN_UP_PAGE, true);
-    } else {
+      if (accountsFromStorage.length > 0 && isUnlocked) {
+        // console.log('[HiveApp] Initializing active account');
+        initActiveAccount(accountsFromStorage);
+      }
+    } catch (error) {
+      console.error('[HiveApp] Error in initApplication:', error);
+      setAppReady(true);
       navigateTo(Screen.SIGN_IN_PAGE);
     }
   };
 
-  const renderMainLayoutNav = () => {
-    if (!mk || mk.length === 0) {
-      return <SignInRouterComponent />;
-    } else {
-      if (accounts && accounts.length === 0) {
-        return <AddAccountRouterComponent />;
-      } else {
-        return <AppRouterComponent />;
+  const initActiveRpc = async (rpc: Rpc) => {
+    try {
+      // console.log(`[HiveApp] Initializing active RPC: ${rpc.uri}`);
+      if (!rpc || rpc.uri === 'NULL' || rpc.uri === 'DEFAULT') {
+        // console.log('[HiveApp] Invalid RPC, using default');
+        rpc = { uri: 'https://api.steemit.com', testnet: false };
       }
+      const rpcStatusOk = await RpcUtils.checkRpcStatus(rpc.uri);
+      // console.log(`[HiveApp] RPC status: ${rpcStatusOk}`);
+      setDisplayChangeRpcPopup(!rpcStatusOk);
+      if (rpcStatusOk) {
+        // console.log('[HiveApp] Setting active RPC:', rpc);
+        await setActiveRpc(rpc);
+      } else {
+//        await useWorkingRPC(setActiveRpc, rpc, activeRpc);
+        await useWorkingRPC(rpc);
+      }
+    } catch (error) {
+      console.error('[HiveApp] Failed to initialize RPC:', error);
+      setDisplayChangeRpcPopup(true);
     }
   };
+
+  const initActiveAccount = async (accounts: LocalAccount[]) => {
+    try {
+      // console.log(`[HiveApp] Initializing active account with accounts: ${JSON.stringify(accounts)}`);
+      const lastActiveAccountName =
+        await ActiveAccountUtils.getActiveAccountNameFromLocalStorage();
+      // console.log(`[HiveApp] Last active account name: ${lastActiveAccountName}`);
+      const lastActiveAccount = accounts.find(
+        (account: LocalAccount) => lastActiveAccountName === account.name,
+      );
+      // console.log(`[HiveApp] Last active account: ${JSON.stringify(lastActiveAccount)}`);
+      loadActiveAccount(lastActiveAccount ? lastActiveAccount : accounts[0]);
+      // console.log('[HiveApp] Called loadActiveAccount');
+    } catch (error) {
+      console.error('[HiveApp] Failed to initialize active account:', error);
+    }
+  };
+
+  const selectComponent = async (mk: string, accounts: LocalAccount[]) => {
+    try {
+      // console.log(`[HiveApp] Selecting component with mk: ${mk}, accounts: ${JSON.stringify(accounts)}`);
+      if (isUnlocked && accounts && accounts.length > 0) {
+        setDisplaySplashscreen(true);
+        navigateTo(Screen.HOME_PAGE, true);
+        // console.log('[HiveApp] Navigating to HOME_PAGE');
+      } else if (isUnlocked) {
+        navigateTo(Screen.ACCOUNT_PAGE_INIT_ACCOUNT, true);
+        // console.log('[HiveApp] Navigating to ACCOUNT_PAGE_INIT_ACCOUNT');
+      } else if (
+        mk &&
+        mk.length === 0 &&
+        accounts.length === 0 &&
+        !hasFinishedSignup
+      ) {
+        navigateTo(Screen.SIGN_UP_PAGE, true);
+        // console.log('[HiveApp] Navigating to SIGN_UP_PAGE');
+      } else {
+        navigateTo(Screen.SIGN_IN_PAGE);
+        // console.log('[HiveApp] Navigating to SIGN_IN_PAGE');
+      }
+    } catch (error) {
+      console.error('[HiveApp] Error in selectComponent:', error);
+      navigateTo(Screen.SIGN_IN_PAGE);
+    }
+  };
+
+const renderMainLayoutNav = () => {
+  // console.log(`[HiveApp] Rendering main layout nav, mk: ${mk}, accounts: ${JSON.stringify(accounts)}`);
+  if (!isAppReady || !isUnlocked) {
+    // console.log('[HiveApp] Showing SignInRouterComponent');
+    return <SignInRouterComponent setIsUnlocked={setIsUnlocked} />;
+  } else {
+    if (accounts && accounts.length === 0) {
+      // console.log('[HiveApp] Showing AddAccountRouterComponent');
+      return <AddAccountRouterComponent />;
+    } else {
+      // console.log('[HiveApp] Showing AppRouterComponent');
+      return <AppRouterComponent />;
+    }
+  }
+};
 
   const renderPopup = (
     loading: number,
@@ -195,7 +273,9 @@ const HiveApp = ({
     displayChangeRpcPopup: boolean,
     switchToRpc: Rpc | undefined,
   ) => {
-    if (loading || !activeRpc) {
+    // console.log(`[HiveApp] Rendering popup, loading: ${loading}, activeRpc: ${JSON.stringify(activeRpc)}`);
+    if (loading || !activeRpc || activeRpc.uri === 'NULL' || activeRpc.uri === 'DEFAULT') {
+      // console.log('[HiveApp] Showing loading due to invalid RPC');
       return (
         <LoadingComponent
           operations={loadingState.loadingOperations}
@@ -203,39 +283,36 @@ const HiveApp = ({
           loadingPercentage={loadingState.loadingPercentage}
         />
       );
-    }
-    // else if (displayProxySuggestion) {
-    //   //  Uncomment if need to
-    //   return <ProxySuggestionComponent />;
-    // }
-    else if (displayChangeRpcPopup && activeRpc && switchToRpc) {
+    } else if (displayChangeRpcPopup && activeRpc && switchToRpc) {
+      // console.log('[HiveApp] Showing RPC change popup');
       return (
         <div className="change-rpc-popup">
           <div className="message">
-            {chrome.i18n.getMessage('popup_html_rpc_not_responding_error', [
-              initialRpc?.uri!,
-              switchToRpc?.uri!,
+            {getMessage('popup_html_rpc_not_responding_error', [
+              initialRpc?.uri || 'unknown',
+              switchToRpc?.uri || 'unknown',
             ])}
           </div>
           <ButtonComponent
             label="popup_html_switch_rpc"
-            onClick={tryNewRpc}></ButtonComponent>
+            onClick={() => {
+              setDisplayChangeRpcPopup(false);
+              setTimeout(() => {
+                setActiveRpc(switchToRpc!);
+              }, 1000);
+            }}
+          />
         </div>
       );
     }
-  };
-
-  const tryNewRpc = () => {
-    setDisplayChangeRpcPopup(false);
-    setTimeout(() => {
-      setActiveRpc(switchToRpc!);
-    }, 1000);
+    // console.log('[HiveApp] No popup to render');
+    return null;
   };
 
   return (
-    <div className={`App ${isCurrentPageHomePage ? 'homepage' : ''}`}>
+    <div className={`${isCurrentPageHomePage ? 'homepage' : 'app'}`}
+         style={!isCurrentPageHomePage ? { height: '100%' } : undefined} >
       {displaySplashscreen && <SplashscreenComponent />}
-
       {renderPopup(
         loading,
         activeRpc,
@@ -243,8 +320,7 @@ const HiveApp = ({
         displayChangeRpcPopup,
         switchToRpc,
       )}
-
-      {isAppReady && renderMainLayoutNav()}
+      {renderMainLayoutNav()}
     </div>
   );
 };

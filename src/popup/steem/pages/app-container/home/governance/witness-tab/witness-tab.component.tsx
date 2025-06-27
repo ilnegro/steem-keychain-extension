@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   PrivateKeyType,
   TransactionOptions,
@@ -303,14 +304,14 @@ const WitnessTab = ({
     <div data-testid="witness-tab" className="witness-tab">
       {!usingProxy && (
         <div className="remaining-votes">
-          {chrome.i18n.getMessage('popup_html_witness_remaining', [
+          {getMessage('popup_html_witness_remaining', [
             remainingVotes + '',
           ])}
         </div>
       )}
       {usingProxy && (
         <div className="using-proxy">
-          {chrome.i18n.getMessage('html_popup_currently_using_proxy', [
+          {getMessage('html_popup_currently_using_proxy', [
             activeAccount.account.proxy,
           ])}
         </div>
@@ -320,12 +321,12 @@ const WitnessTab = ({
         data-testid="link-to-arcange"
         onClick={() =>
           chrome.tabs.create({
-            url: 'https://steempro.com/witnesses#faisalamin',
+            url: 'https://steempro.com/witnesses#time.foundation',
           })
         }
         className="link-to-arcange">
         <div>
-          {chrome.i18n.getMessage('html_popup_link_to_witness_website')}
+          {getMessage('html_popup_link_to_witness_website')}
         </div>
         {/* <SVGIcon
           icon={NewIcons.GOVERNANCE_WITNESS_LINK}
@@ -377,7 +378,7 @@ const WitnessTab = ({
           <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
           <div className="text">
             <div>
-              {chrome.i18n.getMessage(
+              {getMessage(
                 'popup_html_error_retrieving_witness_ranking',
               )}
             </div>

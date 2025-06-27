@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Convert } from '@interfaces/transaction.interface';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
 import React, { useEffect } from 'react';
@@ -10,7 +11,7 @@ interface Props {
 export const ConvertTransactionComponent = ({ transaction }: Props) => {
   useEffect;
   const getDetail = () => {
-    return chrome.i18n.getMessage('popup_html_wallet_info_convert', [
+    return getMessage('popup_html_wallet_info_convert', [
       transaction.amount,
     ]);
   };

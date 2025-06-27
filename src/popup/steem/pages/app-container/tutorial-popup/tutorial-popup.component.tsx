@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
 import React, { useEffect, useState } from 'react';
 import ButtonComponent, {
@@ -24,18 +25,18 @@ const TutorialPopup = () => {
     }
   };
 
-  const handleClick = (option: 'show' | 'skip') => {
-    if (option === 'show') {
-      chrome.tabs.create({
-        url: `${Config.tutorial.baseUrl}`,
-      });
-    }
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.SKIP_TUTORIAL,
-      true,
-    );
-    setShow(false);
-  };
+const handleClick = async (option: 'show' | 'skip') => {
+  if (option === 'show') {
+    chrome.tabs.create({
+      url: `${Config.tutorial.baseUrl}`,
+    });
+  }
+  await LocalStorageUtils.saveValueInLocalStorage(
+    LocalStorageKeyEnum.SKIP_TUTORIAL,
+    true,
+  );
+  setShow(false);
+};
 
   // if (!show) return null;
 
@@ -44,7 +45,7 @@ const TutorialPopup = () => {
   return (
     <PopupContainer data-testid="tutorial-popup" className="tutorial">
       <div className="popup-title">
-        {chrome.i18n.getMessage('popup_html_tutorial_popup_title')}
+        {getMessage('popup_html_tutorial_popup_title')}
       </div>
 
       <SVGIcon className="image" icon={SVGIcons.KEYCHAIN_LOGO_SPLASHSCREEN} />
@@ -52,7 +53,7 @@ const TutorialPopup = () => {
       <div
         className="sub-title"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage(
+          __html: getMessage(
             'popup_html_tutorial_popup_description',
           ),
         }}></div>

@@ -7,7 +7,7 @@ const HelpSubMenuItems: MenuItem[] = [
     label: 'popup_html_contact_support',
     icon: SVGIcons.MENU_SUPPORT,
     action: () => {
-      chrome.tabs.create({ url: 'https://discord.gg/Bsf98vMg6U' });
+	  window.open('https://discord.gg/sPgu3C5YKC', '_blank');
     },
   },
   // {

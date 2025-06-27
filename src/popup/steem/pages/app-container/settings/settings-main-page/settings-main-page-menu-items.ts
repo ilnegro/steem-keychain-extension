@@ -1,6 +1,7 @@
 import { SVGIcons } from 'src/common-ui/icons.enum';
 import { MenuItem } from 'src/interfaces/menu-item.interface';
 import { Screen } from 'src/reference-data/screen.enum';
+import { navigateTo } from '@popup/multichain/actions/navigation.actions';
 
 const SettingsMenuItems = (logout: () => void): MenuItem[] => {
   return [

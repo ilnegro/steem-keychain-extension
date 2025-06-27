@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { BackgroundMessage } from '@background/background-message.interface';
 import { MultisigUnlockData } from '@interfaces/multisig.interface';
 import { BackgroundCommand } from '@reference-data/background-message-key.enum';
@@ -37,7 +38,7 @@ export const UnlockWalletComponent = ({ data }: UnlockWalletProps) => {
         dataTestId={'password-input'}
       />
       {data.feedback && (
-        <div className="feedback">{chrome.i18n.getMessage(data.feedback)}</div>
+        <div className="feedback">{getMessage(data.feedback)}</div>
       )}
       <div className="divider"></div>
       <div className="action-panel">

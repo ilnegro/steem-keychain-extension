@@ -4,13 +4,13 @@
   grid-template-areas: 'only';
   .wallet-info-section {
     user-select: none;
-    margin-top: 6px;
+    margin-top: 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    row-gap: 12px;
-    padding-top: 12px;
+    row-gap: 6px;
+    padding-top: 6px;
     padding-bottom: 100px;
     grid-area: only;
   }

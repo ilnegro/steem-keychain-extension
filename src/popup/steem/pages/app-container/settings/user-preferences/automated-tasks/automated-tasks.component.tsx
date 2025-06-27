@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccountListItem } from '@interfaces/list-item.interface';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
@@ -20,7 +21,7 @@ import Config from 'src/config';
 import AutomatedTasksUtils from 'src/utils/automatedTasks.utils';
 
 const DEFAULT_SELECTED_TOKEN_OPTION = {
-  label: chrome.i18n.getMessage(
+  label: getMessage(
     'popup_html_automated_hive_section_default_option_message',
   ),
   value: '',
@@ -103,7 +104,7 @@ const AutomatedTasks = ({
       data-testid={`${Screen.SETTINGS_AUTOMATED_TASKS}-page`}
       className="automated-tasks-page">
       <div className="intro">
-        {chrome.i18n.getMessage('popup_html_automated_intro')}
+        {getMessage('popup_html_automated_intro')}
       </div>
 
       <SelectAccountSectionComponent fullSize background="white" />
@@ -114,7 +115,7 @@ const AutomatedTasks = ({
           onClick={() => setIsHiveSectionExpanded(!isHiveSectionExpanded)}>
           <div className="section-title-logo">
             <div className="section-title">
-              {chrome.i18n.getMessage(
+              {getMessage(
                 'popup_html_automated_hive_section_title',
               )}
             </div>
@@ -149,7 +150,7 @@ const AutomatedTasks = ({
                 saveClaims(claimRewards, value, claimSavings)
               }
               skipHintTranslation
-              hint={chrome.i18n.getMessage(
+              hint={getMessage(
                 'popup_html_enable_autoclaim_accounts_info',
                 [Config.claims.freeAccount.MIN_RC_PCT + ''],
               )}

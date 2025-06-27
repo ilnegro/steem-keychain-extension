@@ -1,3 +1,5 @@
+import { App } from '@capacitor/app';
+import getMessage from 'src/background/utils/i18n.utils';
 import { forgetMk } from '@popup/multichain/actions/mk.actions';
 import { resetNav } from '@popup/multichain/actions/navigation.actions';
 import { RootState } from '@popup/multichain/store';
@@ -15,18 +17,31 @@ const SettingsMainPage = ({ forgetMk, resetNav }: PropsFromRedux) => {
   const { toggleTheme, theme } = useThemeContext();
 
   const goToDiscord = () => {
-    chrome.tabs.create({ url: 'https://discord.gg/Bsf98vMg6U' });
+	window.open('https://discord.gg/eFeUcBgkBg', '_blank');  
   };
   const goToSteemPro = () => {
-    chrome.tabs.create({ url: 'https://steempro.com/@faisalamin' });
+	window.open('https://www.steemit.com/@time.foundation', '_blank');  
   };
   const goToTwitter = () => {
-    chrome.tabs.create({ url: 'https://twitter.com/faisalamin9696' });
+	window.open('https://twitter.com/ilnegro_max', '_blank');  
   };
-  const logout = () => {
-    resetNav();
+//  const logout = () => {
+//    forgetMk();
+//	resetNav();
+//  };
+  
+  const logout = async () => {
+    // console.log('Logout chiamato');
     forgetMk();
-  };
+    // console.log('forgetMk eseguito');
+    try {
+      await App.exitApp(); // Chiude l'app
+      // console.log('App chiusa');
+    } catch (error) {
+      console.error('Errore durante la chiusura dell\'app:', error);
+    }
+  };  
+  
   const getIcon = () =>
     theme === Theme.DARK ? SVGIcons.MENU_THEME_LIGHT : SVGIcons.MENU_THEME_DARK;
   return (
@@ -34,7 +49,7 @@ const SettingsMainPage = ({ forgetMk, resetNav }: PropsFromRedux) => {
       className="settings-main-page"
       data-testid={`${Screen.SETTINGS_MAIN_PAGE}-page`}>
       {/* <div className="love-text">
-        {chrome.i18n.getMessage('html_popup_made_with_love_by_faisalamin')}
+        {getMessage('html_popup_made_with_love_by_faisalamin')}
       </div> */}
       <MenuComponent
         title="popup_html_settings"
@@ -80,6 +95,7 @@ const connector = connect(mapStateToProps, {
   forgetMk,
   resetNav,
 });
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export const SettingsMainPageComponent = connector(SettingsMainPage);

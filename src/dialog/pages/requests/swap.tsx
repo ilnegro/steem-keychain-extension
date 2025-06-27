@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestSwap } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import { SteemEngineConfig } from '@interfaces/steem-engine-rpc.interface';
@@ -100,7 +101,7 @@ const Swap = (props: Props) => {
       <DialogError
         data={{
           msg: {
-            display_msg: chrome.i18n.getMessage(
+            display_msg: getMessage(
               serverStatus.isMaintenanceOn
                 ? 'swap_under_maintenance'
                 : serverStatus.isServerStopped
@@ -117,11 +118,11 @@ const Swap = (props: Props) => {
   } else
     return (
       <Operation
-        title={chrome.i18n.getMessage('dialog_title_swap')}
+        title={getMessage('dialog_title_swap')}
         {...props}
         header={
           serverStatus.layerTwoDelayed
-            ? chrome.i18n.getMessage('swap_layer_two_delayed')
+            ? getMessage('swap_layer_two_delayed')
             : ''
         }
         redHeader

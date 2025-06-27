@@ -29,58 +29,60 @@ if (store.getState().steem) {
   let previousSteemEngineConfig = store.getState().steem.steemEngineConfig;
 
   /* istanbul ignore next */
-
   store.subscribe(() => {
     const {
       mk,
       steem: { accounts, activeRpc, activeAccount, steemEngineConfig },
       hasFinishedSignup,
     } = store.getState();
-    if (!AccountUtils.isAccountListIdentical(previousAccounts, accounts)) {
-      if (
-        previousAccounts.length === 0 &&
-        previousAccounts.length !== accounts.length &&
-        !hasFinishedSignup
-      ) {
-        LocalStorageUtils.saveValueInLocalStorage(
-          LocalStorageKeyEnum.HAS_FINISHED_SIGNUP,
-          true,
+    const saveChanges = async () => {
+      if (!AccountUtils.isAccountListIdentical(previousAccounts, accounts)) {
+        if (
+          previousAccounts.length === 0 &&
+          previousAccounts.length !== accounts.length &&
+          !hasFinishedSignup
+        ) {
+          await LocalStorageUtils.saveValueInLocalStorage(
+            LocalStorageKeyEnum.HAS_FINISHED_SIGNUP,
+            true,
+          );
+          store.dispatch(setHasFinishedSignup(true));
+          // AnalyticsUtils.sendAddFirstAccountEvent();
+        }
+        previousAccounts = accounts;
+        if (accounts.length !== 0) {
+          AccountUtils.saveAccounts(accounts, mk);
+        }
+      }
+      if (previousRpc && previousRpc.uri !== activeRpc?.uri && activeRpc) {
+        previousRpc = activeRpc;
+        RpcUtils.saveCurrentRpc(activeRpc);
+      }
+      if (activeAccount && previousActiveAccountName !== activeAccount.name) {
+        previousActiveAccountName = activeAccount.name;
+        ActiveAccountUtils.saveActiveAccountNameInLocalStorage(
+          activeAccount.name as string,
         );
-        store.dispatch(setHasFinishedSignup(true));
-        // AnalyticsUtils.sendAddFirstAccountEvent();
       }
-      previousAccounts = accounts;
-      if (accounts.length !== 0) {
-        AccountUtils.saveAccounts(accounts, mk);
+      if (previousMk !== mk) {
+        previousMk = mk;
+//        MkUtils.saveMkInLocalStorage(mk);
       }
-    }
-    if (previousRpc && previousRpc.uri !== activeRpc?.uri && activeRpc) {
-      previousRpc = activeRpc;
-      RpcUtils.saveCurrentRpc(activeRpc);
-    }
-    if (activeAccount && previousActiveAccountName !== activeAccount.name) {
-      previousActiveAccountName = activeAccount.name;
-      ActiveAccountUtils.saveActiveAccountNameInLocalStorage(
-        activeAccount.name as string,
-      );
-    }
-    if (previousMk !== mk) {
-      previousMk = mk;
-      MkUtils.saveMkInLocalStorage(mk);
-    }
-    if (
-      previousSteemEngineConfig &&
-      steemEngineConfig &&
-      (previousSteemEngineConfig.accountHistoryApi !==
-        steemEngineConfig.accountHistoryApi ||
-        previousSteemEngineConfig.rpc !== steemEngineConfig.rpc)
-    ) {
-      previousSteemEngineConfig = steemEngineConfig;
-      LocalStorageUtils.saveValueInLocalStorage(
-        LocalStorageKeyEnum.STEEM_ENGINE_ACTIVE_CONFIG,
-        steemEngineConfig,
-      );
-    }
+      if (
+        previousSteemEngineConfig &&
+        steemEngineConfig &&
+        (previousSteemEngineConfig.accountHistoryApi !==
+          steemEngineConfig.accountHistoryApi ||
+          previousSteemEngineConfig.rpc !== steemEngineConfig.rpc)
+      ) {
+        previousSteemEngineConfig = steemEngineConfig;
+        await LocalStorageUtils.saveValueInLocalStorage(
+          LocalStorageKeyEnum.STEEM_ENGINE_ACTIVE_CONFIG,
+          steemEngineConfig,
+        );
+      }
+    };
+    saveChanges();
   });
 }
 

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RootState } from '@popup/multichain/store';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
@@ -14,7 +15,7 @@ const AccountValueExplanation = ({}: PropsFromRedux) => {
       <p
         className="introduction"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_estimation_info_text'),
+          __html: getMessage('popup_html_estimation_info_text'),
         }}></p>
     </div>
   );

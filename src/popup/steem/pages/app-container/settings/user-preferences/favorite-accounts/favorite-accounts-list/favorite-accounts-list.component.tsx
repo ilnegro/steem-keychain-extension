@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { AutoCompleteValue } from '@interfaces/autocomplete.interface';
 import {
   FavoriteUserList,
@@ -34,7 +35,7 @@ const FavoriteAccountsList = ({
       key={`${Math.random().toFixed(6).toString()}-${favoriteListName}`}>
       {(!favoriteList.list || favoriteList.list.length === 0) && (
         <div className="text-no-favorites">
-          {chrome.i18n.getMessage('popup_html_favorite_accounts_no_favorites')}
+          {getMessage('popup_html_favorite_accounts_no_favorites')}
         </div>
       )}
       {favoriteList.list &&

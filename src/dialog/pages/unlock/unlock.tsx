@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeychainRequest } from '@interfaces/keychain.interface';
 import { BackgroundCommand } from '@reference-data/background-message-key.enum';
 import { DialogCommand } from '@reference-data/dialog-message-key.enum';
@@ -53,9 +54,9 @@ export default ({ data, wrongMk, index }: Props) => {
 
   return (
     <div className="unlock-page">
-      <DialogHeader title={chrome.i18n.getMessage('dialog_header_unlock')} />
+      <DialogHeader title={getMessage('dialog_header_unlock')} />
       <div className="caption">
-        {chrome.i18n.getMessage('bgd_auth_locked_desc')}
+        {getMessage('bgd_auth_locked_desc')}
       </div>
       <InputComponent
         value={password}
@@ -67,7 +68,7 @@ export default ({ data, wrongMk, index }: Props) => {
       />
       {wrongMk && (
         <div className="error">
-          {chrome.i18n.getMessage('dialog_header_wrong_pwd')}
+          {getMessage('dialog_header_wrong_pwd')}
         </div>
       )}
       <div className="fill-space"></div>

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   goBack,
   navigateTo,
@@ -51,9 +52,7 @@ const PageTitle = ({
     if (onCloseAdditional) {
       onCloseAdditional();
     }
-
     resetNav();
-    navigateTo(Screen.HOME_PAGE, true);
   };
 
   const handleRightActionButtonClick = () => {
@@ -81,18 +80,9 @@ const PageTitle = ({
       <div className="title">
         {skipTitleTranslation
           ? title
-          : chrome.i18n.getMessage(title, titleParams)}
+          : getMessage(title, titleParams)}
       </div>
-      {showDetachWindowOption && (
-        <SVGIcon
-          onClick={handleDetachWindow}
-          icon={SVGIcons.MENU_USER_PREFERENCES_DETACH_EXTENSION}
-          className={`icon-button menu-toggle-theme`}
-          hoverable
-          tooltipMessage="popup_html_detach_window_tooltip_text"
-          tooltipPosition="bottom"
-        />
-      )}
+
       {rightAction && (
         <SVGIcon
           onClick={handleRightActionButtonClick}

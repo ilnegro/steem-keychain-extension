@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestPost } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import React from 'react';
@@ -17,7 +18,7 @@ const Post = (props: Props) => {
   const { data } = props;
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_post')}
+      title={getMessage('dialog_title_post')}
       {...props}
       canWhitelist>
       <RequestItem title="dialog_account" content={`@${data.username}`} />

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 import { CustomTooltip } from 'src/common-ui/custom-tooltip/custom-tooltip.component';
 import { SVGIcons } from 'src/common-ui/icons.enum';
@@ -36,7 +37,7 @@ const getCheckbox = (props: CheckboxProps) => {
       <div className="label">
         {props.skipTranslation
           ? props.title
-          : chrome.i18n.getMessage(props.title ?? '')}
+          : getMessage(props.title ?? '')}
       </div>
     </div>
   );

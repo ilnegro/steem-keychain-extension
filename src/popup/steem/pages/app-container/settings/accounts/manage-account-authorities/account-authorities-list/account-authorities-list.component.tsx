@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RootState } from '@popup/multichain/store';
 import { AccountAuthoritiesListItemComponent } from '@popup/steem/pages/app-container/settings/accounts/manage-account-authorities/account-authorities-list/account-authorities-list-item/account-authorities-list-item.component';
 import React from 'react';
@@ -18,7 +19,7 @@ const AccountAuthoritiesList = ({ activeAccount }: PropsType) => {
         {activeAccount.account.active.account_auths.length === 0 &&
           activeAccount.account.posting.account_auths.length === 0 && (
             <div className="no-authorities-found">
-              {chrome.i18n.getMessage(
+              {getMessage(
                 'popup_html_manage_no_accounts_authorities',
               )}
             </div>

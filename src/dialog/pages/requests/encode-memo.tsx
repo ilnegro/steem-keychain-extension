@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypesLC,
   RequestEncode,
@@ -20,7 +21,7 @@ const EncodeMemo = (props: Props) => {
   const { data } = props;
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_encode')}
+      title={getMessage('dialog_title_encode')}
       {...props}
       canWhitelist={data.method.toLowerCase() !== KeychainKeyTypesLC.active}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypesLC,
   RequestId,
@@ -33,20 +34,20 @@ const SignBuffer = (props: Props) => {
   };
   return (
     <Operation
-      title={data.title || chrome.i18n.getMessage('dialog_title_sign')}
+      title={data.title || getMessage('dialog_title_sign')}
       header={
         data.username
-          ? chrome.i18n.getMessage('dialog_desc_sign', [
+          ? getMessage('dialog_desc_sign', [
               domain,
               data.method.toLowerCase(),
               data.username,
             ])
-          : chrome.i18n.getMessage('dialog_desc_user_unknown', [
+          : getMessage('dialog_desc_user_unknown', [
               domain,
               data.method.toLowerCase(),
             ])
       }
-      checkboxLabelOverride={chrome.i18n.getMessage('dialog_no_prompt_verify', [
+      checkboxLabelOverride={getMessage('dialog_no_prompt_verify', [
         data.username!,
         domain,
       ])}

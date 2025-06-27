@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 
 interface AutocompleteProps {
@@ -20,9 +21,9 @@ const AutocompleteItemComponent = ({
       className="autocomplete-item"
       key={value}
       onClick={() => onItemClick(value)}>
-      {translateValue ? chrome.i18n.getMessage(value) : value}{' '}
+      {translateValue ? getMessage(value) : value}{' '}
       {subLabel && subLabel.trim().length > 0
-        ? `(${translateSublabel ? chrome.i18n.getMessage(subLabel) : subLabel})`
+        ? `(${translateSublabel ? getMessage(subLabel) : subLabel})`
         : ''}
     </div>
   );

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Witness } from '@interfaces/witness.interface';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { RootState } from '@popup/multichain/store';
@@ -73,7 +74,7 @@ const MyWitnessTab = ({
         <div aria-label="error-witness" className="error-witness">
           <SVGIcon className="error-icon" icon={SVGIcons.MESSAGE_ERROR} />
           <span>
-            {chrome.i18n.getMessage(
+            {getMessage(
               'popup_html_error_retrieving_witness_information',
             )}
           </span>

@@ -25,7 +25,7 @@ import MkModule from './mk.module';
 /* istanbul ignore next */
 (async () => {
   await RPCModule.init();
-  LocalStorageUtils.removeFromLocalStorage(LocalStorageKeyEnum.__MK);
+//  LocalStorageUtils.removeFromLocalStorage(LocalStorageKeyEnum.__MK);
   Logger.info('Initializing background tasks');
   await LocalStorageModule.checkAndUpdateLocalStorage();
   ClaimModule.start();

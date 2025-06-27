@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { BackgroundMessage } from '@background/background-message.interface';
 import { Theme } from '@popup/theme.context';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
@@ -95,12 +96,12 @@ const ImportFile = ({
     <div className={`theme ${theme} import-file`}>
       <div className="title-panel">
         <SVGIcon icon={SVGIcons.KEYCHAIN_LOGO_ROUND_SMALL} />
-        <div className="title">{chrome.i18n.getMessage(title)}</div>
+        <div className="title">{getMessage(title)}</div>
       </div>
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage(text),
+          __html: getMessage(text),
         }}></div>
       <div className="upload-panel">
         {selectedFile && selectedFile.name && (
@@ -123,7 +124,7 @@ const ImportFile = ({
           <div
             className="feedback"
             dangerouslySetInnerHTML={{
-              __html: chrome.i18n.getMessage(feedback.message, feedback.params),
+              __html: getMessage(feedback.message, feedback.params),
             }}></div>
         )}
       </div>

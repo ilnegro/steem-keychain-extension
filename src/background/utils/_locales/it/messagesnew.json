@@ -1,0 +1,563 @@
+{
+  "keychain": {
+    "message": "Steem Keychain App",
+    "description": "Nome dell'estensione, potrebbe non essere necessario tradurlo."
+  },
+  "description": {
+    "message": "App sicura per il portafoglio Steem.",
+    "description": "Descrizione dell'estensione, come appare nello store."
+  },
+  "popup_html_wrong_key": {
+    "message": "Chiave errata. Per favore usa $1",
+    "description": "quando si utilizza una chiave privata errata"
+  },
+  "popup_html_tutorial_popup_title": {
+    "message": "Benvenuto in Keychain App!",
+    "description": "popup del tutorial"
+  },
+  "popup_html_tutorial_popup_description": {
+    "message": "Se sei nuovo su Keychain App, o su Steem in generale, dai un'occhiata al nostro tutorial introduttivo.<br/>Puoi sempre accedervi più tardi in Impostazioni > Aiuto > Tutorial",
+    "description": "popup del tutorial"
+  },
+  "popup_html_tutorial_popup_show_label": {
+    "message": "Mostra",
+    "description": "popup del tutorial"
+  },
+  "popup_html_tutorial_popup_skip_label": {
+    "message": "Salta",
+    "description": "popup del tutorial"
+  },
+{
+  "popup_html_wrong_key_active": {
+    "message": "Chiave errata. Per favore usa la chiave active",
+    "description": "quando si utilizza una chiave privata errata"
+  },
+  "popup_html_wrong_key_posting": {
+    "message": "Chiave errata. Per favore usa la chiave posting",
+    "description": "quando si utilizza una chiave privata errata"
+  },
+  "popup_html_wrong_key_memo": {
+    "message": "Chiave errata. Per favore usa la chiave memo",
+    "description": "quando si utilizza una chiave privata errata"
+  },
+  "common_experimental": {
+    "message": "Sperimentale",
+    "description": "sperimentale"
+  },
+  "common_yes": {
+    "message": "Sì",
+    "description": "Generico"
+  },
+  "common_and": {
+    "message": "e",
+    "description": "Generico"
+  },
+  "common_no": {
+    "message": "No",
+    "description": "Generico"
+  },
+  "memo": {
+    "message": "memo",
+    "description": "tipo di chiave"
+  },
+  "posting": {
+    "message": "posting",
+    "description": "tipo di chiave"
+  },
+  "active": {
+    "message": "active",
+    "description": "tipo di chiave"
+  },
+  "unknown_error": {
+    "message": "Qualcosa è andato storto! Per favore riprova!",
+    "description": "Errore generico"
+  },
+  "wrong_password": {
+    "message": "Password errata!",
+    "description": "Password errata al momento dello sblocco"
+  },
+{
+  "full_in": {
+    "message": "Completo tra $1",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "days": {
+    "message": "giorni",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "day": {
+    "message": "giorno",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "hours": {
+    "message": "ore",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "hour": {
+    "message": "ora",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "minutes": {
+    "message": "minuti",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "minute": {
+    "message": "minuto",
+    "description": "Completo tra x giorni x ore x minuti"
+  },
+  "popup_html_register": {
+    "message": "Il portafoglio <strong>STEEM</strong> definitivo.<br/><br/>Gestisci gli asset STEEM e connettiti alle applicazioni STEEM.<br/><br/>Semplice. Leggero. Sicuro.",
+    "description": "Testo nella pagina di registrazione"
+  },
+  "popup_html_unlock1": {
+    "message": "Il portafoglio STEEM definitivo",
+    "description": "Testo nella pagina di sblocco"
+  },
+  "popup_html_unlock2": {
+    "message": "Gestisci gli asset STEEM e connettiti alle applicazioni STEEM",
+    "description": "Testo nella pagina di sblocco"
+  },
+  "popup_html_unlock3": {
+    "message": "Semplice. Leggero. Sicuro.",
+    "description": "Testo nella pagina di sblocco"
+  },
+  "popup_html_new_password": {
+    "message": "Nuova Password",
+    "description": "Nelle impostazioni, cambia password"
+  },
+  "popup_html_confirm": {
+    "message": "Conferma",
+    "description": "Pulsante generico"
+  },
+  "popup_html_download": {
+    "message": "Scarica",
+    "description": "Pulsante generico"
+  },
+  "popup_html_submit": {
+    "message": "Invia",
+    "description": "Pulsante generico"
+  },
+  "popup_html_password": {
+    "message": "Password",
+    "description": "Segnaposto nell'input per la password"
+  },
+  "popup_html_new_label": {
+    "message": "Nuova Etichetta",
+    "description": "Segnaposto per una nuova etichetta preferita"
+  },
+  "popup_html_signin": {
+    "message": "Accedi"
+  },
+  "popup_html_forgot": {
+    "message": "Password dimenticata?",
+    "description": "Nella pagina di sblocco"
+  },
+  "popup_html_reset": {
+    "message": "Reimposta account",
+    "description": "Dopo aver cliccato su password dimenticata"
+  },
+  "popup_html_reset_desc": {
+    "message": "Se hai dimenticato la password, puoi cancellare i dati ma dovrai reinserire tutte le tue chiavi.",
+    "description": "Testo dopo aver cliccato su password dimenticata"
+  },
+  "popup_html_clear_all_data_desc": {
+    "message": "Confermando, tutti i tuoi dati verranno persi. Assicurati di avere le chiavi salvate al di fuori di Keychain App",
+    "description": "Descrizione della pagina di conferma cancellazione dati"
+  },
+  "popup_html_vm": {
+    "message": "Voting Mana",
+    "description": "nella pagina principale del popup di Keychain"
+  },
+"popup_html_rc": {
+  "message": "Crediti di Risorsa",
+  "description": "nella finestra principale di Keychain"
+},
+"popup_html_send": {
+  "message": "Invia $1",
+  "description": "es: Invia STEEM"
+},
+"popup_html_pu": {
+  "message": "Potenzia"
+},
+"popup_html_pd": {
+  "message": "Depotenziamento"
+},
+"popup_html_delegate": {
+  "message": "Deleghe SP"
+},
+"popup_html_delegate_short": {
+  "message": "Deleg. SP",
+  "description": "Massimo 10 caratteri, spazio e punto inclusi"
+},
+"popup_html_delegate_rc_short": {
+  "message": "Deleg. CR",
+  "description": "Massimo 10 caratteri, spazio e punto inclusi"
+},
+"popup_html_estimation": {
+  "message": "Valore Stimato Account",
+  "description": "nella finestra principale"
+},
+"popup_html_history": {
+  "message": "Storico",
+  "description": "nella finestra principale"
+},
+"popup_html_tokens": {
+  "message": "Token",
+  "description": "nella finestra principale"
+},
+"popup_html_witness": {
+  "message": "Witness",
+  "description": "nella finestra principale"
+},
+"popup_html_estimation_info": {
+  "message": "valore account",
+  "description": "nella finestra principale"
+},
+"popup_html_estimation_info_text": {
+  "message": "Il valore stimato dell'account è un'approssimazione di quanto valgono i tuoi fondi.<br><br>Puoi passare da USD, STEEM o modalità nascosta cliccando sull'importo mostrato.",
+  "description": "nella finestra principale, clic su info accanto al valore stimato"
+},
+"popup_html_wallet_history": {
+  "message": "Storico Portafoglio",
+  "description": "Cliccando su Storico"
+},
+"popup_html_setup_text": {
+  "message": "Inserisci il nome del tuo account Steem e la master password oppure la chiave privata 'posting' o 'active' dell’account. La master password NON verrà salvata, verrà usata solo per generare le chiavi private.<br/><br/>Puoi aggiungere o rimuovere account o chiavi Steem in qualsiasi momento. Se hai bisogno di creare un nuovo account Steem, puoi farlo su <a href=\"https://steem-fanbase.com/accr.php/\" target=\"_blank\">Crea Steem User</a>.",
+  "description": "Quando si aggiunge un nuovo account"
+},
+"popup_html_setup": {
+  "message": "Configurazione",
+  "description": "quando si aggiunge un account"
+},
+"popup_html_private_key": {
+  "message": "Chiave Privata",
+  "description": "campo per inserire la chiave privata"
+},
+"popup_html_username": {
+  "message": "Nome Utente",
+  "description": "campo per inserire lo username"
+},
+"popup_html_start_date": {
+  "message": "Data Inizio",
+  "description": "campo per inserire la data di inizio"
+},
+"popup_html_end_date": {
+  "message": "Data Fine",
+  "description": "campo per inserire la data di fine"
+},
+"popup_html_import_keys": {
+  "message": "Importa chiavi",
+  "description": "Importa tutte le chiavi"
+},
+"popup_html_import_permissions": {
+  "message": "Importa Impostazioni",
+  "description": "Importa permessi"
+},
+"popup_html_import_key": {
+  "message": "Importa Chiave",
+  "description": "Importa una chiave"
+},
+"popup_html_import_success": {
+  "message": "Importazione riuscita! <br><br>Seleziona le chiavi che desideri salvare su Steem Keychain:",
+  "description": "Quando si aggiunge un account tramite master key"
+}
+"popup_html_posting": {
+  "message": "Chiave di Pubblicazione",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_active": {
+  "message": "Chiave Attiva",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_operation_button_save": {
+  "message": "Salva",
+  "description": "Quando si utilizza il pulsante per salvare i dati"
+},
+"popup_html_authority_active": {
+  "message": "Autorizzazione Attiva",
+  "description": "nella lista di gestione autorizzazioni"
+},
+"popup_html_master": {
+  "message": "Chiave Master",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_authority_posting": {
+  "message": "Autorizzazione di Pubblicazione",
+  "description": "nella lista di gestione autorizzazioni"
+},
+"popup_html_owner": {
+  "message": "Chiave Proprietario",
+  "description": "Quando si utilizza la chiave del proprietario"
+},
+"popup_html_role": {
+  "message": "Ruolo",
+  "description": "campo per inserire il ruolo"
+},
+"popup_html_manage_account_authority_weight_label": {
+  "message": "Peso",
+  "description": "In Account > Gestione Autorizzazioni"
+},
+"popup_html_manage_accounts_authorities_text": {
+  "message": "Gli account con autorizzazioni concesse possono eseguire operazioni per tuo conto. Nella maggior parte dei casi, queste autorizzazioni sono legate a una dApp o a un gioco e autorizzano solo la pubblicazione. Ti consigliamo di concederle solo quando necessario e a soggetti affidabili.",
+  "description": "Account > Gestione Autorizzazioni"
+},
+"popup_html_confirm_remove_account_authority_message": {
+  "message": "Conferma di voler rimuovere l'autorizzazione $1 dell'account @$2 dal tuo account.",
+  "description": "conferma rimozione autorizzazione: $2 è l'account, $1 è posting o active"
+},
+"popup_html_remove_account_authority": {
+  "message": "Rimuovi autorizzazione",
+  "description": "durante la conferma rimozione autorizzazione"
+},
+"html_popup_remove_authorized_account_operation": {
+  "message": "Rimozione account autorizzato",
+  "description": "operazione di rimozione autorizzazione"
+},
+"popup_html_remove_account_authority_successful": {
+  "message": "Autorizzazione dell'account rimossa con successo",
+  "description": "Messaggio di successo rimozione autorizzazione"
+},
+"popup_html_remove_account_authority_fail": {
+  "message": "Impossibile rimuovere l'autorizzazione dell'account",
+  "description": "Messaggio di errore rimozione autorizzazione"
+},
+"popup_html_memo": {
+  "message": "Chiave Memo",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_posting_info": {
+  "message": "Per pubblicare e votare",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_active_info": {
+  "message": "Per effettuare trasferimenti e ordini",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_memo_info": {
+  "message": "Per inviare e leggere memo",
+  "description": "Quando si aggiunge un account tramite chiave master"
+},
+"popup_html_save": {
+  "message": "Salva",
+  "description": "Pulsante generico"
+},
+"popup_html_settings": {
+  "message": "Menu",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_add_account": {
+  "message": "Aggiungi account",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_accounts": {
+  "message": "Account",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_manage_accounts": {
+  "message": "Gestione account",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_change_password": {
+  "message": "Cambia password",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_autolock": {
+  "message": "Blocco automatico",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_keychainify": {
+  "message": "Keychainify",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_import_export_settings": {
+  "message": "Importa / Esporta Impostazioni",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_automated_tasks": {
+  "message": "Attività automatiche",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_operations": {
+  "message": "Operazioni autorizzate",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_export_transactions": {
+  "message": "Esporta transazioni",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_favorite_accounts": {
+  "message": "Account preferiti",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_favorite_accounts_no_favorites": {
+  "message": "Nessun account preferito salvato",
+  "description": "nei risultati della pagina preferiti"
+},
+"popup_html_operation_popup": {
+  "message": "Popup operazioni",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_about": {
+  "message": "Informazioni su Steem Keychain App",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_clear": {
+  "message": "Cancella tutti i dati",
+  "description": "nella pagina delle impostazioni"
+},
+"popup_html_al_default_title": {
+  "message": "Predefinito",
+  "description": "nelle impostazioni di blocco automatico"
+},
+"popup_html_al_default_info": {
+  "message": "Blocca manualmente Keychain App",
+  "description": "nelle impostazioni di blocco automatico"
+},
+"popup_html_al_locked_title": {
+  "message": "Blocco dispositivo",
+  "description": "nelle impostazioni di blocco automatico"
+},
+"popup_html_al_locked_info": {
+  "message": "Blocca automaticamente Keychain App quando il dispositivo viene bloccato.",
+  "description": "nelle impostazioni di blocco automatico"
+},
+"popup_html_al_idle_title": {
+  "message": "Blocco inattività",
+  "description": "nelle impostazioni di blocco automatico"
+}
+"popup_html_al_idle_info": {
+  "message": "Blocca automaticamente Keychain App quando la finestra del browser resta inattiva per un numero specificato di minuti.",
+  "description": "nelle impostazioni di blocco automatico"
+},
+"popup_html_keychainify_text": {
+  "message": "Questa funzione ti permette di avviare un'operazione di Steem Keychain App cliccando su un link supportato in una pagina web o accedendo direttamente all'URL in una scheda del browser. Attualmente supporta i seguenti link SteemLogin: trasferimenti, deleghe, JSON personalizzati, proxy dei witness e voti.",
+  "description": "nelle impostazioni di keychainify"
+},
+"popup_html_enable_keychainify_title": {
+  "message": "Attiva Keychainify",
+  "description": "nelle impostazioni di keychainify"
+},
+"popup_html_enable_keychainify_info": {
+  "message": "Se attivata, questa funzione aprirà un popup Keychain App quando clicchi su link supportati.",
+  "description": "nelle impostazioni di keychainify"
+},
+"popup_html_import": {
+  "message": "Importa",
+  "description": "nelle impostazioni di import/export"
+},
+"popup_html_export": {
+  "message": "Esporta",
+  "description": "nelle impostazioni di import/export"
+},
+"popup_html_export_permissions": {
+  "message": "Esporta impostazioni",
+  "description": "nelle impostazioni di import/export"
+},
+"popup_html_about_text": {
+    "message": "<ul><li><span class='text'>Steem Keychain App è configurato e mantenuto da <a href=\"https://www.steemit.com/@time.foundation\" target=\"_blank\">@time.foundation</a>, a Steem witness.  un witness Steem. Questa versione di Steem Keychain è un fork di <a href=\"https://steemit.com/@ilnegro\" target=\"_blank\">@ilnegro</a>.</span></li><div class='separator horizontal'></div><li><span class='text'>Visita anche <a href=\"https://timeapp.foundation\" target=\"_blank\">Time.Foundation App</a>, <a href=\"https://writeup.app\"  target=\"_blank\">WriteUp</a>, <a href=\"https://steem-retrogames.com\" target=\"_blank\">Steem Retrogames</a>, <a href=\"https://steem-fanbase.com\" target=\"_blank\">Steem Fanbase</a></span></li><div class='separator horizontal'></div><li><span class='text'>Per informazioni o Aiuto su Steem Keychain App visita il nostro <a href='https://discord.gg/sPgu3C5YKC' target='__blank'>Discord</a></span></li></ul><div class='separator horizontal'></div>",
+  "description": "informazioni su Keychain App"
+},
+"popup_html_delete_account": {
+  "message": "Rimuovi da Keychain App",
+  "description": "gestione account"
+},
+"popup_html_disable_witness": {
+  "message": "Disattiva witness",
+  "description": "gestione account"
+},
+"popup_html_enable_witness": {
+  "message": "Attiva witness",
+  "description": "gestione account"
+},
+"popup_html_witness_rank_label": {
+  "message": "classifica",
+  "description": "nel mio testimone"
+},
+"popup_html_delete_account_confirmation_message": {
+  "message": "Stai per rimuovere @$1 da Keychain App. Questa operazione non può essere annullata senza reimportare le tue chiavi. Conferma per procedere.",
+  "description": "gestione account"
+},
+"popup_html_disable_witness_account_confirmation_message": {
+  "message": "Stai per disattivare l'account witness @$1. Conferma per procedere.",
+  "description": "nel mio testimone"
+},
+"popup_html_enable_witness_account_confirmation_message": {
+  "message": "Stai per attivare l'account witness @$1. Conferma per procedere.",
+  "description": "nel mio testimone"
+},
+"popup_html_show_qr": {
+  "message": "Mostra QR Code",
+  "description": "gestione account"
+},
+"popup_html_qr_title": {
+  "message": "Esporta le tue chiavi!",
+  "description": "gestione account"
+},
+"popup_html_qr_disclaimer1": {
+  "message": "Questo QR Code contiene tutte le chiavi private del tuo account e deve essere usato solo per importare le chiavi nell'app mobile di Steem Keychain App.",
+  "description": "gestione account"
+},
+"popup_html_qr_disclaimer2": {
+  "message": "NON condividerlo con nessuno!",
+  "description": "gestione account"
+},
+"popup_html_hide_qr": {
+  "message": "Nascondi QR Code",
+  "description": "gestione account"
+},
+"popup_html_set_new_rpc_as_active": {
+  "message": "Imposta il nuovo nodo RPC come attivo",
+  "description": "nella schermata di aggiunta nodo RPC"
+},
+"popup_html_set_new_account_history_as_active": {
+  "message": "Imposta la nuova API cronologia account come attiva",
+  "description": "nella schermata di aggiunta nodo RPC"
+},
+"popup_html_notif_pref": {
+  "message": "Preferenze Notifiche",
+  "description": "nelle preferenze"
+},
+"popup_html_pref_info": {
+  "message": "Per un'esperienza migliore, puoi inserire nella whitelist le operazioni senza autorità attiva quando richieste dalle dApp. Non riceverai una conferma per queste operazioni.",
+  "description": "nelle preferenze"
+},
+"popup_html_pref_export_transactions_info": {
+  "message": "Scarica le transazioni monetarie del tuo account in un file .csv. Puoi omettere la data di inizio o di fine se necessario.<br/><br/>A seconda del numero di transazioni, potrebbe volerci un po'.",
+  "description": "nelle preferenze"
+},
+"popup_html_pref_export_transactions_downloading_loading_message": {
+  "message": "Download transazioni in corso",
+  "description": "download transazioni"
+},
+"popup_html_pref_export_transactions_generating_csv_loading_message": {
+  "message": "Generazione file CSV in corso",
+  "description": "generazione csv"
+},
+"popup_html_no_pref": {
+  "message": "Nessuna operazione in whitelist",
+  "description": "nelle preferenze"
+},
+"popup_html_nothing_found_using_filter": {
+  "message": "Nessun risultato trovato, prova a resettare i filtri",
+  "description": "pagine con uso di filtri"
+},
+"popup_html_add_rpc": {
+  "message": "Aggiungi RPC",
+  "description": "nelle preferenze"
+},
+"popup_html_add_rpc_text": {
+  "message": "Aggiungi qui il tuo nodo RPC:",
+  "description": "nelle preferenze"
+},
+"popup_html_rpc_node": {
+  "message": "Nodo RPC",
+  "description": "nelle preferenze"
+},
+"popup_none": {
+  "message": "Nessuno",
+  "description": "nella pagina di conferma invio STEEM/SBD, quando il memo è vuoto"
+},
+"popup_html_add_key": {
+  "message": "Aggiungi chiave",
+  "description": "gestione account, aggiunta di una chiave non ancora memorizzata"
+},

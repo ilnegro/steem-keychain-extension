@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import { RequestConvert, RequestId } from '@interfaces/keychain.interface';
@@ -48,7 +49,7 @@ export const convert = async (
   } catch (e: any) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -57,7 +58,7 @@ export const convert = async (
       err,
       result,
       data,
-      await chrome.i18n.getMessage(successMessage, [amount, username]),
+      await getMessage(successMessage, [amount, username]),
       err_message,
     );
     return message;
@@ -89,7 +90,7 @@ export const convert = async (
 //     } catch (e) {
 //       Logger.error(e);
 //       err = (e as KeychainError).trace || e;
-//       err_message = await chrome.i18n.getMessage(
+//       err_message = await getMessage(
 //         (e as KeychainError).message,
 //         (e as KeychainError).messageParams,
 //       );
@@ -98,7 +99,7 @@ export const convert = async (
 //         err,
 //         result,
 //         data,
-//         await chrome.i18n.getMessage('bgd_ops_convert_collaterized', [
+//         await getMessage('bgd_ops_convert_collaterized', [
 //           amount,
 //           username,
 //         ]),
@@ -122,7 +123,7 @@ export const convert = async (
 //     } catch (e) {
 //       Logger.error(e);
 //       err = (e as KeychainError).trace || e;
-//       err_message = await chrome.i18n.getMessage(
+//       err_message = await getMessage(
 //         (e as KeychainError).message,
 //         (e as KeychainError).messageParams,
 //       );
@@ -131,7 +132,7 @@ export const convert = async (
 //         err,
 //         result,
 //         data,
-//         await chrome.i18n.getMessage('bgd_ops_convert', [amount, username]),
+//         await getMessage('bgd_ops_convert', [amount, username]),
 //         err_message,
 //       );
 //       return message;

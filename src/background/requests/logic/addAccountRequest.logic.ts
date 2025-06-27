@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createPopup } from '@background/requests/dialog-lifecycle';
 import sendErrors from '@background/requests/errors';
 import { RequestsHandler } from '@background/requests/request-handler';
@@ -19,8 +20,8 @@ export const addAccountRequest = (
         requestHandler,
         tab!,
         'user_cancel',
-        await chrome.i18n.getMessage('bgd_auth_canceled'),
-        await chrome.i18n.getMessage('popup_accounts_already_registered', [
+        await getMessage('bgd_auth_canceled'),
+        await getMessage('popup_accounts_already_registered', [
           account.name,
         ]),
         request,

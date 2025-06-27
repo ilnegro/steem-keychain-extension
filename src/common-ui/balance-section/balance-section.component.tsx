@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 import FormatUtils from 'src/utils/format.utils';
 
@@ -7,6 +8,7 @@ interface Props {
   label?: string;
   decimals?: number;
   skipLabelTranslation?: boolean;
+  user?: string;
 }
 
 export const BalanceSectionComponent = ({
@@ -15,17 +17,20 @@ export const BalanceSectionComponent = ({
   label,
   skipLabelTranslation,
   decimals = 3,
-}: Props) => {
+  user,
+  }: Props) => {
+  const effectiveDecimals = unit === 'TIME' ? 4 : decimals;
   return (
     <div className="balance-section">
-      <div className="value">
-        {FormatUtils.formatCurrencyValue(value, decimals)} {unit}
-      </div>
       {label && (
         <div className="label">
-          {skipLabelTranslation ? label : chrome.i18n.getMessage(label)}
+          {skipLabelTranslation ? label : getMessage(label)}
         </div>
       )}
+	  {user && <div className="user">{user}</div>} 
+      <div className="value">
+        {FormatUtils.formatCurrencyValue(value, effectiveDecimals)} {unit}
+      </div>
     </div>
   );
 };

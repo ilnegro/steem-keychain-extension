@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
@@ -37,7 +38,8 @@ const AddAccountMain = ({
         url: chrome.runtime.getURL('import-accounts.html'),
         type: 'popup',
         height: 600,
-        width: 435,
+//        width: 435,
+        width: 400,
         left: currentWindow.width! - 350 + currentWindow.left!,
         top: currentWindow.top,
       };
@@ -69,7 +71,7 @@ const AddAccountMain = ({
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_chose_add_method'),
+          __html: getMessage('popup_html_chose_add_method'),
         }}></div>
 
       <div className="button-container">

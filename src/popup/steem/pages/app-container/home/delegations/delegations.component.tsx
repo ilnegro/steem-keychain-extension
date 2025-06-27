@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { AutoCompleteValues } from '@interfaces/autocomplete.interface';
 import { TransactionOptions } from '@interfaces/keys.interface';
@@ -229,7 +230,7 @@ const Delegations = ({
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage('popup_html_confirm_delegation', [
+      message: getMessage('popup_html_confirm_delegation', [
         stringifiedAmount,
         `@${form.username}`,
       ]),
@@ -279,7 +280,7 @@ const Delegations = ({
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
 
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_confirm_cancel_delegation_message',
       ),
       fields: [
@@ -350,7 +351,7 @@ const Delegations = ({
 
       <div className="available-panel">
         <div className="label">
-          {chrome.i18n.getMessage('popup_html_available')}
+          {getMessage('popup_html_available')}
         </div>
         <div className="value">
           {available && (
@@ -363,7 +364,7 @@ const Delegations = ({
       </div>
       <FormContainer onSubmit={handleSubmit(handleButtonClick)}>
         <div className="text">
-          {chrome.i18n.getMessage('popup_html_delegations_text')}
+          {getMessage('popup_html_delegations_text')}
         </div>
         <Separator type="horizontal" />
         <div className="form-fields">

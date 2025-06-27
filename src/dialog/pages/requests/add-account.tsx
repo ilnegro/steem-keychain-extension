@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestAddAccount, RequestId } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import React from 'react';
@@ -17,7 +18,7 @@ const AddAccount = (props: Props) => {
   const { data } = props;
   return (
     <Operation
-      title={chrome.i18n.getMessage('popup_html_add_account')}
+      title={getMessage('popup_html_add_account')}
       {...props}
       canWhitelist>
       <RequestItem title="dialog_account" content={`@${data.username}`} />

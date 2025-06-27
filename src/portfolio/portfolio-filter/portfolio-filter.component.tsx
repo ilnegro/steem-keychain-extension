@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
 import { ExtendedAccount } from '@steempro/dsteem';
 import React, { useEffect, useState } from 'react';
@@ -72,12 +73,13 @@ const PortfolioFilter = ({
     saveFilterToLocalStorage([]);
   };
 
-  const saveFilterToLocalStorage = (filters: string[]) => {
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.PORTFOLIO_FILTER,
-      filters,
-    );
-  };
+const saveFilterToLocalStorage = async (filters: string[]) => {
+  await LocalStorageUtils.saveValueInLocalStorage(
+    LocalStorageKeyEnum.PORTFOLIO_FILTER,
+    filters,
+  );
+};
+
   if (data.length === 1) return null;
   return (
     <div className="filter-panel">
@@ -97,7 +99,7 @@ const PortfolioFilter = ({
             );
           })}
         <input
-          placeholder={chrome.i18n.getMessage('portfolio_filter_placeholder')}
+          placeholder={getMessage('portfolio_filter_placeholder')}
           value={filterValue}
           onChange={(e) => setFilterValue(e.target.value)}
           className="filter-input"

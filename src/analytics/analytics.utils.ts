@@ -27,13 +27,13 @@ const initializeGoogleAnalytics = () => {
   );
 
   window.gtag('send', 'pageview', '/popup'); // Set page, avoiding rejection due
-  setTimeout(() => {
+  setTimeout(async () => {
     const gaId = document.cookie
       .split('; ')
       .find((cookie: string) => cookie.startsWith('_ga'))
       ?.split('=')[1];
 
-    LocalStorageUtils.saveValueInLocalStorage(
+    await LocalStorageUtils.saveValueInLocalStorage(
       LocalStorageKeyEnum.GA_CLIENT_ID,
       gaId,
     );
@@ -60,7 +60,7 @@ const sendAddFirstAccountEvent = async () => {
   if (!analyticsSettings || !analyticsSettings?.allowGoogleAnalytics) return;
 
   window.gtag('event', 'add_first_account', {});
-  LocalStorageUtils.saveValueInLocalStorage(
+  await LocalStorageUtils.saveValueInLocalStorage(
     LocalStorageKeyEnum.ANALYTICS_FIRST_ACCOUNT_EVENT_SENT,
     true,
   );
@@ -73,18 +73,18 @@ const wasAddFirstAccountSend = async () => {
   return savedValue;
 };
 
-const acceptAll = () => {
-  LocalStorageUtils.saveValueInLocalStorage(
+const acceptAll = async () => {
+  await LocalStorageUtils.saveValueInLocalStorage(
     LocalStorageKeyEnum.ANALYTICS_SETTINGS,
     {
       allowGoogleAnalytics: true,
     } as AnalyticsSettings,
   );
-  AnalyticsUtils.initializeGoogleAnalytics();
+  initializeGoogleAnalytics();
 };
 
-const rejectAll = () => {
-  LocalStorageUtils.saveValueInLocalStorage(
+const rejectAll = async () => {
+  await LocalStorageUtils.saveValueInLocalStorage(
     LocalStorageKeyEnum.ANALYTICS_SETTINGS,
     {
       allowGoogleAnalytics: false,
@@ -92,8 +92,8 @@ const rejectAll = () => {
   );
 };
 
-const saveSettings = (settings: AnalyticsSettings) => {
-  LocalStorageUtils.saveValueInLocalStorage(
+const saveSettings = async (settings: AnalyticsSettings) => {
+  await LocalStorageUtils.saveValueInLocalStorage(
     LocalStorageKeyEnum.ANALYTICS_SETTINGS,
     settings,
   );

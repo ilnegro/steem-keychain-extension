@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import { RequestId, RequestPost } from '@interfaces/keychain.interface';
@@ -43,7 +44,7 @@ export const broadcastPost = async (
   } catch (e: any) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -52,7 +53,7 @@ export const broadcastPost = async (
       err,
       result,
       data,
-      await chrome.i18n.getMessage('bgd_ops_post'),
+      await getMessage('bgd_ops_post'),
       err_message,
     );
     return message;

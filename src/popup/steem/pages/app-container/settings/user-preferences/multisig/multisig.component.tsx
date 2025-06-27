@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { BackgroundMessage } from '@background/background-message.interface';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import {
@@ -149,7 +150,7 @@ const Multisig = ({
       <div
         className="intro"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_multisig_intro'),
+          __html: getMessage('popup_html_multisig_intro'),
         }}
       />
 

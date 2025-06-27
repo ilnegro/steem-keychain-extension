@@ -1,9 +1,11 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
 import { Screen } from '@reference-data/screen.enum';
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { SVGIcons } from 'src/common-ui/icons.enum';
+import manifestJson from '../../../../../../../manifest.json';
 
 const AboutPage = ({ setTitleContainerProperties }: PropsFromRedux) => {
   useEffect(() => {
@@ -19,13 +21,11 @@ const AboutPage = ({ setTitleContainerProperties }: PropsFromRedux) => {
         data-testid={`${SVGIcons.MENU_ABOUT}-page-content`}
         className="content"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_about_text'),
+          __html: getMessage('popup_html_about_text'),
         }}></div>
-      <div className="version">
-        {chrome.runtime.getManifest().name +
-          ' ' +
-          chrome.runtime.getManifest().version}
-      </div>
+      <div className="version"><p><strong>
+       {manifestJson.name + ' ' + manifestJson.version}
+      </strong></p></div>
     </div>
   );
 };

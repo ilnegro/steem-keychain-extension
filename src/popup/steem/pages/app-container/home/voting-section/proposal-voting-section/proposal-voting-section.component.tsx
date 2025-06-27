@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypes,
   KeychainKeyTypesLC,
@@ -160,10 +161,10 @@ const ProposalVotingSection = ({
     <PopupContainer className="proposal-voting-section">
       <div className="popup-title">
         <SVGIcon icon={SVGIcons.TOP_BAR_CLOSE_BTN} onClick={handleClose} />
-        {chrome.i18n.getMessage('popup_html_proposal_vote')}
+        {getMessage('popup_html_proposal_vote')}
       </div>
       <div className="caption">
-        {chrome.i18n.getMessage('popup_html_proposal_request')}
+        {getMessage('popup_html_proposal_request')}
       </div>
       <div className="popup-footer">
         <ButtonComponent

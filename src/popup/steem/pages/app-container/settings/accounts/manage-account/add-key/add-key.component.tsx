@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   setErrorMessage,
   setSuccessMessage,
@@ -88,7 +89,7 @@ const AddKey = ({
         data-testid="add-key-page-paragraph-introduction"
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_add_key_text', [
+          __html: getMessage('popup_html_add_key_text', [
             keyType.substring(0, 1) + keyType.substring(1).toLowerCase(),
           ]),
         }}></div>
@@ -105,7 +106,7 @@ const AddKey = ({
       {availableAuths.length > 0 && (
         <div className="available-auths">
           <div className="caption">
-            {chrome.i18n.getMessage('html_add_available_authorities_caption')}
+            {getMessage('html_add_available_authorities_caption')}
           </div>
           <div className="auths">
             {availableAuths.map((auth, index) => (

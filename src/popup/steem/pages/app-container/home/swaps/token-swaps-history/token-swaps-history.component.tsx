@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setInfoMessage } from '@popup/multichain/actions/message.actions';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
@@ -80,7 +81,7 @@ const TokenSwapsHistory = ({
       <div className="refresh-panel">
         {!!autoRefreshCountdown && (
           <>
-            {chrome.i18n.getMessage('swap_refresh_countdown', [
+            {getMessage('swap_refresh_countdown', [
               autoRefreshCountdown?.toString(),
             ])}
             <SVGIcon
@@ -107,7 +108,7 @@ const TokenSwapsHistory = ({
           <div className="empty-history-panel">
             <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
             <span className="text">
-              {chrome.i18n.getMessage('swap_no_history')}
+              {getMessage('swap_no_history')}
             </span>
           </div>
         )}

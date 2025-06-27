@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeychainKeyTypesLC } from '@interfaces/keychain.interface';
 import {
   setErrorMessage,
@@ -70,8 +71,7 @@ const ProxySuggestion = ({
     }
     hideSuggestionProxy[activeAccount.name!] = true;
     setForcedClosed(true);
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.HIDE_SUGGESTION_PROXY,
+await LocalStorageUtils.saveValueInLocalStorage(      LocalStorageKeyEnum.HIDE_SUGGESTION_PROXY,
       hideSuggestionProxy,
     );
   };
@@ -82,7 +82,7 @@ const ProxySuggestion = ({
         isMessageContainerDisplayed || forceClosed ? 'hide' : ''
       }`}>
       <div className="caption">
-        {chrome.i18n.getMessage('popup_html_proxy_suggestion')}
+        {getMessage('popup_html_proxy_suggestion')}
       </div>
       <div className="button-panel">
         <ButtonComponent

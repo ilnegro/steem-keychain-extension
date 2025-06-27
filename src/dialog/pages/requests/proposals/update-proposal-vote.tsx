@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   RequestId,
   RequestUpdateProposalVote,
@@ -19,7 +20,7 @@ const UpdateProposalVote = (props: Props) => {
   const { data } = props;
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_vote_proposal')}
+      title={getMessage('dialog_title_vote_proposal')}
       {...props}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />
       <Separator type={'horizontal'} fullSize />
@@ -36,8 +37,8 @@ const UpdateProposalVote = (props: Props) => {
         title="dialog_approve"
         content={
           data.approve
-            ? chrome.i18n.getMessage('common_yes')
-            : chrome.i18n.getMessage('common_no')
+            ? getMessage('common_yes')
+            : getMessage('common_no')
         }
       />
     </Operation>

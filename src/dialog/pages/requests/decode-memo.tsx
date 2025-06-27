@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypesLC,
   RequestDecode,
@@ -20,8 +21,8 @@ const DecodeMemo = (props: Props) => {
   const { data, domain } = props;
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_decode')}
-      header={chrome.i18n.getMessage('dialog_desc_verify', [
+      title={getMessage('dialog_title_decode')}
+      header={getMessage('dialog_desc_verify', [
         domain,
         data.method,
         data.username,

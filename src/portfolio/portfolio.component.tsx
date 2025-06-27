@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import AccountUtils from '@popup/steem/utils/account.utils';
 import { Theme } from '@popup/theme.context';
@@ -65,7 +66,7 @@ const Portfolio = () => {
     if (!localAccounts) {
       setIsLoading(false);
       setErrorMessage(
-        chrome.i18n.getMessage('no_account_found_on_portfolio_error'),
+        getMessage('no_account_found_on_portfolio_error'),
       );
       return;
     } else {
@@ -97,12 +98,12 @@ const Portfolio = () => {
       <div className="title-panel info-row">
         <div className="info-row centered">
           <SVGIcon icon={SVGIcons.KEYCHAIN_LOGO_ROUND_SMALL} />
-          <div className="title">{chrome.i18n.getMessage('portfolio')}</div>
+          <div className="title">{getMessage('portfolio')}</div>
         </div>
         {totalValueUSDPortfolio > 0 && (
           <div className="title-panel">
             <div className="title">
-              {chrome.i18n.getMessage('portfolio_total_value_usd')}
+              {getMessage('portfolio_total_value_usd')}
             </div>
             <div className="info-row centered">
               <div className="title">
@@ -119,7 +120,7 @@ const Portfolio = () => {
       {!isLoading && (
         <>
           <div className="caption">
-            {chrome.i18n.getMessage('portfolio_caption_message_total_value')}
+            {getMessage('portfolio_caption_message_total_value')}
           </div>
           <PortfolioFilterComponent
             extendedAccountsList={extendedAccountsList}
@@ -150,7 +151,7 @@ const Portfolio = () => {
 
           {currentAccountIndex && currentAccountUsername && localAccounts && (
             <div className="loading-message">
-              {chrome.i18n.getMessage('portfolio_fetch_progress', [
+              {getMessage('portfolio_fetch_progress', [
                 currentAccountIndex.toString(),
                 localAccounts!.length.toString(),
                 currentAccountUsername,

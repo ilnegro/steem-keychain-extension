@@ -84,6 +84,7 @@ export interface SdsTransaction {
   virtual: number;
   op: SdsOperation;
 }
+
 export interface Transaction {
   blockNumber: number;
   txId: string;

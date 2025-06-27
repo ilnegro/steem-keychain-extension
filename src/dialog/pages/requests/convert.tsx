@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestConvert, RequestId } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import CurrencyUtils from '@popup/steem/utils/currency.utils';
@@ -22,17 +23,17 @@ const Convert = (props: Props) => {
   );
   return (
     <Operation
-      title={chrome.i18n.getMessage(
+      title={getMessage(
         data.collaterized
           ? 'popup_html_proposal_funded_option_hive'
           : 'popup_html_proposal_funded_option_hbd',
       )}
       header={
         data.collaterized
-          ? chrome.i18n.getMessage(`popup_html_convert_hive_intro`, [
+          ? getMessage(`popup_html_convert_hive_intro`, [
               data.amount,
             ])
-          : chrome.i18n.getMessage(`popup_html_convert_hbd_intro`)
+          : getMessage(`popup_html_convert_hbd_intro`)
       }
       {...props}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />

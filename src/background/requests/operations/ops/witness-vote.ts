@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import {
@@ -43,7 +44,7 @@ export const broadcastWitnessVote = async (
     }
   } catch (e: any) {
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -53,8 +54,8 @@ export const broadcastWitnessVote = async (
       result,
       data,
       data.vote
-        ? await chrome.i18n.getMessage('bgd_ops_witness_voted', [data.witness])
-        : await chrome.i18n.getMessage('bgd_ops_witness_unvoted', [
+        ? await getMessage('bgd_ops_witness_voted', [data.witness])
+        : await getMessage('bgd_ops_witness_unvoted', [
             data.witness,
           ]),
       err_message,

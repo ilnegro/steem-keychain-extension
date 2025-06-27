@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypes,
   KeychainKeyTypesLC,
@@ -185,7 +186,7 @@ const ProxyTab = ({
   return (
     <div data-testid="proxy-tab" className="proxy-tab">
       <div className="introduction">
-        {chrome.i18n.getMessage(
+        {getMessage(
           activeAccount.account.proxy.length > 0
             ? 'html_popup_witness_has_proxy'
             : 'html_popup_witness_proxy_definition',
@@ -194,7 +195,7 @@ const ProxyTab = ({
 
       {activeAccount.account.proxy.length > 0 && (
         <div data-testid="proxy-name" className="proxy-name">
-          {chrome.i18n.getMessage('html_popup_currently_using_proxy', [
+          {getMessage('html_popup_currently_using_proxy', [
             activeAccount.account.proxy,
           ])}
         </div>

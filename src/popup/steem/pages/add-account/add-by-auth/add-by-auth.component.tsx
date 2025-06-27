@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
@@ -60,7 +61,7 @@ const AddByAuth = ({
       data-testid={`${Screen.ACCOUNT_PAGE_ADD_BY_AUTH}-page`}
       className="add-by-auth-page">
       <div className="caption">
-        {chrome.i18n.getMessage('popup_html_auth_text')}
+        {getMessage('popup_html_auth_text')}
       </div>
       <InputComponent
         dataTestId="input-username"

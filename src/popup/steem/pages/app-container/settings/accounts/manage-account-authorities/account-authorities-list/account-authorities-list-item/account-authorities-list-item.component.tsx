@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TransactionOptions } from '@interfaces/keys.interface';
 import {
   addToLoadingList,
@@ -48,7 +49,7 @@ const AccountAuthoritiesListItem = ({
   ) => {
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: null,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_confirm_remove_account_authority_message',
         [role, authorizedAccountName],
       ),
@@ -56,7 +57,7 @@ const AccountAuthoritiesListItem = ({
         { label: 'popup_html_username', value: `@${authorizedAccountName}` },
         {
           label: 'popup_html_role',
-          value: chrome.i18n.getMessage(`popup_html_authority_${role}`),
+          value: getMessage(`popup_html_authority_${role}`),
         },
       ],
       title: 'popup_html_remove_account_authority',
@@ -105,7 +106,7 @@ const AccountAuthoritiesListItem = ({
       <div className="top-panel">
         <div className="key-name">
           <div className="name">
-            {chrome.i18n.getMessage(`popup_html_authority_${role}`)}
+            {getMessage(`popup_html_authority_${role}`)}
           </div>
         </div>
       </div>

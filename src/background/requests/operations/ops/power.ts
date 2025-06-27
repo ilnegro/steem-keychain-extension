@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import {
@@ -37,7 +38,7 @@ export const broadcastPowerUp = async (
   } catch (e) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -46,7 +47,7 @@ export const broadcastPowerUp = async (
       err,
       result,
       data,
-      await chrome.i18n.getMessage('bgd_ops_pu', [data.steem, data.recipient]),
+      await getMessage('bgd_ops_pu', [data.steem, data.recipient]),
       err_message,
     );
     return message;
@@ -89,7 +90,7 @@ export const broadcastPowerDown = async (
   } catch (e) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -99,8 +100,8 @@ export const broadcastPowerDown = async (
       result,
       data,
       parseFloat(data.steem_power) == 0
-        ? await chrome.i18n.getMessage('bgd_ops_pd_stop', [data.username])
-        : await chrome.i18n.getMessage('bgd_ops_pd', [
+        ? await getMessage('bgd_ops_pd_stop', [data.username])
+        : await getMessage('bgd_ops_pd', [
             data.steem_power,
             data.username,
           ]),

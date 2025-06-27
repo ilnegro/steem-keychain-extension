@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 import CheckboxComponent, {
   CheckboxProps,
@@ -33,7 +34,7 @@ export const CheckboxPanelComponent = (props: CheckboxPanelProps) => {
               dangerouslySetInnerHTML={{
                 __html: props.skipHintTranslation
                   ? props.hint
-                  : chrome.i18n.getMessage(props.hint),
+                  : getMessage(props.hint),
               }}></div>
           )}
           {props.text && (
@@ -42,7 +43,7 @@ export const CheckboxPanelComponent = (props: CheckboxPanelProps) => {
               dangerouslySetInnerHTML={{
                 __html: props.skipTextTranslation
                   ? props.text
-                  : chrome.i18n.getMessage(props.text),
+                  : getMessage(props.text),
               }}></div>
           )}
         </>

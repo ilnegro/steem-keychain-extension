@@ -14,6 +14,7 @@ export interface NavigationConfirmationPageParams {
 export const resetNav = (): AppThunk => async (dispatch, getState) => {
   dispatch({ type: MultichainActionType.RESET_NAV });
 };
+
 export const navigateTo =
   (screen: Screen, resetStack: boolean = false): AppThunk =>
   async (dispatch, getState) => {

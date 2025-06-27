@@ -134,12 +134,12 @@ const checkRpcStatus = async (uri: string) => {
 //       );
 //       const end = Date.now();
 //       if (res.status) {
-//         console.log(`${rpc.uri} responded in ${end - start}ms`);
+//         // console.log(`${rpc.uri} responded in ${end - start}ms`);
 //       } else {
-//         console.log(`${rpc.uri} responded without status`);
+//         // console.log(`${rpc.uri} responded without status`);
 //       }
 //     } catch (e) {
-//       console.log(`${rpc.uri} had an error`, e);
+//       // console.log(`${rpc.uri} had an error`, e);
 //     }
 //   }
 // };

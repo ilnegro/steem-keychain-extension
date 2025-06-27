@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   RequestAddAccountAuthority,
   RequestId,
@@ -19,7 +20,7 @@ const AddAccountAuthority = (props: Props) => {
   const { data } = props;
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_add_auth')}
+      title={getMessage('dialog_title_add_auth')}
       {...props}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />
       <Separator type={'horizontal'} fullSize />

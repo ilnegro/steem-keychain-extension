@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { navigateToWithParams } from '@popup/multichain/actions/navigation.actions';
@@ -70,7 +71,7 @@ const AddByKeys = ({
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_setup_text'),
+          __html: getMessage('popup_html_setup_text'),
         }}></div>
       <div className="form-container">
         <InputComponent

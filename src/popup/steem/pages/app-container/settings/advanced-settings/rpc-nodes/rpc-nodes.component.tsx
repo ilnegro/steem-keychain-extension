@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   DefaultAccountHistoryApis,
   DefaultSteemEngineRpcs,
@@ -170,12 +171,15 @@ const RpcNodes = ({
     initSwitchAuto();
   }, []);
 
-  useEffect(() => {
-    LocalStorageUtils.saveValueInLocalStorage(
+useEffect(() => {
+  const saveSwitchAuto = async () => {
+    await LocalStorageUtils.saveValueInLocalStorage(
       LocalStorageKeyEnum.SWITCH_RPC_AUTO,
       switchAuto,
     );
-  }, [switchAuto]);
+  };
+  saveSwitchAuto();
+}, [switchAuto]);
 
   const initSwitchAuto = async () => {
     setSwitchAuto(
@@ -270,7 +274,7 @@ const RpcNodes = ({
       data-testid={`${Screen.SETTINGS_RPC_NODES}-page`}
       className="rpc-nodes-page">
       <div className="introduction">
-        {chrome.i18n.getMessage('popup_html_rpc_node_text')}
+        {getMessage('popup_html_rpc_node_text')}
       </div>
 
       <div className="rpc-form-container">
@@ -316,7 +320,7 @@ const RpcNodes = ({
           {!switchAuto && isAddRpcPanelDisplayed && (
             <div className="add-rpc-panel">
               <div className="add-rpc-caption">
-                <span>{chrome.i18n.getMessage('popup_html_add_rpc_text')}</span>
+                <span>{getMessage('popup_html_add_rpc_text')}</span>
                 <SVGIcon
                   icon={SVGIcons.MENU_RPC_SAVE_BUTTON}
                   onClick={() => saveNewSteemRpc()}
@@ -389,7 +393,7 @@ const RpcNodes = ({
           {isNewHERpcPanelOpened && (
             <div className="add-rpc-panel">
               <div className="add-rpc-caption">
-                <span>{chrome.i18n.getMessage('popup_html_add_rpc_text')}</span>
+                <span>{getMessage('popup_html_add_rpc_text')}</span>
                 <SVGIcon
                   icon={SVGIcons.MENU_RPC_SAVE_BUTTON}
                   onClick={() => saveHiveEngineRpc()}
@@ -448,7 +452,7 @@ const RpcNodes = ({
           {isNewAccountHistoryPanelOpened && (
             <div className="add-rpc-panel">
               <div className="add-rpc-caption">
-                <span>{chrome.i18n.getMessage('popup_html_add_rpc_text')}</span>
+                <span>{getMessage('popup_html_add_rpc_text')}</span>
                 <SVGIcon
                   icon={SVGIcons.MENU_RPC_SAVE_BUTTON}
                   onClick={() => saveAccountHistory()}

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { AutoCompleteValues } from '@interfaces/autocomplete.interface';
 import {
@@ -98,19 +99,66 @@ const TransferFunds = ({
   });
 
   const [balance, setBalance] = useState<string | number>('...');
-
+  const [balances, setBalances] = useState({
+    steem: 0,
+    sbd: 0,
+    sp: 0,
+    time: 0,
+  });
+  const [loading, setLoading] = useState(true);
   const [autocompleteFavoriteUsers, setAutocompleteFavoriteUsers] =
     useState<AutoCompleteValues>({
       categories: [],
     });
 
-  let balances = {
-    steem: FormatUtils.toNumber(activeAccount.account.balance),
-    sbd: FormatUtils.toNumber(activeAccount.account.sbd_balance),
-    sp: 0,
-  };
+  useEffect(() => {
+    const fetchBalances = async () => {
+      try {
+        setLoading(true);
 
-  Logger.log(`activeAccount ${activeAccount}`);
+        // Recupera il balance di TIME
+        const timeBalance = await AccountUtils.getTime(activeAccount.name!);
+
+        // Aggiorna lo stato balances
+        setBalances({
+          steem: FormatUtils.toNumber(activeAccount.account.balance),
+          sbd: FormatUtils.toNumber(activeAccount.account.sbd_balance),
+          sp: 0,
+          time: timeBalance,
+        });
+      } catch (err) {
+        console.error('Error fetching balances:', err);
+        setBalances({
+          steem: FormatUtils.toNumber(activeAccount.account.balance),
+          sbd: FormatUtils.toNumber(activeAccount.account.sbd_balance),
+          sp: 0,
+          time: 0,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (activeAccount && activeAccount.name) {
+      fetchBalances();
+    } else {
+      setBalances({
+        steem: 0,
+        sbd: 0,
+        sp: 0,
+        time: 0,
+      });
+      setLoading(false);
+    }
+  }, [activeAccount]);
+
+  useEffect(() => {
+    // Forza encrypted a false per i trasferimenti TIME
+    if (watch('selectedCurrency') === 'time') {
+      setValue('encrypted', false);
+    }
+  }, [watch('selectedCurrency'), setValue]);
+
   useEffect(() => {
     fetchPhishingAccounts();
     loadAutocompleteTransferUsernames();
@@ -122,11 +170,12 @@ const TransferFunds = ({
 
   useEffect(() => {
     setBalance(balances[watch('selectedCurrency')]);
-  }, [watch('selectedCurrency')]);
+  }, [watch('selectedCurrency'), balances]);
 
   const options = [
     { label: currencyLabels.steem, value: 'steem' as keyof CurrencyLabels },
     { label: currencyLabels.sbd, value: 'sbd' as keyof CurrencyLabels },
+    { label: currencyLabels.time, value: 'time' as keyof CurrencyLabels },
   ];
 
   const loadAutocompleteTransferUsernames = async () => {
@@ -168,17 +217,18 @@ const TransferFunds = ({
 
     let memoField = form.memo;
     if (form.memo.length) {
-      if (form.memo.startsWith('#') || form.encrypted) {
-        memoField = `${form.memo} (${chrome.i18n.getMessage(
-          'popup_encrypted',
-        )})`;
+      if (
+        (form.memo.startsWith('#') || form.encrypted) &&
+        form.selectedCurrency !== 'time'
+      ) {
+        memoField = `${form.memo} (${getMessage('popup_encrypted')})`;
         if (!activeAccount.keys.memo) {
           setErrorMessage('popup_html_memo_key_missing');
           return;
         }
       }
     } else {
-      memoField = chrome.i18n.getMessage('popup_empty');
+      memoField = getMessage('popup_empty');
     }
 
     let fields = [
@@ -196,7 +246,7 @@ const TransferFunds = ({
     );
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage('popup_html_transfer_confirm_text'),
+      message: getMessage('popup_html_transfer_confirm_text'),
       fields: fields,
       warningMessage: warningMessage,
       skipWarningTranslation: true,
@@ -214,7 +264,10 @@ const TransferFunds = ({
           let success;
           let memoParam = form.memo;
           if (form.memo.length) {
-            if (form.memo.startsWith('#') || form.encrypted) {
+            if (
+              (form.memo.startsWith('#') || form.encrypted) &&
+              form.selectedCurrency !== 'time'
+            ) {
               if (!activeAccount.keys.memo) {
                 setErrorMessage('popup_html_memo_key_missing');
                 return;
@@ -266,13 +319,16 @@ const TransferFunds = ({
       },
     } as ConfirmationPageParams);
   };
-
+  if (loading) {
+    return <div>Loading balances...</div>;
+  }
   return (
     <>
       <div
         className="transfer-funds-page"
         data-testid={`${Screen.TRANSFER_FUND_PAGE}-page`}>
         <BalanceSectionComponent
+          user={`${activeAccount.name}`}
           value={balance}
           unit={currencyLabels[watch('selectedCurrency')]}
           label="popup_html_balance"
@@ -334,17 +390,23 @@ const TransferFunds = ({
               type={InputType.TEXT}
               label="popup_html_memo_optional"
               placeholder="popup_html_memo_optional"
-              rightActionClicked={() =>
-                setValue('encrypted', !watch('encrypted'))
+              rightActionClicked={
+                watch('selectedCurrency') !== 'time'
+                  ? () => setValue('encrypted', !watch('encrypted'))
+                  : undefined
               }
               rightActionIcon={
-                watch('encrypted')
-                  ? SVGIcons.INPUT_ENCRYPT
-                  : SVGIcons.INPUT_DECRYPT
+                watch('selectedCurrency') !== 'time'
+                  ? watch('encrypted')
+                    ? SVGIcons.INPUT_ENCRYPT
+                    : SVGIcons.INPUT_DECRYPT
+                  : undefined
               }
             />
             <div className="memo-status">
-              {watch('encrypted') ? 'Note: Memo encryption enabled' : ''}
+              {watch('selectedCurrency') !== 'time' && watch('encrypted')
+                ? 'Note: Memo encryption enabled'
+                : ''}
             </div>
           </div>
           <OperationButtonComponent

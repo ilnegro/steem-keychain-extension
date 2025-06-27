@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   StartWithdrawSavings,
   WithdrawSavings,
@@ -18,7 +19,7 @@ const FillWithdrawSavingsTransaction = ({
   activeAccountName,
 }: PropsFromRedux & WithdrawSavingsTransactionProps) => {
   const getDetail = () => {
-    return chrome.i18n.getMessage(
+    return getMessage(
       'popup_html_wallet_info_fill_withdraw_savings',
       [FormatUtils.withCommas(transaction.amount, 3)],
     );

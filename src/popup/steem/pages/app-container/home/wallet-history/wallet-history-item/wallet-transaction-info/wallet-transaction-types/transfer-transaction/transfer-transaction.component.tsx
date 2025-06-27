@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Transfer } from '@interfaces/transaction.interface';
 import { RootState } from '@popup/multichain/store';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
@@ -15,7 +16,7 @@ const TransferTransaction = ({
   activeAccountName,
 }: PropsFromRedux & TransferTransactionProps) => {
   const getDetail = () => {
-    return chrome.i18n.getMessage(
+    return getMessage(
       activeAccountName === transaction.from
         ? 'popup_html_wallet_info_transfer_out'
         : 'popup_html_wallet_info_transfer_in',

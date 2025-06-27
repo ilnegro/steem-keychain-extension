@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { AutoCompleteValuesType } from '@interfaces/autocomplete.interface';
 import React, { useEffect, useState } from 'react';
 import { FieldError } from 'react-hook-form';
@@ -63,13 +64,13 @@ const InputComponent = React.forwardRef((props: InputProps, ref: any) => {
         <div className="label">
           {props.skipLabelTranslation
             ? props.label
-            : chrome.i18n.getMessage(props.label)}{' '}
+            : getMessage(props.label)}{' '}
           {props.required ? '*' : ''}
           {props.hint && (
             <div className="hint">
               {props.skipHintTranslation
                 ? props.hint
-                : chrome.i18n.getMessage(props.hint)}
+                : getMessage(props.hint)}
             </div>
           )}
         </div>
@@ -94,7 +95,7 @@ const InputComponent = React.forwardRef((props: InputProps, ref: any) => {
               props.placeholder
                 ? props.skipPlaceholderTranslation
                   ? props.placeholder
-                  : chrome.i18n.getMessage(props.placeholder)
+                  : getMessage(props.placeholder)
                 : ''
             } ${props.required ? '*' : ''}`}
             value={props.value}

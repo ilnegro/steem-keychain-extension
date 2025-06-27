@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   RequestCreateClaimedAccount,
   RequestId,
@@ -27,7 +28,7 @@ const CreateClaimedAccount = (props: Props) => {
   };
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_create_account')}
+      title={getMessage('dialog_title_create_account')}
       {...props}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />
       <Separator type={'horizontal'} fullSize />

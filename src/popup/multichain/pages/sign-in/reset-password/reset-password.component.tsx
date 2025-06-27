@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setHasFinishedSignup } from '@popup/multichain/actions/has-finished-signup.actions';
 import { forgetMk } from '@popup/multichain/actions/mk.actions';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
@@ -41,7 +42,7 @@ const ResetPasswordPage = ({
         <p
           className="introduction"
           dangerouslySetInnerHTML={{
-            __html: chrome.i18n.getMessage('popup_html_reset_desc'),
+            __html: getMessage('popup_html_reset_desc'),
           }}></p>
       </div>
 

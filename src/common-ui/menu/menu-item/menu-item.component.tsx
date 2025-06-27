@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { MenuItem } from '@interfaces/menu-item.interface';
 import React, { useState } from 'react';
 import { Separator } from 'src/common-ui/separator/separator.component';
@@ -27,13 +28,13 @@ export const MenuItemComponent = ({
         onClick={() => handleMenuItemClick(menuItem)}>
         <SVGIcon icon={menuItem.icon} className="icon" forceHover={hovered} />
         <div className="menu-label">
-          {chrome.i18n.getMessage(menuItem.label)}
+          {getMessage(menuItem.label)}
         </div>
         <div className="divider"></div>
         {menuItem.rightPanel && <menuItem.rightPanel />}
         {menuItem.experimental && (
           <div className="experimental">
-            {chrome.i18n.getMessage('common_experimental')}
+            {getMessage('common_experimental')}
           </div>
         )}
       </div>

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeychainRequest } from '@interfaces/keychain.interface';
 import { isPasswordValid } from '@popup/steem/utils/password.utils';
 import { BackgroundCommand } from '@reference-data/background-message-key.enum';
@@ -45,20 +46,20 @@ const Register = ({ data }: Props) => {
           },
         });
       } else {
-        setSignupError(chrome.i18n.getMessage('popup_password_regex'));
+        setSignupError(getMessage('popup_password_regex'));
       }
     } else {
-      setSignupError(chrome.i18n.getMessage('popup_password_mismatch'));
+      setSignupError(getMessage('popup_password_mismatch'));
     }
   };
 
   return (
     <div className="register-page">
-      <DialogHeader title={chrome.i18n.getMessage('dialog_header_register')} />
+      <DialogHeader title={getMessage('dialog_header_register')} />
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_register'),
+          __html: getMessage('popup_html_register'),
         }}></div>
       <InputComponent
         value={password}

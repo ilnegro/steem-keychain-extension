@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { navigateToWithParams } from '@popup/multichain/actions/navigation.actions';
@@ -119,7 +120,7 @@ const CreateAccountStepOne = ({
       case AccountCreationType.BUYING:
         return `${price} ${currencyLabels.steem}`;
       case AccountCreationType.USING_TICKET:
-        return chrome.i18n.getMessage('html_popup_ticket', ['1']);
+        return getMessage('html_popup_ticket', ['1']);
     }
   };
 
@@ -164,7 +165,7 @@ const CreateAccountStepOne = ({
       )}
       <div className="price-panel">
         <span className="label">
-          {chrome.i18n.getMessage('html_popup_price')}
+          {getMessage('html_popup_price')}
         </span>
         <span className="price">{getPriceLabel()}</span>
       </div>

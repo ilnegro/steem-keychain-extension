@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestDelegation, RequestId } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import CurrencyUtils from '@popup/steem/utils/currency.utils';
@@ -29,7 +30,7 @@ const Delegation = (props: Props) => {
   };
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_delegation')}
+      title={getMessage('dialog_title_delegation')}
       {...props}
       {...anonymousProps}>
       {renderUsername()}

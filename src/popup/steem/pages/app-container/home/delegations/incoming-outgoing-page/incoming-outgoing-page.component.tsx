@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   setErrorMessage,
   setSuccessMessage,
@@ -83,7 +84,7 @@ const IncomingOutgoingPage = ({
       {delegationType === DelegationType.OUTGOING &&
         totalPendingOutgoingUndelegation > 0 && (
           <div className="pending-disclaimer">
-            {chrome.i18n.getMessage(
+            {getMessage(
               'popup_html_undelegation_pending_until_message',
             )}
           </div>
@@ -94,7 +95,7 @@ const IncomingOutgoingPage = ({
             <div className="panel pending-undelegations">
               <div className="total">
                 <div className="label">
-                  {chrome.i18n.getMessage(
+                  {getMessage(
                     'popup_html_total_pending_undelegate',
                   )}
                 </div>
@@ -121,7 +122,7 @@ const IncomingOutgoingPage = ({
           )}
         <div className="panel">
           <div className="total">
-            <div className="label">{chrome.i18n.getMessage(header)}</div>
+            <div className="label">{getMessage(header)}</div>
             <div className="value">
               {FormatUtils.withCommas(totalHP.toString())} {currencyLabels.sp}
             </div>

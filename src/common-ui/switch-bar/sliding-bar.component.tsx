@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React, { Fragment, useEffect, useState } from 'react';
 
 interface SlidingBarValue {
@@ -48,7 +49,7 @@ export const SlidingBarComponent = (props: SlidingBarProps) => {
               htmlFor={`${props.id}-radio-${index}`}>
               {v.skipLabelTranslation
                 ? v.label
-                : chrome.i18n.getMessage(v.label)}
+                : getMessage(v.label)}
             </label>
           </Fragment>
         ))}

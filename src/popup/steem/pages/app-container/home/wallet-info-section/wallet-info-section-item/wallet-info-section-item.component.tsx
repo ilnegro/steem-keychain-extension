@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Token, TokenBalance, TokenMarket } from '@interfaces/tokens.interface';
 import { navigateToWithParams } from '@popup/multichain/actions/navigation.actions';
 import { RootState } from '@popup/multichain/store';
@@ -98,17 +99,30 @@ const walletInfoSectionItem = ({
     );
   };
 
-  const handleHistoryClick = (
-    event: BaseSyntheticEvent,
-    tokenBalance?: TokenBalance,
-  ) => {
-    event.stopPropagation();
-    if (tokenBalance) {
-      navigateToWithParams(Screen.TOKENS_HISTORY, { tokenBalance });
-    } else {
-      navigateToWithParams(Screen.WALLET_HISTORY_PAGE, []);
-    }
-  };
+//  const handleHistoryClick = (
+//    event: BaseSyntheticEvent,
+//    tokenBalance?: TokenBalance,
+//  ) => {
+//    event.stopPropagation();
+//    if (tokenBalance) {
+//      navigateToWithParams(Screen.TOKENS_HISTORY, { tokenBalance });
+//    } else {
+//      navigateToWithParams(Screen.WALLET_HISTORY_PAGE, []);
+//    }
+//  };
+
+const handleHistoryClick = (
+  event: BaseSyntheticEvent,
+  tokenBalance?: TokenBalance,
+) => {
+  event.stopPropagation();
+  if (tokenBalance) {
+    navigateToWithParams(Screen.TOKENS_HISTORY, { tokenBalance });
+  } else {
+    navigateToWithParams(Screen.WALLET_HISTORY_PAGE, { tokenSymbol });
+  }
+};
+
 
   const goToTokenWebsite = (token: Token) => {
     chrome.tabs.create({ url: token.metadata.url });
@@ -202,7 +216,7 @@ const walletInfoSectionItem = ({
                     className="token-info-row"
                     onClick={() => goToTokenWebsite(tokenInfo)}>
                     <div className="label">
-                      {chrome.i18n.getMessage('html_tokens_issuer')}
+                      {getMessage('html_tokens_issuer')}
                     </div>
                     <div className="value">
                       <span className="token-issuer">@{tokenInfo.issuer}</span>
@@ -214,7 +228,7 @@ const walletInfoSectionItem = ({
               )}
               <div className="token-info-row">
                 <div className="label">
-                  {chrome.i18n.getMessage('token_value')}
+                  {getMessage('token_value')}
                 </div>
                 <div className="value">
                   $
@@ -231,14 +245,14 @@ const walletInfoSectionItem = ({
                       tokenMarket,
                     ) * steem?.usd!
                   ).toFixed(2)}
-                  /{chrome.i18n.getMessage('token').toLowerCase()})
+                  /{getMessage('token').toLowerCase()})
                 </div>
                 <div></div>
               </div>
               <Separator type="horizontal" />
               <div className="token-info-row">
                 <div className="label">
-                  {chrome.i18n.getMessage('liquid_balance')}
+                  {getMessage('liquid_balance')}
                 </div>
                 <div className="value">
                   {FormatUtils.trimUselessZero(
@@ -253,7 +267,7 @@ const walletInfoSectionItem = ({
                   <Separator type="horizontal" />
                   <div className="token-info-row">
                     <div className="label">
-                      {chrome.i18n.getMessage('popup_html_token_staking')}{' '}
+                      {getMessage('popup_html_token_staking')}{' '}
                     </div>
                     <div className="value">
                       {FormatUtils.trimUselessZero(
@@ -273,7 +287,7 @@ const walletInfoSectionItem = ({
                       className="token-info-row"
                       onClick={goToPendingUnstakePage}>
                       <div className="label">
-                        {chrome.i18n.getMessage(
+                        {getMessage(
                           'popup_html_token_pending_unstake',
                         )}
                       </div>
@@ -302,7 +316,7 @@ const walletInfoSectionItem = ({
                     className="token-info-row"
                     onClick={goToTokenIncomingDelegations}>
                     <div className="label">
-                      {chrome.i18n.getMessage('popup_html_token_delegation_in')}
+                      {getMessage('popup_html_token_delegation_in')}
                     </div>
                     <div className="value">
                       {FormatUtils.trimUselessZero(
@@ -330,7 +344,7 @@ const walletInfoSectionItem = ({
                       className="token-info-row"
                       onClick={goToTokenOutgoingDelegations}>
                       <div className="label">
-                        {chrome.i18n.getMessage(
+                        {getMessage(
                           'popup_html_token_delegation_out',
                         )}
                       </div>
@@ -358,7 +372,7 @@ const walletInfoSectionItem = ({
                     <Separator type="horizontal" />
                     <div className="token-info-row">
                       <div className="label">
-                        {chrome.i18n.getMessage(
+                        {getMessage(
                           'popup_html_token_pending_undelegation',
                         )}
                       </div>

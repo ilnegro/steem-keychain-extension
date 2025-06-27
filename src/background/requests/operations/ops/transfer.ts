@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import { encode } from '@hiveio/hive-js/lib/auth/memo';
@@ -67,12 +68,12 @@ export const broadcastTransfer = async (
         null,
         data,
         null,
-        await chrome.i18n.getMessage('bgd_ops_encode_err'),
+        await getMessage('bgd_ops_encode_err'),
       );
       return message;
     } else {
       err = (e as KeychainError).trace || e;
-      err_message = await chrome.i18n.getMessage(
+      err_message = await getMessage(
         (e as KeychainError).message,
         (e as KeychainError).messageParams,
       );
@@ -82,7 +83,7 @@ export const broadcastTransfer = async (
       err,
       result,
       data,
-      await chrome.i18n.getMessage('bgd_ops_transfer_success', [
+      await getMessage('bgd_ops_transfer_success', [
         data.amount,
         data.currency,
         data.username!,

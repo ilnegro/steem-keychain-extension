@@ -57,21 +57,29 @@ export const MultichainContainer = () => {
     document.addEventListener('keydown', handleKeyPress);
   };
 
-  useEffect(() => {
-    if (chain)
-      LocalStorageUtils.saveValueInLocalStorage(
+useEffect(() => {
+  const saveChain = async () => {
+    if (chain) {
+      await LocalStorageUtils.saveValueInLocalStorage(
         LocalStorageKeyEnum.ACTIVE_CHAIN,
         chain,
       );
-  }, [chain]);
+    }
+  };
+  saveChain();
+}, [chain]);
 
-  useEffect(() => {
-    if (theme)
-      LocalStorageUtils.saveValueInLocalStorage(
+useEffect(() => {
+  const saveTheme = async () => {
+    if (theme) {
+      await LocalStorageUtils.saveValueInLocalStorage(
         LocalStorageKeyEnum.ACTIVE_THEME,
         theme,
       );
-  }, [theme]);
+    }
+  };
+  saveTheme();
+}, [theme]);
 
   const toggleTheme = () => {
     setTheme((oldTheme) => {

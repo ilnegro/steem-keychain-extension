@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
@@ -19,10 +20,13 @@ const Keychainify = ({ setTitleContainerProperties }: PropsFromRedux) => {
   }, []);
 
   useEffect(() => {
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.KEYCHAINIFY_ENABLED,
-      enabled,
-    );
+    const saveEnabled = async () => {
+      await LocalStorageUtils.saveValueInLocalStorage(
+        LocalStorageKeyEnum.KEYCHAINIFY_ENABLED,
+        enabled,
+      );
+    };
+    saveEnabled();
   }, [enabled]);
 
   const init = async () => {
@@ -38,7 +42,7 @@ const Keychainify = ({ setTitleContainerProperties }: PropsFromRedux) => {
       data-testid={`${Screen.SETTINGS_KEYCHAINIFY}-page`}
       className="keychainify-page">
       <div className="intro">
-        {chrome.i18n.getMessage('popup_html_keychainify_text')}
+        {getMessage('popup_html_keychainify_text')}
       </div>
       <div className="fields">
         <CheckboxPanelComponent

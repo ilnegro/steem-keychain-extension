@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { ActionButton } from '@popup/steem/pages/app-container/home/wallet-info-section/wallet-info-section-actions';
 import React, { BaseSyntheticEvent, useState } from 'react';
 import { SVGIcon } from 'src/common-ui/svg-icon/svg-icon.component';
@@ -26,7 +27,7 @@ export const WalletInfoSectionItemButton = ({
         forceHover={hovered}
       />
       <div className="title">
-        {chrome.i18n.getMessage(actionButton.label, actionButton.labelParams)}
+        {getMessage(actionButton.label, actionButton.labelParams)}
       </div>
     </div>
   );

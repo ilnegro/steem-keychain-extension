@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
 import { RootState } from '@popup/multichain/store';
@@ -44,8 +45,7 @@ const WrongKeyPopup = ({
     if (prevNoKeyCheck) {
       prevNoKeyCheck = { ...displayWrongKeyPopup, ...prevNoKeyCheck };
     }
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.NO_KEY_CHECK,
+await LocalStorageUtils.saveValueInLocalStorage(      LocalStorageKeyEnum.NO_KEY_CHECK,
       prevNoKeyCheck ?? displayWrongKeyPopup,
     );
     setDisplayWrongKeyPopup(undefined);
@@ -58,8 +58,7 @@ const WrongKeyPopup = ({
     if (actualNoKeyCheck && actualNoKeyCheck[accountFound!]) {
       delete actualNoKeyCheck[accountFound!];
     }
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.NO_KEY_CHECK,
+await LocalStorageUtils.saveValueInLocalStorage(      LocalStorageKeyEnum.NO_KEY_CHECK,
       actualNoKeyCheck,
     );
     loadActiveAccount(
@@ -71,14 +70,14 @@ const WrongKeyPopup = ({
   return (
     <PopupContainer className="wrong-key-popup">
       <div className="popup-title">
-        {chrome.i18n.getMessage('html_popup_wrong_key_title', [
+        {getMessage('html_popup_wrong_key_title', [
           wrongKeysFound.length !== 1 ? 's' : '',
         ])}
       </div>
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('html_popup_wrong_key_introduction', [
+          __html: getMessage('html_popup_wrong_key_introduction', [
             accountFound,
             wrongKeysFound.join(', '),
             wrongKeysFound.length !== 1 ? 's' : '',

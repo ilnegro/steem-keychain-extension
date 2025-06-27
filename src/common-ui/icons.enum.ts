@@ -144,6 +144,7 @@ export enum SVGIcons {
 
   WALLET_SBD_LOGO = 'wallet/sbd-logo',
   WALLET_STEEM_LOGO = 'wallet/steem-logo',
+  WALLET_TIME_LOGO = 'wallet/time-logo',
   WALLET_SP_LOGO = 'wallet/sp-logo',
   WALLET_POWER_DOWN = 'wallet/hp/power-down',
   WALLET_POWER_UP = 'wallet/steem/power-up',

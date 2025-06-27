@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestPowerUp } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import CurrencyUtils from '@popup/steem/utils/currency.utils';
@@ -19,7 +20,7 @@ const PowerUp = (props: Props) => {
 
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_powerup')}
+      title={getMessage('dialog_title_powerup')}
       {...props}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />
       <Separator type={'horizontal'} fullSize />

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 
 export enum RequestItemType {
@@ -42,7 +43,7 @@ const RequestItem = ({
     <>
       <React.Fragment key={title}>
         <div className="field">
-          <div className="label">{chrome.i18n.getMessage(title)}</div>
+          <div className="label">{getMessage(title)}</div>
           <div className={`value ${xsFont ? 'xs-font' : ''}`}>
             {renderContent(content, type)}
           </div>

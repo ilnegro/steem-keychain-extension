@@ -37,12 +37,21 @@ export const resetAccount = () => {
   };
 };
 
-export const setAccounts = (accounts: LocalAccount[]) => {
+//export const setAccounts = (accounts: LocalAccount[]) => {
+//  return {
+//    type: SteemActionType.SET_ACCOUNTS,
+//    payload: accounts,
+//  };
+//};
+
+export const setAccounts = (accounts: LocalAccount[] | undefined) => {
+  // console.log('[AccountActions] Setting accounts:', accounts);
   return {
     type: SteemActionType.SET_ACCOUNTS,
-    payload: accounts,
+    payload: accounts || [], // Usa array vuoto se undefined
   };
 };
+
 
 export const addKey =
   (

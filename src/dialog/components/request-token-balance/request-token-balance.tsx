@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { SteemEngineConfig } from '@interfaces/steem-engine-rpc.interface';
 import React, { useEffect, useState } from 'react';
 import Config from 'src/config';
@@ -55,7 +56,7 @@ const RequestTokenBalance = ({
       content={
         balance.length
           ? parseFloat(newBalance) < 0
-            ? chrome.i18n.getMessage('dialog_insufficient_balance')
+            ? getMessage('dialog_insufficient_balance')
             : `${balance} => ${newBalance}`
           : '...'
       }

@@ -37,14 +37,14 @@ const sendBackImportedAccounts = async (fileContent: string) => {
       );
     const newAccountsEncrypted = EncryptUtils.encryptJson(
       { list: newAccounts },
-      mk,
+//      mk,
     );
-    LocalStorageUtils.saveValueInLocalStorage(
+    await LocalStorageUtils.saveValueInLocalStorage(
       LocalStorageKeyEnum.ACCOUNTS,
       newAccountsEncrypted,
     );
 
-    const extensionId = (await chrome.management.getSelf()).id;
+	const extensionId = 'steem-keychain-app';
     chrome.runtime.sendMessage({
       command: BackgroundCommand.SEND_BACK_IMPORTED_ACCOUNTS,
       value: {

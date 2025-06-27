@@ -22,8 +22,7 @@ const getPrices = async () => {
       };
 
       prices;
-      LocalStorageUtils.saveValueInLocalStorage(
-        LocalStorageKeyEnum.LAST_PRICE,
+  await LocalStorageUtils.saveValueInLocalStorage(        LocalStorageKeyEnum.LAST_PRICE,
         prices,
       );
     } else {

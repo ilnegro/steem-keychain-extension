@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { AutoCompleteValues } from '@interfaces/autocomplete.interface';
 import {
@@ -195,7 +196,7 @@ const TokensOperation = ({
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         `popup_html_${operationType}_tokens_confirm_text`,
       ),
       fields: fields,
@@ -299,12 +300,12 @@ const TokensOperation = ({
         />
       )}
       <div className="caption">
-        {chrome.i18n.getMessage('popup_html_tokens_operation_text')}
+        {getMessage('popup_html_tokens_operation_text')}
       </div>
       {operationType === TokenOperationType.UNSTAKE &&
         tokenInfo.unstakingCooldown > 0 && (
           <div className="cooldown-message">
-            {chrome.i18n.getMessage(
+            {getMessage(
               'popup_html_token_unstake_cooldown_disclaimer',
               [tokenInfo.unstakingCooldown.toString()],
             )}

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeychainRequest } from '@steempro/steem-keychain-commons';
 import React from 'react';
 import ButtonComponent from 'src/common-ui/button/button.component';
@@ -30,7 +31,7 @@ const RequestResponse = ({ data }: Props) => {
             }
           />
           <div className={`title ${data.msg.success ? 'success' : ''}`}>
-            {chrome.i18n.getMessage(
+            {getMessage(
               data.msg.success
                 ? 'message_container_title_success'
                 : 'message_container_title_fail',

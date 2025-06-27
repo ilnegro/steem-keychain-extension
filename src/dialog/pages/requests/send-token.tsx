@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestSendToken } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import { SteemEngineConfig } from '@interfaces/steem-engine-rpc.interface';
@@ -26,10 +27,10 @@ const SendToken = (props: Props) => {
   let memoField = memo;
   if (memo.length) {
     if (memo.startsWith('#')) {
-      memoField = `${memo} (${chrome.i18n.getMessage('popup_encrypted')})`;
+      memoField = `${memo} (${getMessage('popup_encrypted')})`;
     }
   } else {
-    memoField = chrome.i18n.getMessage('popup_empty');
+    memoField = getMessage('popup_empty');
   }
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const SendToken = (props: Props) => {
 
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_token')}
+      title={getMessage('dialog_title_token')}
       {...props}
       header={header}
       redHeader>

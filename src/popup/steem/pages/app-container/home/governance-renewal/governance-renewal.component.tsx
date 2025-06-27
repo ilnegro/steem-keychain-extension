@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   addToLoadingList,
   removeFromLoadingList,
@@ -77,12 +78,12 @@ const GovernanceRenewal = ({
     <PopupContainer
       className={`governance-renewal ${forceHide ? 'force-hide' : ''}`}>
       <div className="popup-title">
-        {chrome.i18n.getMessage('html_popup_governance_renewal_title')}
+        {getMessage('html_popup_governance_renewal_title')}
       </div>
       <div
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage(
+          __html: getMessage(
             'html_popup_governance_renewal_introduction',
           ),
         }}></div>
@@ -100,7 +101,7 @@ const GovernanceRenewal = ({
         </div>
       )}
       <a className="read-more-link" onClick={() => navigateToArticle()}>
-        {chrome.i18n.getMessage('html_popup_governance_expiration_read_more')}
+        {getMessage('html_popup_governance_expiration_read_more')}
       </a>
       <div className="popup-footer">
         <ButtonComponent

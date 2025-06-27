@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { PowerUp } from '@interfaces/transaction.interface';
 import { RootState } from '@popup/multichain/store';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
@@ -16,7 +17,7 @@ const PowerUpTransaction = ({
 }: PropsFromRedux & PowerUpTransactionProps) => {
   const getDetail = () => {
     if (transaction.to !== activeAccountName) {
-      return chrome.i18n.getMessage(
+      return getMessage(
         'popup_html_wallet_info_power_up_other_account',
         [
           transaction.from,
@@ -25,7 +26,7 @@ const PowerUpTransaction = ({
         ],
       );
     }
-    return chrome.i18n.getMessage('popup_html_wallet_info_power_up', [
+    return getMessage('popup_html_wallet_info_power_up', [
       FormatUtils.withCommas(transaction.amount, 3),
     ]);
   };

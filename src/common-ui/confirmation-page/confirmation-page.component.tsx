@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TransactionOptionsMetadata } from '@interfaces/keys.interface';
 import { addCaptionToLoading } from '@popup/multichain/actions/loading.actions';
 import { goBack } from '@popup/multichain/actions/navigation.actions';
@@ -172,14 +173,14 @@ const ConfirmationPage = ({
           <div data-testid="warning-message" className="warning-message">
             {skipWarningTranslation
               ? warningMessage
-              : chrome.i18n.getMessage(warningMessage, warningParams)}
+              : getMessage(warningMessage, warningParams)}
           </div>
         )}
         {willUseMultisig && (
           <div data-testid="use-multisig-message" className="multisig-message">
             <img src="/assets/images/multisig/logo.png" className="logo" />
             <div className="message">
-              {chrome.i18n.getMessage('multisig_disclaimer_message')}
+              {getMessage('multisig_disclaimer_message')}
             </div>
           </div>
         )}
@@ -189,7 +190,7 @@ const ConfirmationPage = ({
               <React.Fragment key={field.label}>
                 <div className="field">
                   <div className="label">
-                    {chrome.i18n.getMessage(field.label)}
+                    {getMessage(field.label)}
                   </div>
                   <div className={`value ${field.valueClassName ?? ''}`}>
                     {field.value}
@@ -218,7 +219,7 @@ const ConfirmationPage = ({
                     return { ...old, [botName]: value };
                   });
                 }}
-                label={chrome.i18n.getMessage('multisig_bot_two_fa_code', [
+                label={getMessage('multisig_bot_two_fa_code', [
                   botName,
                 ])}
                 skipLabelTranslation

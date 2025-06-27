@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TransactionOptions } from '@interfaces/keys.interface';
 import {
   Witness,
@@ -92,7 +93,7 @@ const WitnessInformation = ({
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
       fields: [],
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_disable_witness_account_confirmation_message',
         [activeAccount.name!],
       ),
@@ -147,7 +148,7 @@ const WitnessInformation = ({
   const enableWitness = () => {
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_disable_witness_account_confirmation_message',
         [activeAccount.name!],
       ),
@@ -243,7 +244,7 @@ const WitnessInformation = ({
                 {witnessRanking.active_rank && (
                   <>
                     {witnessRanking?.active_rank}
-                    {chrome.i18n.getMessage(
+                    {getMessage(
                       FormatUtils.getOrdinalLabelTranslation(
                         witnessRanking?.active_rank!,
                       ),

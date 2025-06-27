@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TokenDelegation } from '@interfaces/token-delegation.interface';
 import { Token, TokenBalance } from '@interfaces/tokens.interface';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
@@ -70,7 +71,7 @@ const TokenIncomingOutgoingPage = ({
       {delegationType === DelegationType.OUTGOING &&
         tokenInfo.undelegationCooldown > 0 && (
           <div className="cooldown-message">
-            {chrome.i18n.getMessage(
+            {getMessage(
               'popup_html_token_undelegation_cooldown_disclaimer',
               [tokenInfo.symbol, tokenInfo.undelegationCooldown.toString()],
             )}
@@ -80,7 +81,7 @@ const TokenIncomingOutgoingPage = ({
       <div className="list-panel">
         <div className="panel">
           <div className="total">
-            <div className="label">{chrome.i18n.getMessage(header)}</div>
+            <div className="label">{getMessage(header)}</div>
             <div className="value">
               {total} {tokenBalance.symbol}
             </div>

@@ -271,7 +271,7 @@ This function is called to verify that the user has a certain authority over an 
 
 ```javascript
 const keychain = window.steem_keychain;
-keychain.requestVerifyKey('faisalamin', encodedMessage, 'Posting', (response) => {
+keychain.requestVerifyKey('ilnegro', encodedMessage, 'Posting', (response) => {
   if (response.success === true) {
     const decodedMessage = response.result;
   }
@@ -307,11 +307,11 @@ Requests to add account authority over another account. For more information abo
 ##### Examples
 
 ```javascript
-// Gives @faisalamin active authority with weight 2 to `account`
+// Gives @ilnegro active authority with weight 2 to `account`
 const keychain = window.steem_keychain;
 keychain.requestAddAccountAuthority(
   account,
-  'faisalamin',
+  'ilnegro',
   'Active',
   2,
   (response) => {
@@ -335,11 +335,11 @@ Requests to remove an account authority over another account. For more informati
 ##### Examples
 
 ```javascript
-// Removes @faisalamin's active authority from `account`
+// Removes @ilnegro's active authority from `account`
 const keychain = window.steem_keychain;
 keychain.requestRemoveAccountAuthority(
   account,
-  'faisalamin',
+  'ilnegro',
   'Active',
   (response) => {
     console.log(response);
@@ -413,7 +413,7 @@ keychain.requestBroadcast(
       'account_witness_vote',
       {
         account: 'npfedwards',
-        witness: 'faisalamin',
+        witness: 'ilnegro',
         approve: true,
       },
     ],
@@ -505,7 +505,7 @@ Requests to broadcast a blog post/comment
 ```javascript
 const keychain = window.steem_keychain;
 keychain.requestPost(
-  'faisalamin',
+  'ilnegro',
   'Hello World!',
   '## This is a blog post \
 \
@@ -515,7 +515,7 @@ And this is some text',
   { format: 'markdown', description: 'A blog post', tags: ['Blog'] },
   'hello-world',
   {
-    author: 'faisalamin',
+    author: 'ilnegro',
     permlink: 'hi',
     max_accepted_payout: '100000.000 SBD',
     percent_steem_dollars: 10000,
@@ -560,7 +560,7 @@ const keychain = window.steem_keychain;
 keychain.requestVote(
   'npfedwards',
   'hello-world',
-  'faisalamin',
+  'ilnegro',
   5000,
   (response) => {
     console.log(response);
@@ -686,7 +686,7 @@ Requests a delegation broadcast
 ```javascript
 if (window.steem_keychain) {
   const keychain = window.steem_keychain;
-  keychain.requestDelegation(null, 'faisalamin', '1.000', 'SP', (response) => {
+  keychain.requestDelegation(null, 'ilnegro', '1.000', 'SP', (response) => {
     console.log(response);
   });
 } else {
@@ -709,10 +709,10 @@ Requests a witness vote broadcast
 ##### Examples
 
 ```javascript
-// Unvote our witness vote for @faisalamin
+// Unvote our witness vote for @ilnegro
 if (window.steem_keychain) {
   const keychain = window.steem_keychain;
-  keychain.requestWitnessVote(null, 'faisalamin', false, (response) => {
+  keychain.requestWitnessVote(null, 'ilnegro', false, (response) => {
     console.log(response);
   });
 } else {
@@ -734,10 +734,10 @@ Select an account as proxy
 ##### Examples
 
 ```javascript
-// Let @faisalamin use our voting power in governance votes
+// Let @ilnegro use our voting power in governance votes
 if (window.steem_keychain) {
   const keychain = window.steem_keychain;
-  keychain.requestProxy(null, 'faisalamin', (response) => {
+  keychain.requestProxy(null, 'ilnegro', (response) => {
     console.log(response);
   });
 } else {
@@ -1019,12 +1019,12 @@ Request recurrent transfer
 ##### Examples
 
 ```javascript
-// Let's send @faisalamin 5 STEEM a day
+// Let's send @ilnegro 5 STEEM a day
 if (window.steem_keychain) {
   const keychain = window.steem_keychain;
   keychain.requestConversion(
     null,
-    'faisalamin',
+    'ilnegro',
     '5.000',
     'STEEM',
     memo,

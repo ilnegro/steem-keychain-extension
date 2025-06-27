@@ -23,11 +23,13 @@ async function sendBackMk() {
 }
 
 function saveMk(newMk: string) {
-  LocalStorageUtils.saveValueInSessionStorage(LocalStorageKeyEnum.__MK, newMk);
+//  LocalStorageUtils.saveValueInSessionStorage(LocalStorageKeyEnum.__MK, newMk);
+  LocalStorageUtils.saveValueInSessionStorage(LocalStorageKeyEnum.__MK, EncryptUtils.hashPassword(newMk));
 }
 
 function lock() {
-  LocalStorageUtils.removeFromSessionStorage(LocalStorageKeyEnum.__MK);
+    LocalStorageUtils.saveValueInSessionStorage(LocalStorageKeyEnum.IS_LOCKED, 'true');
+//  LocalStorageUtils.removeFromSessionStorage(LocalStorageKeyEnum.__MK);
 }
 
 const MkModule = {

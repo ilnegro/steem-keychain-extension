@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestWitnessVote } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import React from 'react';
@@ -29,7 +30,7 @@ const WitnessVote = (props: Props) => {
   };
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_wit')}
+      title={getMessage('dialog_title_wit')}
       {...props}
       {...anonymousProps}>
       {renderUsername()}

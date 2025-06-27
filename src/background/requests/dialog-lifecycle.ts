@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import { waitUntilDialogIsReady } from '@background/utils/window.utils';
 import { DialogCommand } from '@reference-data/dialog-message-key.enum';
@@ -7,8 +8,9 @@ export const createPopup = (
   requestHandler: RequestsHandler,
   popupHtml = 'dialog.html',
 ) => {
-  let width = 435;
+//  let width = 435;
   let height = 600;
+  let width = 400;
   requestHandler.setConfirmed(false);
   //Ensuring only one window is opened by the extension at a time.
   if (requestHandler.data.windowId) {
@@ -61,7 +63,7 @@ chrome.windows.onRemoved.addListener(async (id: number) => {
         error: isMultisig ? 'pending_multisig' : 'user_cancel',
         result: null,
         data: request,
-        message: await chrome.i18n.getMessage(
+        message: await getMessage(
           `bgd_lifecycle_request_${
             isMultisig ? 'pending_multisig' : 'canceled'
           }`,

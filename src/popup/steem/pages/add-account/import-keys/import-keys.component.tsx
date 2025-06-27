@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RootState } from '@popup/multichain/store';
 import { Screen } from '@reference-data/screen.enum';
 import React from 'react';
@@ -8,7 +9,7 @@ const ImportKeys = ({}: PropsFromRedux) => {
     <div
       className="import-keys-page"
       data-testid={`${Screen.ACCOUNT_PAGE_IMPORT_KEYS}-page`}>
-      {chrome.i18n.getMessage('popup_html_import_keys')}
+      {getMessage('popup_html_import_keys')}
     </div>
   );
 };

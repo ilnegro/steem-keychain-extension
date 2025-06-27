@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Proposal } from '@interfaces/proposal.interface';
 import { RootState } from '@popup/multichain/store';
 import { ProposalItemComponent } from '@popup/steem/pages/app-container/home/governance/proposal-tab/proposal-item/proposal-item.component';
@@ -54,7 +55,7 @@ const ProposalTab = ({ activeAccount, globalProperties }: PropsFromRedux) => {
         <>
           {displayingProxyVotes && (
             <div className="using-proxy">
-              {chrome.i18n.getMessage('html_popup_currently_using_proxy', [
+              {getMessage('html_popup_currently_using_proxy', [
                 activeAccount.account.proxy,
               ])}
             </div>

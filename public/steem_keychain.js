@@ -87,7 +87,7 @@ var steem_keychain = {
    * This function is called to verify that the user has a certain authority over an account, by requesting to decode a message
    * @example
    * const keychain = window.steem_keychain;
-   * keychain.requestVerifyKey('faisalamin', encodedMessage, 'Posting', (response) => {
+   * keychain.requestVerifyKey('ilnegro', encodedMessage, 'Posting', (response) => {
    *   if (response.success === true) {
    *     const decodedMessage = response.result;
    *   }
@@ -131,9 +131,9 @@ var steem_keychain = {
   /**
    * Requests to add account authority over another account. For more information about multisig, please read https://steempro.com/utopian-io/@stoodkev/how-to-set-up-and-use-multisignature-accounts-on-steem-blockchain
    * @example
-   * // Gives @faisalamin active authority with weight 2 to `account`
+   * // Gives @ilnegro active authority with weight 2 to `account`
    * const keychain = window.steem_keychain
-   * keychain.requestAddAccountAuthority(account, 'faisalamin', 'Active', 2, (response) => {
+   * keychain.requestAddAccountAuthority(account, 'ilnegro', 'Active', 2, (response) => {
    *   console.log(response);
    * });
    *
@@ -167,9 +167,9 @@ var steem_keychain = {
   /**
    * Requests to remove an account authority over another account. For more information about multisig, please read https://steempro.com/utopian-io/@stoodkev/how-to-set-up-and-use-multisignature-accounts-on-steem-blockchain
    * @example
-   * // Removes @faisalamin's active authority from `account`
+   * // Removes @ilnegro's active authority from `account`
    * const keychain = window.steem_keychain;
-   * keychain.requestRemoveAccountAuthority(account, 'faisalamin', 'Active', (response) => {
+   * keychain.requestRemoveAccountAuthority(account, 'ilnegro', 'Active', (response) => {
    *   console.log(response);
    * });
    *
@@ -272,7 +272,7 @@ var steem_keychain = {
    *     'account_witness_vote',
    *     {
    *       account: 'npfedwards',
-   *       witness: 'faisalamin',
+   *       witness: 'ilnegro',
    *       approve: true
    *     }
    *   ]
@@ -303,7 +303,7 @@ var steem_keychain = {
    * // This example would be done much easier with requestBroadcast
    * import dsteem from '@steempro/dsteem';
    *
-   * const client = new dsteem.Client(['https://api.steemit.com', 'https://anyx.io', 'https://api.openhive.network']);
+   * const client = new dsteem.Client(['https://api.steemit.com', 'https://anyx.io', 'https://api.justyy.com']);
    * const keychain = window.steem_keychain;
    *
    * const props = await client.database.getDynamicGlobalProperties();
@@ -365,14 +365,14 @@ var steem_keychain = {
     // this.dispatchCustomEvent('swRequest', request, callback);
   },
 
-  // Example comment_options: {"author":"faisalamin","permlink":"hi","max_accepted_payout":"100000.000 SBD","percent_steem_dollars":10000,"allow_votes":true,"allow_curation_rewards":true,"extensions":[[0,{"beneficiaries":[{"account":"yabapmatt","weight":1000},{"account":"steemplus-pay","weight":500}]}]]}
+  // Example comment_options: {"author":"ilnegro","permlink":"hi","max_accepted_payout":"100000.000 SBD","percent_steem_dollars":10000,"allow_votes":true,"allow_curation_rewards":true,"extensions":[[0,{"beneficiaries":[{"account":"yabapmatt","weight":1000},{"account":"steemplus-pay","weight":500}]}]]}
   /**
    * Requests to broadcast a blog post/comment
    * @example
    * const keychain = window.steem_keychain;
-   * keychain.requestPost('faisalamin', 'Hello World!', '## This is a blog post \
+   * keychain.requestPost('ilnegro', 'Hello World!', '## This is a blog post \
    * \
-   * And this is some text', 'Blog', null, {format:'markdown',description:'A blog post',tags:['Blog']},'hello-world', {"author":"faisalamin","permlink":"hi","max_accepted_payout":"100000.000 SBD","percent_steem_dollars":10000,"allow_votes":true,"allow_curation_rewards":true,"extensions":[[0,{"beneficiaries":[{"account":"yabapmatt","weight":1000},{"account":"steemplus-pay","weight":500}]}]]}, (response) => {
+   * And this is some text', 'Blog', null, {format:'markdown',description:'A blog post',tags:['Blog']},'hello-world', {"author":"ilnegro","permlink":"hi","max_accepted_payout":"100000.000 SBD","percent_steem_dollars":10000,"allow_votes":true,"allow_curation_rewards":true,"extensions":[[0,{"beneficiaries":[{"account":"yabapmatt","weight":1000},{"account":"steemplus-pay","weight":500}]}]]}, (response) => {
    *   console.log(response);
    * });
    *
@@ -418,7 +418,7 @@ var steem_keychain = {
    * @example
    * // Upvote with 50% weight
    * const keychain = window.steem_keychain;
-   * keychain.requestVote('npfedwards', 'hello-world', 'faisalamin', 5000, (response) => {
+   * keychain.requestVote('npfedwards', 'hello-world', 'ilnegro', 5000, (response) => {
    *   console.log(response);
    * });
    * @param {String} account Steem account to perform the request
@@ -559,7 +559,7 @@ var steem_keychain = {
    * @example
    * if (window.steem_keychain) {
    *   const keychain = window.steem_keychain;
-   *   keychain.requestDelegation(null, 'faisalamin', '1.000', 'SP', (response) => {
+   *   keychain.requestDelegation(null, 'ilnegro', '1.000', 'SP', (response) => {
    *     console.log(response);
    *   });
    * } else {
@@ -594,10 +594,10 @@ var steem_keychain = {
   /**
    * Requests a witness vote broadcast
    * @example
-   * // Unvote our witness vote for @faisalamin
+   * // Unvote our witness vote for @ilnegro
    * if (window.steem_keychain) {
    *   const keychain = window.steem_keychain;
-   *   keychain.requestWitnessVote(null, 'faisalamin', false, (response) => {
+   *   keychain.requestWitnessVote(null, 'ilnegro', false, (response) => {
    *     console.log(response);
    *   });
    * } else {
@@ -622,10 +622,10 @@ var steem_keychain = {
   /**
    * Select an account as proxy
    * @example
-   * // Let @faisalamin use our voting power in governance votes
+   * // Let @ilnegro use our voting power in governance votes
    * if (window.steem_keychain) {
    *   const keychain = window.steem_keychain;
-   *   keychain.requestProxy(null, 'faisalamin', (response) => {
+   *   keychain.requestProxy(null, 'ilnegro', (response) => {
    *     console.log(response);
    *   });
    * } else {
@@ -936,10 +936,10 @@ var steem_keychain = {
   /**
    * Request recurrent transfer
    * @example
-   * // Let's send @faisalamin 5 STEEM a day
+   * // Let's send @ilnegro 5 STEEM a day
    * if (window.steem_keychain) {
    *   const keychain = window.steem_keychain;
-   *   keychain.requestConversion(null, 'faisalamin', '5.000', 'STEEM', memo, 24, 7, (response) => {
+   *   keychain.requestConversion(null, 'ilnegro', '5.000', 'STEEM', memo, 24, 7, (response) => {
    *     console.log(response);
    *   });
    * } else {

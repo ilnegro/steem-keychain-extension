@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { WitnessInfo } from '@interfaces/witness.interface';
 import { RootState } from '@popup/multichain/store';
 import { WitnessInfoDataComponent } from '@popup/steem/pages/app-container/home/governance/my-witness-tab/witness-information/witness-info-data/witness-info-data.component';
@@ -15,7 +16,7 @@ const WitnessInformationParameters = ({
   return (
     <div className="witness-information-parameters">
       <div className="label-title">
-        {chrome.i18n.getMessage(
+        {getMessage(
           'popup_html_witness_information_signing_key_label',
         )}
       </div>

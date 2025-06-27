@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TransactionOptions } from '@interfaces/keys.interface';
 import { SavingsWithdrawal } from '@interfaces/savings.interface';
 import {
@@ -44,7 +45,7 @@ const PendingSavingsWithdrawalItem = ({
   const cancelCurrentWithdrawSavingItem = () => {
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_confirm_cancel_withdraw_savings_message',
         [currency],
       ),

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypesLC,
   RequestCustomJSON,
@@ -31,7 +32,7 @@ const CustomJson = (props: Props) => {
   };
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_custom')}
+      title={getMessage('dialog_title_custom')}
       header={data.display_msg}
       {...anonymousProps}
       {...props}

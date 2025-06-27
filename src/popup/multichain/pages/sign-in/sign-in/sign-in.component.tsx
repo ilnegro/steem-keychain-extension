@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { setMk } from '@popup/multichain/actions/mk.actions';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
@@ -14,6 +15,11 @@ import { InputType } from 'src/common-ui/input/input-type.enum';
 import InputComponent from 'src/common-ui/input/input.component';
 import { SVGIcon } from 'src/common-ui/svg-icon/svg-icon.component';
 import { Screen } from 'src/reference-data/screen.enum';
+import EncryptUtils from '@popup/steem/utils/encrypt.utils';
+
+interface SignInProps {
+  setIsUnlocked?: (value: boolean) => void;
+}
 
 const SignIn = ({
   setErrorMessage,
@@ -22,7 +28,8 @@ const SignIn = ({
   resetTitleContainerProperties,
   retrieveAccounts,
   setProcessingDecryptAccount,
-}: PropsFromRedux) => {
+  setIsUnlocked,
+}: PropsFromRedux & SignInProps) => {
   const [password, setPassword] = useState('');
   const ref = useRef<HTMLInputElement | null>(null);
 
@@ -35,16 +42,32 @@ const SignIn = ({
   }, [ref]);
 
   const login = async () => {
-    if (await MkUtils.login(password)) {
-      setProcessingDecryptAccount(true);
-      setMk(password, true);
-      retrieveAccounts(password);
-    } else {
-      setErrorMessage('wrong_password');
+    try {
+      // console.log('[SignIn] Attempting to unlock with password:', password);
+      if (await MkUtils.login(password)) {
+        // console.log('[SignIn] Password correct, unlocking app');
+        setProcessingDecryptAccount(true);
+        setMk(password, false);
+        retrieveAccounts(EncryptUtils.hashPassword(password));
+        if (setIsUnlocked) {
+          setIsUnlocked(true);
+        }
+        setProcessingDecryptAccount(false);
+        // console.log('[SignIn] Navigating to ACCOUNT_PAGE_INIT_ACCOUNT');
+        navigateTo(Screen.ACCOUNT_PAGE_INIT_ACCOUNT, true);
+      } else {
+        // console.log('[SignIn] Incorrect password');
+        setErrorMessage('wrong_password');
+      }
+    } catch (error) {
+      console.error('[SignIn] Error during login:', error);
+      setErrorMessage('popup_html_login_error');
+      setProcessingDecryptAccount(false);
     }
   };
 
   const goToForgetPassword = () => {
+    // console.log('[SignIn] Navigating to RESET_PASSWORD_PAGE');
     navigateTo(Screen.RESET_PASSWORD_PAGE);
   };
 
@@ -53,13 +76,10 @@ const SignIn = ({
       <SVGIcon className="logo-white" icon={SVGIcons.KEYCHAIN_FULL_LOGO} />
       <div className="introduction-panel">
         <span className="introduction big first">
-          {chrome.i18n.getMessage('popup_html_unlock1')}
-        </span>
-        <span className="introduction medium second">
-          {chrome.i18n.getMessage('popup_html_unlock2')}
+          {getMessage('popup_html_unlock1')}
         </span>
         <span className="introduction medium lighter third">
-          {chrome.i18n.getMessage('popup_html_unlock3')}
+          {getMessage('popup_html_unlock3')}
         </span>
       </div>
 
@@ -74,7 +94,7 @@ const SignIn = ({
         dataTestId={'password-input'}
         ref={ref}
       />
-      <div className="divider"></div>
+
       <div className="action-panel">
         <ButtonComponent
           label={'popup_html_signin'}
@@ -85,7 +105,7 @@ const SignIn = ({
           className="reset-password-link"
           onClick={goToForgetPassword}
           data-testid="reset-password-link">
-          {chrome.i18n.getMessage('popup_html_forgot')}
+          {getMessage('popup_html_forgot')}
         </div>
       </div>
     </div>

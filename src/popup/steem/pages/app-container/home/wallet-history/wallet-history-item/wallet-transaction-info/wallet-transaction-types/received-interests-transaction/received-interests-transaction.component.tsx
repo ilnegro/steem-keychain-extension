@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { ReceivedInterests } from '@interfaces/transaction.interface';
 import { RootState } from '@popup/multichain/store';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
@@ -15,7 +16,7 @@ const ReceivedInterestsTransaction = ({
   activeAccountName,
 }: PropsFromRedux & ReceivedInterestsTransactionProps) => {
   const getDetail = () => {
-    return chrome.i18n.getMessage('popup_html_wallet_info_received_interests', [
+    return getMessage('popup_html_wallet_info_received_interests', [
       FormatUtils.withCommas(transaction.interest, 3),
     ]);
   };

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   setErrorMessage,
   setSuccessMessage,
@@ -59,7 +60,7 @@ const ChangePassword = ({
       data-testid={`${Screen.SETTINGS_CHANGE_PASSWORD}-page`}
       className="change-password-page">
       <div className="caption">
-        {chrome.i18n.getMessage('popup_html_change_password_text')}
+        {getMessage('popup_html_change_password_text')}
       </div>
 
       <InputComponent

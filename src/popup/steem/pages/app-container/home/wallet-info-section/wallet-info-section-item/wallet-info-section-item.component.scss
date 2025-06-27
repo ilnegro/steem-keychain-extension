@@ -7,11 +7,11 @@ path {
   flex-direction: column;
   width: calc(100% - 60px);
   align-items: center;
-  row-gap: 8px;
+  row-gap: 4px;
   position: relative;
-  padding: 8px 24px;
+  padding: 4px 12px;
   box-sizing: border-box;
-  scroll-margin: 12px;
+  scroll-margin: 6px;
   border-radius: 22px;
   background-color: var(--wallet-card-bg);
   box-shadow: var(--wallet-card-shadow);
@@ -26,7 +26,7 @@ path {
     width: 100%;
     display: flex;
     align-items: center;
-    column-gap: 16px;
+    column-gap: 8px;
     .currency-icon {
       @include icon-size(36px);
       &.add-background {
@@ -85,9 +85,9 @@ path {
 
   .actions-panel {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    column-gap: 20px;
-    row-gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    column-gap: 5px;
+    row-gap: 5px;
     align-items: center; /* Align items */
     width: 100%;
   }

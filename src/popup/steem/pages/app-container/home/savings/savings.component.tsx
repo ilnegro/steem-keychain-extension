@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { AutoCompleteValues } from '@interfaces/autocomplete.interface';
 import {
@@ -114,15 +115,16 @@ const SavingsPage = ({
   const currencyOptions = [
     { label: currencyLabels.steem, value: 'steem' as keyof CurrencyLabels },
     { label: currencyLabels.sbd, value: 'sbd' as keyof CurrencyLabels },
+    { label: currencyLabels.time, value: 'time' as keyof CurrencyLabels },
   ];
 
   const savingOperationTypeOptions: SelectSavingsTypeOperation[] = [
     {
-      label: chrome.i18n.getMessage(SavingOperationType.WITHDRAW),
+      label: getMessage(SavingOperationType.WITHDRAW),
       value: SavingOperationType.WITHDRAW,
     },
     {
-      label: chrome.i18n.getMessage(SavingOperationType.DEPOSIT),
+      label: getMessage(SavingOperationType.DEPOSIT),
       value: SavingOperationType.DEPOSIT,
     },
   ];
@@ -166,12 +168,12 @@ const SavingsPage = ({
     let text = '';
     if (watch('type') === SavingOperationType.DEPOSIT) {
       if (watch('currency') === 'sbd') {
-        text = chrome.i18n.getMessage('popup_html_deposit_hbd_text', [
+        text = getMessage('popup_html_deposit_hbd_text', [
           Number(globalProperties.globals?.sbd_interest_rate) / 100 + '',
         ]);
       }
     } else {
-      text = chrome.i18n.getMessage('popup_html_withdraw_text');
+      text = getMessage('popup_html_withdraw_text');
     }
     setText(text);
   }, [watch('currency'), watch('type')]);
@@ -225,7 +227,7 @@ const SavingsPage = ({
       setErrorMessage('popup_html_power_up_down_error');
       return;
     }
-    let operationString = chrome.i18n.getMessage(
+    let operationString = getMessage(
       watch('type') === SavingOperationType.WITHDRAW
         ? 'popup_html_withdraw_param'
         : 'popup_html_deposit_param',
@@ -247,7 +249,7 @@ const SavingsPage = ({
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         watch('type') === SavingOperationType.WITHDRAW
           ? 'popup_html_confirm_savings_withdraw'
           : 'popup_html_confirm_savings_deposit',
@@ -380,7 +382,7 @@ const SavingsPage = ({
           className="pending-savings-panel"
           onClick={goToPendingSavingsWithdrawal}>
           <div className="pending-savings-text">
-            {chrome.i18n.getMessage('popup_html_pending_savings_withdrawal', [
+            {getMessage('popup_html_pending_savings_withdrawal', [
               FormatUtils.formatCurrencyValue(totalPendingValue, 3),
               currencyLabels[watch('currency') as keyof CurrencyLabels],
             ])}
@@ -403,7 +405,7 @@ const SavingsPage = ({
             selectedItem={
               {
                 value: watch('type'),
-                label: chrome.i18n.getMessage(watch('type')),
+                label: getMessage(watch('type')),
               } as SelectSavingsTypeOperation
             }
             setSelectedItem={(item: SelectSavingsTypeOperation) =>

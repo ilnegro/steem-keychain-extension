@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { ActionButton as ActionButtonInterface } from '@interfaces/action-button.interface';
 import { navigateToWithParams } from '@popup/multichain/actions/navigation.actions';
 import { RootState } from '@popup/multichain/store';
@@ -23,7 +24,7 @@ const ActionButton = ({
       <div className="icon-container">
         <SVGIcon icon={icon} className="icon" forceHover={hovered} hoverable />
       </div>
-      <div className="label">{chrome.i18n.getMessage(label)}</div>
+      <div className="label">{getMessage(label)}</div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { AutoCompleteValue } from '@interfaces/autocomplete.interface';
 import {
   FavoriteUserItems,
@@ -144,8 +145,7 @@ const FavoriteAccounts = ({
       ...actualFavoriteUsersLists,
       [activeAccount.name!]: list.list,
     };
-    LocalStorageUtils.saveValueInLocalStorage(
-      LocalStorageKeyEnum.FAVORITE_USERS,
+await LocalStorageUtils.saveValueInLocalStorage(      LocalStorageKeyEnum.FAVORITE_USERS,
       updatedFavoriteUserLists,
     );
   };
@@ -175,7 +175,7 @@ const FavoriteAccounts = ({
       data-testid={`${Screen.SETTINGS_FAVORITE_ACCOUNTS}-page`}
       className="favorite-accounts-page">
       <div className="intro">
-        {chrome.i18n.getMessage('popup_html_favorite_accounts_intro')}
+        {getMessage('popup_html_favorite_accounts_intro')}
       </div>
       <SelectAccountSectionComponent background="white" fullSize />
       <FavoriteAccountsListComponent

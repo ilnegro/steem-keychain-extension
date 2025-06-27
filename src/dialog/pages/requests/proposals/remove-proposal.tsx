@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   RequestId,
   RequestRemoveProposal,
@@ -20,7 +21,7 @@ const RemoveProposal = (props: Props) => {
 
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_remove_proposal')}
+      title={getMessage('dialog_title_remove_proposal')}
       {...props}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />
       <Separator type={'horizontal'} fullSize />

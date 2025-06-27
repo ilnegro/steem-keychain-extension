@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { LocalAccount } from '@interfaces/local-account.interface';
 import {
   addToLoadingList,
@@ -203,12 +204,12 @@ const CreateAccountStepTwo = ({
   const getPaymentCheckboxLabel = () => {
     switch (creationType) {
       case AccountCreationType.BUYING:
-        return chrome.i18n.getMessage(
+        return getMessage(
           'html_popup_create_account_buy_method_message',
           [price.toString(), selectedAccount.name],
         );
       case AccountCreationType.USING_TICKET:
-        return chrome.i18n.getMessage(
+        return getMessage(
           'html_popup_create_account_claim_account_method_message',
           [selectedAccount.name],
         );

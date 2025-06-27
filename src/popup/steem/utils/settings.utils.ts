@@ -37,7 +37,8 @@ const importSettings = async () => {
       url: chrome.runtime.getURL('import-preferences.html'),
       type: 'popup',
       height: 600,
-      width: 435,
+//      width: 435,
+      width: 400,
       left: currentWindow.width! - 350 + currentWindow.left!,
       top: currentWindow.top,
     };

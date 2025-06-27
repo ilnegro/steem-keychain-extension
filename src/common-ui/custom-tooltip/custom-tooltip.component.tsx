@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React, { useEffect, useRef, useState } from 'react';
 
 export type CustomTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
@@ -135,7 +136,7 @@ export const CustomTooltip = ({
           dangerouslySetInnerHTML={{
             __html: skipTranslation
               ? message
-              : chrome.i18n.getMessage(message, messageParams),
+              : getMessage(message, messageParams),
           }}></div>
       )}
     </div>

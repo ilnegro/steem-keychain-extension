@@ -3,20 +3,21 @@
   column-gap: 4px;
   padding: 8px;
   width: 100%;
-  min-height: 40px;
+  min-height: 10px;
+  max-height: 30px;
   align-items: center;
   justify-content: center;
   transition: 0.225s linear;
   box-sizing: border-box;
-  scroll-margin: 12px;
-  border-radius: 22px;
+  scroll-margin: 6px;
+  border-radius: 11px;
   background-color: var(--wallet-card-bg);
   box-shadow: var(--wallet-card-shadow);
   cursor: pointer;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
 
   .title {
-    @include poppins400(14px);
+    @include poppins400(10px);
     color: var(--main-font-color);
   }
   svg path:not(.savings) {

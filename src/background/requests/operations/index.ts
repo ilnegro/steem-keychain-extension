@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { removeWindow } from '@background/requests/dialog-lifecycle';
 import sendErrors from '@background/requests/errors';
 import { addAccount } from '@background/requests/operations/ops/add-account';
@@ -164,8 +165,8 @@ export const performOperation = async (
       requestHandler,
       tab,
       e + '',
-      await chrome.i18n.getMessage('unknown_error'),
-      await chrome.i18n.getMessage('unknown_error'),
+      await getMessage('unknown_error'),
+      await getMessage('unknown_error'),
       data,
     );
   } finally {

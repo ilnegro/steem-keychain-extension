@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import {
@@ -39,7 +40,7 @@ export const broadcastCreateProposal = async (
   } catch (e) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -48,7 +49,7 @@ export const broadcastCreateProposal = async (
       err,
       result,
       data,
-      await chrome.i18n.getMessage('bgd_ops_proposal_create'),
+      await getMessage('bgd_ops_proposal_create'),
       err_message,
     );
     return message;
@@ -80,7 +81,7 @@ export const broadcastUpdateProposalVote = async (
   } catch (e) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -92,21 +93,21 @@ export const broadcastUpdateProposalVote = async (
         : data.proposal_ids;
     if (data.approve) {
       if (ids.length === 1)
-        messageText = await chrome.i18n.getMessage('bgd_ops_proposal_vote', [
+        messageText = await getMessage('bgd_ops_proposal_vote', [
           ids[0],
         ]);
       else {
-        messageText = await chrome.i18n.getMessage('bgd_ops_proposal_votes', [
+        messageText = await getMessage('bgd_ops_proposal_votes', [
           ids.join(', #'),
         ]);
       }
     } else {
       if (ids.length === 1)
-        messageText = await chrome.i18n.getMessage('bgd_ops_proposal_unvote', [
+        messageText = await getMessage('bgd_ops_proposal_unvote', [
           ids[0],
         ]);
       else
-        messageText = await chrome.i18n.getMessage('bgd_ops_proposal_unvotes', [
+        messageText = await getMessage('bgd_ops_proposal_unvotes', [
           ids.join(', #'),
         ]);
     }
@@ -149,7 +150,7 @@ export const broadcastRemoveProposal = async (
   } catch (e) {
     Logger.error(e);
     err = (e as KeychainError).trace || e;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (e as KeychainError).message,
       (e as KeychainError).messageParams,
     );
@@ -158,7 +159,7 @@ export const broadcastRemoveProposal = async (
       err,
       result,
       data,
-      await chrome.i18n.getMessage('bgd_ops_proposal_remove', [ids]),
+      await getMessage('bgd_ops_proposal_remove', [ids]),
       err_message,
     );
     return message;

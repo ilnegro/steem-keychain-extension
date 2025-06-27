@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RootState } from '@popup/multichain/store';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
@@ -47,7 +48,7 @@ const ResourceItem = ({
         <SVGIcon className="icon" icon={icon} />
         <div className="right-panel">
           <div className="top">
-            <div className="label">{chrome.i18n.getMessage(label)}</div>
+            <div className="label">{getMessage(label)}</div>
           </div>
           <div className="bottom">
             {value}{' '}

@@ -1,8 +1,8 @@
 {
-  "name": "SteemKeychain",
-  "description": "Steem keychain",
+  "name": "SteemKeychainApp",
+  "description": "Steem keychain App",
   "default_locale": "en",
-  "version": "3.0.2",
+  "version": "0.0.1",
   "permissions": ["storage", "idle", "alarms"],
   "host_permissions": ["https://*/*"],
   "action": {
@@ -25,5 +25,5 @@
       "all_frames": true
     }
   ],
-  "manifest_version": 3
+  "manifest_version": 1
 }

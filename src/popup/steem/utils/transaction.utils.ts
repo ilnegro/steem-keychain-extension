@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { fetchSds } from '@api/sds';
 import {
   ClaimAccount,
@@ -42,10 +43,13 @@ export const CONVERT_TYPE_TRANSACTIONS = [
 
 const getAccountTransactions = async (
   accountName: string,
+  currency: string,
   start: number,
   globals: DynamicGlobalProperties,
   memoKey?: string,
+  asset?: string,
 ): Promise<[Transaction[], number]> => {
+  
   try {
     let limit = 1000;
 
@@ -53,6 +57,7 @@ const getAccountTransactions = async (
 
     const transactionsFromBlockchain = await TransactionUtils.getTransactions(
       accountName,
+	  currency,
       start,
       limit,
     );
@@ -193,6 +198,7 @@ const getAccountTransactions = async (
     Logger.error(e, e);
     return getAccountTransactions(
       accountName,
+	  currency,
       (e as any).jse_info.stack[0].data.sequence - 1,
       globals,
       memoKey,
@@ -200,9 +206,10 @@ const getAccountTransactions = async (
   }
 };
 
-const getLastTransaction = async (accountName: string) => {
+const getLastTransaction = async (accountName: string, currency: string) => {
   const transactionsFromBlockchain = await TransactionUtils.getTransactions(
     accountName,
+	currency,
     -1,
     1,
   );
@@ -212,10 +219,12 @@ const getLastTransaction = async (accountName: string) => {
     : -1;
 };
 
-const getTransactions = (account: string, start: number, limit: number) => {
-  return fetchSds<SdsTransaction[]>(
-    `/account_history_api/getHistoryFromStartId/${account}/${start}/${limit}`,
-  );
+const getTransactions = (account: string, currency: string, start: number, limit: number) => {
+  if (currency === 'TIME') {
+     return fetchSds<SdsTransaction[]>(`https://timeapp.foundation/thistory.php?account=${account}&start=${start}&limit=${limit}`,);
+  } else {
+    return fetchSds<SdsTransaction[]>(`https://sds0.steemworld.org/account_history_api/getHistoryFromStartId/${account}/${start}/${limit}`,);
+  }	
   // return SteemTxUtils.getData('condenser_api.get_account_history', [
   //   account,
   //   start,
@@ -232,14 +241,14 @@ const decodeMemoIfNeeded = (transfer: Transfer, memoKey: string) => {
         transfer.memo = decodedMemo.substring(1);
       } catch (e) {
         if (e instanceof KeychainError) {
-          transfer.memo = chrome.i18n.getMessage(
+          transfer.memo = getMessage(
             'decode_with_memo_key_in_ledger',
           );
         }
         Logger.error('Error while decoding', '');
       }
     } else {
-      transfer.memo = chrome.i18n.getMessage('popup_accounts_add_memo');
+      transfer.memo = getMessage('popup_accounts_add_memo');
     }
   }
   return transfer;

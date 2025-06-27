@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Conversion } from '@interfaces/conversion.interface';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
@@ -30,7 +31,7 @@ const PendingConversionPage = ({
               dataTestId="tooltip-timesteamp-pending-conversion"
               position="bottom"
               key={pendingConversion.id}
-              message={chrome.i18n.getMessage(
+              message={getMessage(
                 'popup_html_pending_currency_timestamp',
                 [
                   moment

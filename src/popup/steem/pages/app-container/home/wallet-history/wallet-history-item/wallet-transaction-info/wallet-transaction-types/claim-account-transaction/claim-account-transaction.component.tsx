@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { ClaimAccount } from '@interfaces/transaction.interface';
 import { RootState } from '@popup/multichain/store';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
@@ -13,7 +14,7 @@ const ClaimAccountTransaction = ({
   transaction,
 }: PropsFromRedux & ClaimAccountTransactionProps) => {
   const getDetail = () => {
-    return chrome.i18n.getMessage('popup_html_wallet_info_claim_account');
+    return getMessage('popup_html_wallet_info_claim_account');
   };
 
   return (

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RootState } from '@popup/multichain/store';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
@@ -57,7 +58,7 @@ const SummaryPanel = ({
         <div
           className={`current panel-row ${onTopPanelClick ? 'clickable' : ''}`}
           onClick={() => handleClickTopPanel()}>
-          <div className="current-title">{chrome.i18n.getMessage(topLeft)}</div>
+          <div className="current-title">{getMessage(topLeft)}</div>
           <div className="current-value">
             {FormatUtils.formatCurrencyValue(
               top,
@@ -76,7 +77,7 @@ const SummaryPanel = ({
           }`}
           onClick={handleClickCenterPanel}>
           <div className="current-title">
-            {chrome.i18n.getMessage(centerLeft)}
+            {getMessage(centerLeft)}
           </div>
           <div className="current-value">
             {FormatUtils.formatCurrencyValue(
@@ -96,7 +97,7 @@ const SummaryPanel = ({
         }`}
         onClick={() => handleClickBottomPanel()}>
         <div className="available-title">
-          {chrome.i18n.getMessage(bottomLeft)}
+          {getMessage(bottomLeft)}
         </div>
         <div className="available-value">
           {FormatUtils.formatCurrencyValue(

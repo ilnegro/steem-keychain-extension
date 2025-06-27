@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Switch } from 'pretty-checkbox-react';
 import React from 'react';
 import { SVGIcons } from 'src/common-ui/icons.enum';
@@ -26,7 +27,7 @@ const SwitchComponent = (props: SwitchProps) => {
           <span>
             {props.skipLeftTranslation
               ? props.leftValueLabel
-              : chrome.i18n.getMessage(props.leftValueLabel)}
+              : getMessage(props.leftValueLabel)}
           </span>
         )}
         <Switch
@@ -45,7 +46,7 @@ const SwitchComponent = (props: SwitchProps) => {
           <span>
             {props.skipRightTranslation
               ? props.rightValueLabel
-              : chrome.i18n.getMessage(props.rightValueLabel)}
+              : getMessage(props.rightValueLabel)}
           </span>
         )}
       </div>
@@ -54,7 +55,7 @@ const SwitchComponent = (props: SwitchProps) => {
         <div className="hint">
           {props.skipHintTranslation
             ? props.hint
-            : chrome.i18n.getMessage(props.hint)}
+            : getMessage(props.hint)}
         </div>
       )}
     </div>

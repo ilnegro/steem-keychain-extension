@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { GlobalProperties } from '@interfaces/global-properties.interface';
 import {
   ProducerReward,
@@ -19,7 +20,7 @@ const ProducerRewardTransaction = ({
   globalProperties,
 }: PropsFromRedux & WithdrawSavingsTransactionProps) => {
   const getDetail = () => {
-    return chrome.i18n.getMessage('popup_html_wallet_info_producer_reward', [
+    return getMessage('popup_html_wallet_info_producer_reward', [
       FormatUtils.toSP(
         transaction.vesting_shares.toString(),
         globalProperties.globals,

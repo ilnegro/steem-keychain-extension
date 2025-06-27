@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 import ButtonComponent from 'src/common-ui/button/button.component';
 import { SVGIcons } from 'src/common-ui/icons.enum';
@@ -17,7 +18,7 @@ const DialogError = ({ data }: Props) => {
       <div className="message-card">
         <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
         <div className="title">
-          {chrome.i18n.getMessage('message_container_title_fail')}
+          {getMessage('message_container_title_fail')}
         </div>
         <div className="message">
           {data.msg.display_msg.split(/<br\s?\/?>/g).map((msg, index) => (

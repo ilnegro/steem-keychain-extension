@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React, { useEffect, useRef, useState } from 'react';
 import Select, { SelectRenderer } from 'react-dropdown-select';
 import { CustomSelectItemComponent } from 'src/common-ui/custom-select/custom-select-item.component';
@@ -124,7 +125,7 @@ export function ComplexeCustomSelect<T extends OptionItem>(
         <div className="label">
           {itemProps.skipLabelTranslation
             ? itemProps.label
-            : chrome.i18n.getMessage(itemProps.label)}
+            : getMessage(itemProps.label)}
         </div>
       )}
       <Select

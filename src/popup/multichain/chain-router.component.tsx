@@ -15,7 +15,7 @@ import { HiveAppComponent } from '@popup/steem/steem-app.component';
 import MkUtils from '@popup/steem/utils/mk.utils';
 import { BackgroundCommand } from '@reference-data/background-message-key.enum';
 import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { MessageContainerComponent } from 'src/common-ui/message-container/message-container.component';
 import { ModalComponent } from 'src/common-ui/modal/modal.component';
@@ -37,6 +37,8 @@ const ChainRouter = ({
   resetMessage,
   modal,
 }: Props & PropsFromRedux) => {
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
   useEffect(() => {
     PopupUtils.fixPopupOnMacOs();
     initAutoLock();
@@ -50,6 +52,7 @@ const ChainRouter = ({
       setMk(mkFromStorage, false);
     }
   };
+
   const checkIfHasFinishedSignup = async () => {
     let hasFinishedSignup: boolean =
       (await LocalStorageUtils.getValueFromLocalStorage(
@@ -84,7 +87,7 @@ const ChainRouter = ({
       if (!hasFinishedSignup) {
         return <SignUpComponent />;
       } else {
-        return <SignInRouterComponent />;
+        return <SignInRouterComponent setIsUnlocked={setIsUnlocked} />;
       }
     } else {
       switch (selectedChain) {

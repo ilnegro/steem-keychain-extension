@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createPopup } from '@background/requests/dialog-lifecycle';
 import { RequestsHandler } from '@background/requests/request-handler';
 import { KeychainRequest } from '@interfaces/keychain.interface';
@@ -18,8 +19,8 @@ export const unlockWallet = (
         error: 'locked',
         result: null,
         data: request,
-        message: await chrome.i18n.getMessage('bgd_auth_locked'),
-        display_msg: await chrome.i18n.getMessage('bgd_auth_locked_desc'),
+        message: await getMessage('bgd_auth_locked'),
+        display_msg: await getMessage('bgd_auth_locked_desc'),
       },
       tab,
       domain,

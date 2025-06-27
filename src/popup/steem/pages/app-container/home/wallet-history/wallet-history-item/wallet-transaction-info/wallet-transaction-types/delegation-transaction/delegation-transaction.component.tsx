@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Delegation } from '@interfaces/transaction.interface';
 import { RootState } from '@popup/multichain/store';
 import { GenericTransactionComponent } from '@popup/steem/pages/app-container/home/wallet-history/wallet-history-item/wallet-transaction-info/wallet-transaction-types/generic-transaction/generic-transaction.component';
@@ -17,24 +18,24 @@ const DelegationTransaction = ({
   const getDetail = () => {
     if (activeAccountName === transaction.delegator) {
       if (parseFloat(transaction.amount.split(' ')[0]) === 0) {
-        return chrome.i18n.getMessage(
+        return getMessage(
           'popup_html_wallet_info_cancel_delegation_out',
           [transaction.delegatee],
         );
       } else {
-        return chrome.i18n.getMessage('popup_html_wallet_info_delegation_out', [
+        return getMessage('popup_html_wallet_info_delegation_out', [
           FormatUtils.withCommas(transaction.amount, 3),
           transaction.delegatee,
         ]);
       }
     } else {
       if (parseFloat(transaction.amount.split(' ')[0]) === 0) {
-        return chrome.i18n.getMessage(
+        return getMessage(
           'popup_html_wallet_info_cancel_delegation_in',
           [transaction.delegator],
         );
       } else {
-        return chrome.i18n.getMessage('popup_html_wallet_info_delegation_in', [
+        return getMessage('popup_html_wallet_info_delegation_in', [
           transaction.delegator,
           transaction.amount,
         ]);

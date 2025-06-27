@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React, { useEffect, useState } from 'react';
 import { PreloadedImage } from 'src/common-ui/preloaded-image/preloaded-image.component';
 import {
@@ -45,10 +46,10 @@ const PortfolioTable = ({ data, tableColumnsHeaders }: Props) => {
                 );
               })}
               <th className="table-header total-column">
-                {chrome.i18n.getMessage('portfolio_table_column_total_hive')}
+                {getMessage('portfolio_table_column_total_hive')}
               </th>
               <th className="table-header total-column">
-                {chrome.i18n.getMessage(
+                {getMessage(
                   'portfolio_table_column_sticky_total_usd',
                 )}
               </th>
@@ -92,7 +93,7 @@ const PortfolioTable = ({ data, tableColumnsHeaders }: Props) => {
             })}
             <tr>
               <td className="header-total">
-                {chrome.i18n.getMessage('portfolio_table_column_sticky_totals')}
+                {getMessage('portfolio_table_column_sticky_totals')}
               </td>
               {totals.map(({ symbol, balance }) => {
                 return (
@@ -110,7 +111,7 @@ const PortfolioTable = ({ data, tableColumnsHeaders }: Props) => {
             </tr>
             <tr>
               <td className="header-total">
-                {chrome.i18n.getMessage(
+                {getMessage(
                   'portfolio_table_column_sticky_total_usd',
                 )}
               </td>

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   addToLoadingList,
   removeFromLoadingList,
@@ -50,6 +51,7 @@ const ExportTransactions = ({
     try {
       await ExportTransactionUtils.downloadTransactions(
         activeAccount.name!,
+		'STEEM',
         startDate,
         endDate,
         (percentage) => {
@@ -73,7 +75,7 @@ const ExportTransactions = ({
       <div
         className="introduction"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage(
+          __html: getMessage(
             'popup_html_pref_export_transactions_info',
           ),
         }}

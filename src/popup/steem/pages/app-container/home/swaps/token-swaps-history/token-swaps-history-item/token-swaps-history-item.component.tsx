@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setInfoMessage } from '@popup/multichain/actions/message.actions';
 import { RootState } from '@popup/multichain/store';
 import { ISwap, SwapStatus } from '@steempro/steem-keychain-commons';
@@ -27,18 +28,18 @@ const TokenSwapsHistoryItem = ({ swap, setInfoMessage }: PropsFromRedux) => {
     switch (status) {
       case SwapStatus.PENDING:
         return transferInitiated
-          ? chrome.i18n.getMessage('swap_status_pending')
-          : chrome.i18n.getMessage('swap_transfer_not_sent');
+          ? getMessage('swap_status_pending')
+          : getMessage('swap_transfer_not_sent');
       case SwapStatus.COMPLETED:
-        return chrome.i18n.getMessage('swap_status_completed');
+        return getMessage('swap_status_completed');
       case SwapStatus.CANCELED_DUE_TO_ERROR:
-        return chrome.i18n.getMessage('swap_status_canceled_due_to_error');
+        return getMessage('swap_status_canceled_due_to_error');
       case SwapStatus.FUNDS_RETURNED:
-        return chrome.i18n.getMessage('swap_status_returned');
+        return getMessage('swap_status_returned');
       case SwapStatus.REFUNDED_SLIPPAGE:
-        return chrome.i18n.getMessage('swap_status_refunded');
+        return getMessage('swap_status_refunded');
       case SwapStatus.STARTED:
-        return chrome.i18n.getMessage('swap_status_started');
+        return getMessage('swap_status_started');
     }
   };
 
@@ -77,7 +78,7 @@ const TokenSwapsHistoryItem = ({ swap, setInfoMessage }: PropsFromRedux) => {
     return `${getStatusMessage(swap.status, swap.transferInitiated)}
       <br/> ${
         [SwapStatus.PENDING, SwapStatus.STARTED].includes(swap.status)
-          ? chrome.i18n.getMessage('swap_last_update', [
+          ? getMessage('swap_last_update', [
               moment(swap.updatedAt).format('YYYY-MM-DD HH:mm:ss'),
             ])
           : moment(swap.updatedAt).format('YYYY-MM-DD HH:mm:ss')
@@ -158,7 +159,7 @@ const TokenSwapsHistoryItem = ({ swap, setInfoMessage }: PropsFromRedux) => {
             {!!swap.fee && (
               <div className="step">
                 <div className="step-number">
-                  {chrome.i18n.getMessage('swap_fee')}
+                  {getMessage('swap_fee')}
                 </div>{' '}
                 <div className="details">
                   <div className="description">

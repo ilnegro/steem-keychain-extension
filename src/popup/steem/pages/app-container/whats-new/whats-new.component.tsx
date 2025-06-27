@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   Feature,
   WhatsNewContent,
@@ -80,7 +81,7 @@ const WhatsNew = ({ onOverlayClick, content }: Props) => {
     return (
       <PopupContainer data-testid="whats-new-popup" className="whats-new">
         <div className="popup-title">
-          {chrome.i18n.getMessage('popup_html_whats_new', [content.version])}
+          {getMessage('popup_html_whats_new', [content.version])}
         </div>
         {images && (
           <Carousel
@@ -105,7 +106,7 @@ const WhatsNew = ({ onOverlayClick, content }: Props) => {
                   className="read-more-link"
                   onClick={() => handleOnClick(content, feature)}>
                   {feature.overrideReadMoreLabel ??
-                    chrome.i18n.getMessage('html_popup_read_more')}
+                    getMessage('html_popup_read_more')}
                 </a>
               </div>
             ))}

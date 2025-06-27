@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypes,
   KeychainKeyTypesLC,
@@ -65,18 +66,19 @@ const Operation = ({
 
   const saveIsMultisig = async () => {
     if (useMultisig) {
-      LocalStorageUtils.getValueFromLocalStorage(
+      const data = await LocalStorageUtils.getValueFromLocalStorage(
         LocalStorageKeyEnum.__REQUEST_HANDLER,
-      ).then((data) => {
+      );
+      if (data) {
         data.isMultisig = true;
-
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.__REQUEST_HANDLER,
           data,
         );
-      });
+      }
     }
   };
+
   const checkForMultsig = async () => {
     let useMultisig = false;
     const name = (username || data.username)!;
@@ -201,7 +203,7 @@ const Operation = ({
               className="multisig-message">
               <img src="/assets/images/multisig/logo.png" className="logo" />
               <div className="message">
-                {chrome.i18n.getMessage('multisig_disclaimer_message')}
+                {getMessage('multisig_disclaimer_message')}
               </div>
             </div>
           )}
@@ -238,7 +240,7 @@ const Operation = ({
                   return { ...old, [botName]: value };
                 });
               }}
-              label={chrome.i18n.getMessage('multisig_bot_two_fa_code', [
+              label={getMessage('multisig_bot_two_fa_code', [
                 botName,
               ])}
               skipLabelTranslation
@@ -253,7 +255,7 @@ const Operation = ({
           skipTranslation
           title={
             checkboxLabelOverride ||
-            chrome.i18n.getMessage('dialog_no_prompt', [
+            getMessage('dialog_no_prompt', [
               data.type,
               data.username!,
               domain,

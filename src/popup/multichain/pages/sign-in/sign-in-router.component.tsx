@@ -7,13 +7,21 @@ import { connect, ConnectedProps } from 'react-redux';
 import { PageTitleComponent } from 'src/common-ui/page-title/page-title.component';
 import { Screen } from 'src/reference-data/screen.enum';
 
+interface SignInRouterOwnProps {
+  setIsUnlocked?: (value: boolean) => void;
+}
+
+interface SignInRouterProps extends PropsFromRedux, SignInRouterOwnProps {}
+
 const SignInRouter = ({
   currentPage,
   navigateTo,
   titleProperties,
   hasTitle,
-}: PropsFromRedux) => {
+  setIsUnlocked,
+}: SignInRouterProps) => {
   useEffect(() => {
+    // console.log('[SignInRouter] Navigating to SIGN_IN_PAGE');
     navigateTo(Screen.SIGN_IN_PAGE);
   }, []);
 
@@ -22,16 +30,22 @@ const SignInRouter = ({
       case Screen.RESET_PASSWORD_PAGE:
         return <ResetPasswordPageComponent />;
       default:
-        return <SignInComponent />;
+        return <SignInComponent setIsUnlocked={setIsUnlocked} />;
     }
   };
+
   return (
     <div
       className="sign-in-router-page"
       style={{
+        width: '100%',
         height: '100%',
-        display: 'grid',
-        gridTemplateRows: hasTitle ? '70px 1fr' : '1fr',
+        maxWidth: '400px',
+        maxHeight: '600px',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#fff',
+        boxSizing: 'border-box',
       }}>
       {hasTitle && (
         <PageTitleComponent
@@ -39,16 +53,22 @@ const SignInRouter = ({
           titleParams={titleProperties.titleParams}
           skipTitleTranslation={titleProperties.skipTitleTranslation}
           isBackButtonEnabled={titleProperties.isBackButtonEnabled}
-          isCloseButtonDisabled={
-            titleProperties.isCloseButtonDisabled
-          }></PageTitleComponent>
+          isCloseButtonDisabled={titleProperties.isCloseButtonDisabled}
+          style={{
+            width: '100%',
+            height: '70px',
+            flexShrink: 0,
+          }}
+        />
       )}
       <div
         className="page-content"
         style={{
-          overflow: 'auto',
+          width: '100%',
+          flex: 1,
           display: 'flex',
           flexDirection: 'column',
+          boxSizing: 'border-box',
         }}>
         {renderSignInPage(currentPage!)}
       </div>

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { Token } from '@interfaces/tokens.interface';
 import { navigateToWithParams } from '@popup/multichain/actions/navigation.actions';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
@@ -23,6 +24,7 @@ const TokensFilter = ({
   const [filterValue, setFilterValue] = useState('');
   const [filteredTokens, setFilteredTokens] = useState<Token[]>([]);
   const [hiddenTokens, setHiddenTokens] = useState<string[]>([]);
+
   useEffect(() => {
     setTitleContainerProperties({
       title: 'popup_html_tokens_available',
@@ -40,7 +42,7 @@ const TokensFilter = ({
     );
   };
 
-  const toggleHiddenToken = (symbol: string) => {
+  const toggleHiddenToken = async (symbol: string) => {
     let newHiddenTokens = hiddenTokens;
     if (hiddenTokens.includes(symbol)) {
       newHiddenTokens = newHiddenTokens.filter(
@@ -50,7 +52,7 @@ const TokensFilter = ({
       newHiddenTokens = [...newHiddenTokens, symbol];
     }
     setHiddenTokens(newHiddenTokens);
-    LocalStorageUtils.saveValueInLocalStorage(
+    await LocalStorageUtils.saveValueInLocalStorage(
       LocalStorageKeyEnum.HIDDEN_TOKENS,
       newHiddenTokens,
     );
@@ -76,7 +78,7 @@ const TokensFilter = ({
         data-testid="tokens-filter-disclaimer"
         className="caption"
         dangerouslySetInnerHTML={{
-          __html: chrome.i18n.getMessage('popup_html_tokens_settings_text'),
+          __html: getMessage('popup_html_tokens_settings_text'),
         }}></div>
 
       <InputComponent
@@ -129,14 +131,14 @@ const TokensFilter = ({
                         {token.issuer && (
                           <div className="issued-by">
                             {token.symbol}{' '}
-                            {chrome.i18n.getMessage('popup_token_issued_by', [
+                            {getMessage('popup_token_issued_by', [
                               token.issuer,
                             ])}
                           </div>
                         )}
                       </div>
                       <div className="supply">
-                        {chrome.i18n.getMessage('popup_token_supply')}
+                        {getMessage('popup_token_supply')}
                         {' : '}
                         {FormatUtils.nFormatter(parseFloat(token.supply), 3)}/
                         {FormatUtils.nFormatter(parseFloat(token.maxSupply), 3)}

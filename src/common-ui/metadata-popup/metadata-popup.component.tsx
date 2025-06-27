@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TransactionOptionsMetadata } from '@interfaces/keys.interface';
 import React, { useState } from 'react';
 import ButtonComponent, {
@@ -40,13 +41,13 @@ export const MetadataPopup = ({
         {metadataForm.twoFACodes !== undefined && (
           <div className="two-fa-codes">
             <div className="section-title">
-              {chrome.i18n.getMessage('multisig_bot_two_fa_codes')}
+              {getMessage('multisig_bot_two_fa_codes')}
             </div>
             {Object.keys(metadataForm.twoFACodes).map((botName: string) => (
               <InputComponent
                 type={InputType.TEXT}
                 key={`bot-${botName}`}
-                label={chrome.i18n.getMessage('multisig_bot_two_fa_code', [
+                label={getMessage('multisig_bot_two_fa_code', [
                   botName,
                 ])}
                 skipLabelTranslation

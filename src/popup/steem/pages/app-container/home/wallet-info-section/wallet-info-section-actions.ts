@@ -63,6 +63,15 @@ export const WalletInfoSectionActions = (
         nextScreenParams: { selectedCurrency: 'steem' },
       },
     ];
+  } else if (tokenSymbol === 'TIME') {
+    return [
+      {
+        label: 'popup_html_send',
+        icon: SVGIcons.WALLET_SEND,
+        nextScreen: Screen.TRANSFER_FUND_PAGE,
+        nextScreenParams: { selectedCurrency: 'time' },
+      },
+    ];
   } else if (tokenSymbol === 'SP') {
     return [
       {

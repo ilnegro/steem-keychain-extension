@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   BackgroundMessage,
   MultisigDialogMessage,
@@ -136,7 +137,7 @@ const MultisigDialog = () => {
                 data.success ? SVGIcons.MESSAGE_SUCCESS : SVGIcons.MESSAGE_ERROR
               }></SVGIcon>
             <div className="message">
-              {chrome.i18n.getMessage(data.message)}
+              {getMessage(data.message)}
             </div>
             <div className="fill-space"></div>
             <ButtonComponent
@@ -217,7 +218,7 @@ const MultisigDialog = () => {
                 data.success ? SVGIcons.MESSAGE_SUCCESS : SVGIcons.MESSAGE_ERROR
               }></SVGIcon>
             <div className="message">
-              {chrome.i18n.getMessage(data.message)}
+              {getMessage(data.message)}
             </div>
             <a href={`https://hivehub.dev/tx/${data.txId}`} target="__blank">
               {data.txId}
@@ -246,7 +247,7 @@ const MultisigDialog = () => {
         return (
           <DialogError
             data={{
-              msg: { display_msg: chrome.i18n.getMessage(data.message) },
+              msg: { display_msg: getMessage(data.message) },
             }}
           />
         );
@@ -265,14 +266,14 @@ const MultisigDialog = () => {
     <div className={`theme ${theme} multisig-dialog`}>
       <div className="title-panel">
         <img className="multisig-logo" src="/assets/images/multisig/logo.png" />
-        <div className="title">{chrome.i18n.getMessage('multisig')} </div>
+        <div className="title">{getMessage('multisig')} </div>
       </div>
       {content && (
         <>
           <div
             className="caption"
             dangerouslySetInnerHTML={{
-              __html: chrome.i18n.getMessage(caption),
+              __html: getMessage(caption),
             }}></div>
 
           {content}

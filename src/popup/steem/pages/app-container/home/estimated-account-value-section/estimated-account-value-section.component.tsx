@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { HiveInternalMarketLockedInOrders } from '@interfaces/steem-market.interface';
 import { RootState } from '@popup/multichain/store';
 import AccountUtils from '@popup/steem/utils/account.utils';
@@ -95,7 +96,7 @@ const EstimatedAccountValueSection = ({
     });
   };
 
-  const onClickEstimatedValue = () => {
+  const onClickEstimatedValue = async () => {
     const newAccountValueType =
       accountValueType === AccountValueType.DOLLARS
         ? AccountValueType.STEEM
@@ -103,11 +104,12 @@ const EstimatedAccountValueSection = ({
         ? AccountValueType.HIDDEN
         : AccountValueType.DOLLARS;
     setAccountValueType(newAccountValueType);
-    LocalStorageUtils.saveValueInLocalStorage(
+    await LocalStorageUtils.saveValueInLocalStorage(
       LocalStorageKeyEnum.ACCOUNT_VALUE_TYPE,
       newAccountValueType,
     );
   };
+
   const getPrefix = () => {
     return accountValueType === AccountValueType.DOLLARS ? '$' : '';
   };
@@ -125,7 +127,7 @@ const EstimatedAccountValueSection = ({
             delayShow={500}
             position="bottom">
             <div className="label">
-              {chrome.i18n.getMessage('popup_html_estimation')}
+              {getMessage('popup_html_estimation')}
             </div>
           </CustomTooltip>
         </div>

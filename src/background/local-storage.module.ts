@@ -7,6 +7,7 @@ import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
 import LocalStorageUtils from 'src/utils/localStorage.utils';
 
 const CURRENT_LOCAL_STORAGE_VERSION = 5;
+
 const checkAndUpdateLocalStorage = async () => {
   const localStorageVersion = await LocalStorageUtils.getValueFromLocalStorage(
     LocalStorageKeyEnum.LOCAL_STORAGE_VERSION,
@@ -18,18 +19,19 @@ const checkAndUpdateLocalStorage = async () => {
         LocalStorageKeyEnum.AUTOLOCK,
       );
       if (autolock) {
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.AUTOLOCK,
-          JSON.parse(autolock),
+          autolock, // Già JSON.parsed da LocalStorageUtils
         );
       }
+
       const rpcList = await LocalStorageUtils.getValueFromLocalStorage(
         LocalStorageKeyEnum.RPC_LIST,
       );
       if (rpcList) {
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.RPC_LIST,
-          JSON.parse(rpcList),
+          rpcList,
         );
       }
 
@@ -44,23 +46,23 @@ const checkAndUpdateLocalStorage = async () => {
 
       if (
         !activeRpc ||
-        activeRpc.uri === 'DEFAULT' ||
+        (typeof activeRpc === 'object' && activeRpc.uri === 'DEFAULT') ||
         activeRpc === 'DEFAULT'
       ) {
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.SWITCH_RPC_AUTO,
           true,
         );
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.CURRENT_RPC,
           RpcUtils.getFullList()[0],
         );
       } else {
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.CURRENT_RPC,
           activeRpc,
         );
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.SWITCH_RPC_AUTO,
           false,
         );
@@ -70,17 +72,17 @@ const checkAndUpdateLocalStorage = async () => {
         LocalStorageKeyEnum.NO_CONFIRM,
       );
       if (noConfirm) {
-        LocalStorageUtils.saveValueInLocalStorage(
+        await LocalStorageUtils.saveValueInLocalStorage(
           LocalStorageKeyEnum.NO_CONFIRM,
-          JSON.parse(noConfirm),
+          noConfirm,
         );
       }
     } finally {
       await saveNewLocalStorageVersion(2);
-      checkAndUpdateLocalStorage();
+      await checkAndUpdateLocalStorage();
     }
   } else {
-    switch (localStorageVersion) {
+    switch (parseInt(localStorageVersion)) {
       case 2: {
         let activeRpc: Rpc = await LocalStorageUtils.getValueFromLocalStorage(
           LocalStorageKeyEnum.CURRENT_RPC,
@@ -91,23 +93,25 @@ const checkAndUpdateLocalStorage = async () => {
             'https://api.pharesim.me/',
             'https://rpc.ausbit.dev',
             'https://hived.privex.io/',
-          ].includes(activeRpc.uri)
+          ].includes(activeRpc?.uri)
         ) {
-          LocalStorageUtils.saveValueInLocalStorage(
+          await LocalStorageUtils.saveValueInLocalStorage(
             LocalStorageKeyEnum.CURRENT_RPC,
             { uri: 'https://api.steemit.com', testnet: false } as Rpc,
           );
         }
-        saveNewLocalStorageVersion(3);
+        await saveNewLocalStorageVersion(3);
+        await checkAndUpdateLocalStorage();
+        break;
       }
       case 3: {
         const actualFavoriteUsers: any =
           await LocalStorageUtils.getValueFromLocalStorage(
             LocalStorageKeyEnum.FAVORITE_USERS,
           );
-        //check on format
+        // Check on format
         let oldFormat = true;
-        //validation
+        // Validation
         if (actualFavoriteUsers) {
           for (const [key, value] of Object.entries(actualFavoriteUsers)) {
             if (Array.isArray(value)) {
@@ -127,11 +131,11 @@ const checkAndUpdateLocalStorage = async () => {
           const localAccounts =
             await BgdAccountsUtils.getAccountsFromLocalStorage(mk);
           if (localAccounts) {
-            //initialize object.
+            // Initialize object
             for (const localAccount of localAccounts) {
               favoriteUserData[localAccount.name] = [];
             }
-            //fill the object initialized
+            // Fill the object initialized
             if (actualFavoriteUsers) {
               for (const [key, value] of Object.entries(
                 actualFavoriteUsers as FavoriteUserItems,
@@ -144,33 +148,38 @@ const checkAndUpdateLocalStorage = async () => {
                 });
               }
             }
-            //save in local storage
-            LocalStorageUtils.saveValueInLocalStorage(
+            // Save in local storage
+            await LocalStorageUtils.saveValueInLocalStorage(
               LocalStorageKeyEnum.FAVORITE_USERS,
               favoriteUserData,
             );
           }
-          saveNewLocalStorageVersion(4);
+          await saveNewLocalStorageVersion(4);
+          await checkAndUpdateLocalStorage();
         }
+        break;
       }
       case 4: {
         const accounts = await LocalStorageUtils.getValueFromLocalStorage(
           LocalStorageKeyEnum.ACCOUNTS,
         );
 
-        if (accounts && accounts.length)
+        if (accounts && accounts.length) {
           await LocalStorageUtils.saveValueInLocalStorage(
             LocalStorageKeyEnum.HAS_FINISHED_SIGNUP,
             true,
           );
-        saveNewLocalStorageVersion(5);
+        }
+        await saveNewLocalStorageVersion(5);
+        await checkAndUpdateLocalStorage();
+        break;
       }
     }
   }
 };
 
-const saveNewLocalStorageVersion = (version: number) => {
-  LocalStorageUtils.saveValueInLocalStorage(
+const saveNewLocalStorageVersion = async (version: number) => {
+  await LocalStorageUtils.saveValueInLocalStorage(
     LocalStorageKeyEnum.LOCAL_STORAGE_VERSION,
     version,
   );

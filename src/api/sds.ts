@@ -39,11 +39,16 @@ export function sdsWrapper(api: string): string {
   return Config.sds_base_url + api;
 }
 
+export function timeWrapper(api: string): string {
+  return api;
+}
+
 export async function fetchSds<T>(
   api: string,
   options?: RequestInit,
 ): Promise<T> {
-  const response = await fetch(sdsWrapper(api), {
+//  const response = await fetch(sdsWrapper(api), {
+  const response = await fetch(timeWrapper(api), {
     keepalive: true,
     ...options,
   });

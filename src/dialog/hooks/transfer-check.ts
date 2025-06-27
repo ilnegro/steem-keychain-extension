@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   RequestSendToken,
   RequestTransfer,
@@ -19,7 +20,7 @@ export const useTransferCheck = (
     getPhishingAccounts().then((accs: string[]) => {
       let warning;
       if (accs.includes(data.to)) {
-        warning = chrome.i18n.getMessage('popup_warning_phishing', [data.to]);
+        warning = getMessage('popup_warning_phishing', [data.to]);
       } else {
         warning = TransferUtils.getTransferWarning(
           data.to,

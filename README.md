@@ -12,7 +12,7 @@ Steem Keychain also lets the user create and manage their own identities, so whe
 
 #### Clone the repository
 
-`git clone https://github.com/faisalamin9696/steem-keychain-extension`
+`git clone https://github.com/ilnegro/steem-keychain-app`
 
 #### Install the modules
 

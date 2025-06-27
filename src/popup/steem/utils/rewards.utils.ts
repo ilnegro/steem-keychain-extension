@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { ActiveAccount } from '@interfaces/active-account.interface';
 import { TransactionOptions } from '@interfaces/keys.interface';
 import { TransactionResult } from '@interfaces/steem-tx.interface';
@@ -48,7 +49,7 @@ const getAvailableRewards = (activeAccount: ActiveAccount) => {
   let reward_vests = activeAccount.account.reward_vesting_balance;
   const reward_sp = FormatUtils.toSP(reward_vests as string) + ' SP';
   let reward_steem = activeAccount.account.reward_steem_balance;
-  let rewardText = chrome.i18n.getMessage('popup_account_redeem') + ':<br>';
+  let rewardText = getMessage('popup_account_redeem') + ':<br>';
   if (FormatUtils.getValFromString(reward_sp) != 0)
     rewardText += reward_sp + ' / ';
   if (FormatUtils.getValFromString(reward_sbd as string) != 0)

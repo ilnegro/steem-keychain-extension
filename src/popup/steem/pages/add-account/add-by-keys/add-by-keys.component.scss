@@ -5,7 +5,7 @@
   height: 100%;
   .caption {
     @include caption();
-    font-size: a {
+    font-size: 10px {
       color: $sky;
     }
   }

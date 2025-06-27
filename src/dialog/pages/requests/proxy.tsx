@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { RequestId, RequestProxy } from '@interfaces/keychain.interface';
 import { Rpc } from '@interfaces/rpc.interface';
 import React from 'react';
@@ -27,7 +28,7 @@ const Proxy = (props: Props) => {
 
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_proxy')}
+      title={getMessage('dialog_title_proxy')}
       {...props}
       {...anonymousProps}>
       {renderUsername()}
@@ -38,7 +39,7 @@ const Proxy = (props: Props) => {
         content={
           data.proxy.length
             ? `@${data.proxy}`
-            : chrome.i18n.getMessage('popup_none')
+            : getMessage('popup_none')
         }
       />
     </Operation>

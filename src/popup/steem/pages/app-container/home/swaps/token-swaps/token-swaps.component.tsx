@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeychainKeyTypesLC } from '@interfaces/keychain.interface';
 import { TransactionOptions } from '@interfaces/keys.interface';
 import {
@@ -340,7 +341,7 @@ const TokenSwaps = ({
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage('html_popup_swap_token_confirm_message'),
+      message: getMessage('html_popup_swap_token_confirm_message'),
       fields: fields,
       title: 'html_popup_swap_token_confirm_title',
       formParams: getFormParams(),
@@ -451,7 +452,7 @@ const TokenSwaps = ({
         <div>
           <div className="caption">
             {' '}
-            {chrome.i18n.getMessage('swap_no_token')}
+            {getMessage('swap_no_token')}
           </div>
         </div>
       </div>
@@ -462,11 +463,11 @@ const TokenSwaps = ({
         {!loading && !underMaintenance && !serviceUnavailable && (
           <>
             <div className="caption">
-              {chrome.i18n.getMessage('swap_caption')}
+              {getMessage('swap_caption')}
             </div>
 
             <div className="top-row">
-              <div className="fee">{chrome.i18n.getMessage('swap_fee')}: 0</div>
+              <div className="fee">{getMessage('swap_fee')}: 0</div>
               <SVGIcon
                 className="swap-history-button"
                 icon={SVGIcons.SWAPS_HISTORY}
@@ -500,7 +501,7 @@ const TokenSwaps = ({
                     />
                   </div>
                   <span className="available">
-                    {chrome.i18n.getMessage('popup_html_available')} :{' '}
+                    {getMessage('popup_html_available')} :{' '}
                     {startToken?.value.balance
                       ? FormatUtils.withCommas(startToken?.value.balance)
                       : ''}
@@ -559,9 +560,9 @@ const TokenSwaps = ({
                       <>
                         {
                           <span>
-                            {chrome.i18n.getMessage(
+                            {getMessage(
                               'swap_autorefresh',
-                              autoRefreshCountdown + '',
+                              [autoRefreshCountdown + ''],
                             )}
                           </span>
                         }
@@ -576,7 +577,7 @@ const TokenSwaps = ({
                       setIsAdvancedParametersOpen(!isAdvancedParametersOpen)
                     }>
                     <div className="title">
-                      {chrome.i18n.getMessage('swap_advanced_parameters')}
+                      {getMessage('swap_advanced_parameters')}
                     </div>
                     <SVGIcon
                       icon={SVGIcons.GLOBAL_ARROW}
@@ -619,7 +620,7 @@ const TokenSwaps = ({
           <div className="maintenance-mode">
             <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
             <div className="text">
-              {chrome.i18n.getMessage('swap_under_maintenance')}
+              {getMessage('swap_under_maintenance')}
             </div>
           </div>
         )}

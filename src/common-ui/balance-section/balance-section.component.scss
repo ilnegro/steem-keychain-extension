@@ -11,4 +11,8 @@
     @include poppins700(24px);
     color: var(--main-font-color);
   }
+  .user {
+    @include poppins700(20px);
+    color: var(--main-font-color);
+  }
 }

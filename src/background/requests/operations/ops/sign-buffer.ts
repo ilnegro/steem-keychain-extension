@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
 import {
@@ -33,7 +34,7 @@ export const signBuffer = async (
   } catch (err) {
     Logger.error(err);
     error = err;
-    err_message = await chrome.i18n.getMessage(
+    err_message = await getMessage(
       (err as KeychainError).message,
       (err as KeychainError).messageParams,
     );
@@ -42,8 +43,8 @@ export const signBuffer = async (
       error,
       signed,
       data,
-      await chrome.i18n.getMessage('bgd_ops_sign_success'),
-      err_message ?? (await chrome.i18n.getMessage('bgd_ops_sign_error')),
+      await getMessage('bgd_ops_sign_success'),
+      err_message ?? (await getMessage('bgd_ops_sign_error')),
       publicKey,
     );
   }

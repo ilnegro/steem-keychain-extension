@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setInfoMessage } from '@popup/multichain/actions/message.actions';
 import {
   goBack,
@@ -74,11 +75,11 @@ const AccountKeysListItem = ({
   };
 
   const handleClickOnRemoveKey = () => {
-    const keyTypeLabel = chrome.i18n.getMessage(keyType.toLowerCase());
+    const keyTypeLabel = getMessage(keyType.toLowerCase());
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: null,
-      message: chrome.i18n.getMessage('html_popup_delete_key_confirm', [
+      message: getMessage('html_popup_delete_key_confirm', [
         keyTypeLabel,
         activeAccount.name!,
       ]),
@@ -91,8 +92,7 @@ const AccountKeysListItem = ({
         if (actualNoKeyCheck && actualNoKeyCheck[activeAccount.name!]) {
           delete actualNoKeyCheck[activeAccount.name!];
         }
-        LocalStorageUtils.saveValueInLocalStorage(
-          LocalStorageKeyEnum.NO_KEY_CHECK,
+    await LocalStorageUtils.saveValueInLocalStorage(          LocalStorageKeyEnum.NO_KEY_CHECK,
           actualNoKeyCheck,
         );
         removeKey(keyType);
@@ -115,7 +115,7 @@ const AccountKeysListItem = ({
     <div className="account-keys-list-item">
       <div className={`top-panel ${!privateKey && !publicKey ? 'no-key' : ''}`}>
         <div className="key-name-container">
-          <span className="key-name">{chrome.i18n.getMessage(keyName)} </span>
+          <span className="key-name">{getMessage(keyName)} </span>
           {isWrongKey && (
             <CustomTooltip
               message="popup_html_wrong_key_tooltip_text"
@@ -162,7 +162,7 @@ const AccountKeysListItem = ({
                     : copyToClipboard(privateKey)
                 }>
                 {isPrivateHidden
-                  ? chrome.i18n.getMessage('popup_accounts_reveal_private')
+                  ? getMessage('popup_accounts_reveal_private')
                   : `${privateKey?.substring(
                       SUBSTRING_LENGTH,
                       0,
@@ -182,7 +182,7 @@ const AccountKeysListItem = ({
               data-testid="using-authorized-account"
               className="using-authorized-account"
               onClick={() => goToAccount(publicKey)}>
-              {chrome.i18n.getMessage('html_popup_using_authorized_account', [
+              {getMessage('html_popup_using_authorized_account', [
                 publicKey,
               ])}
             </div>

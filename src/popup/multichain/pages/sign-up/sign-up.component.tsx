@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { setMk } from '@popup/multichain/actions/mk.actions';
 import { navigateTo } from '@popup/multichain/actions/navigation.actions';
@@ -52,13 +53,10 @@ const SignUp = ({
       <SVGIcon className="logo-white" icon={SVGIcons.KEYCHAIN_FULL_LOGO} />
       <div className="introduction-panel">
         <span className="introduction big first">
-          {chrome.i18n.getMessage('popup_html_unlock1')}
-        </span>
-        <span className="introduction medium second">
-          {chrome.i18n.getMessage('popup_html_unlock2')}
+          {getMessage('popup_html_unlock1')}
         </span>
         <span className="introduction medium lighter third">
-          {chrome.i18n.getMessage('popup_html_unlock3')}
+          {getMessage('popup_html_unlock3')}
         </span>
       </div>
       <div className="inputs-panel">

@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import React from 'react';
 import { SVGIcons } from 'src/common-ui/icons.enum';
 import { SVGIcon } from 'src/common-ui/svg-icon/svg-icon.component';
@@ -32,7 +33,7 @@ const ButtonComponent = (props: ButtonProps) => {
       <div className="button-label">
         {props.skipLabelTranslation
           ? props.label
-          : chrome.i18n.getMessage(props.label, props.labelParams)}{' '}
+          : getMessage(props.label, props.labelParams)}{' '}
       </div>
       {props.logo && <SVGIcon icon={props.logo} className="logo" />}
     </button>

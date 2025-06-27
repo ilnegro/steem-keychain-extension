@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { AutoCompleteValues } from '@interfaces/autocomplete.interface';
 import {
@@ -162,7 +163,7 @@ const TokensTransfer = ({
     let memoField = form.memo;
     if (form.memo.length) {
       if (form.memo.startsWith('#')) {
-        memoField = `${form.memo} (${chrome.i18n.getMessage(
+        memoField = `${form.memo} (${getMessage(
           'popup_encrypted',
         )})`;
         if (!activeAccount.keys.memo) {
@@ -171,7 +172,7 @@ const TokensTransfer = ({
         }
       }
     } else {
-      memoField = chrome.i18n.getMessage('popup_empty');
+      memoField = getMessage('popup_empty');
     }
 
     const fields = [
@@ -188,14 +189,14 @@ const TokensTransfer = ({
     );
 
     if (phishing.includes(form.receiverUsername)) {
-      warningMessage = chrome.i18n.getMessage('popup_warning_phishing', [
+      warningMessage = getMessage('popup_warning_phishing', [
         form.receiverUsername,
       ]);
     }
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage('popup_html_token_confirm_text'),
+      message: getMessage('popup_html_token_confirm_text'),
       fields: fields,
       warningMessage: warningMessage,
       title: 'popup_html_transfer_tokens',
@@ -281,7 +282,7 @@ const TokensTransfer = ({
       />
 
       <div className="caption">
-        {chrome.i18n.getMessage('popup_html_tokens_send_text')}
+        {getMessage('popup_html_tokens_send_text')}
       </div>
 
       <FormContainer onSubmit={handleSubmit(handleClickOnSend)}>

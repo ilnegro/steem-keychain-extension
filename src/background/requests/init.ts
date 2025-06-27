@@ -28,9 +28,9 @@ export default async (
   requestHandler: RequestsHandler,
 ) => {
   const items: {
-    accounts: string;
+    accounts?: string;
     current_rpc?: Rpc;
-    no_confirm: NoConfirm;
+    no_confirm?: NoConfirm;
   } = await LocalStorageUtils.getMultipleValueFromLocalStorage([
     LocalStorageKeyEnum.ACCOUNTS,
     LocalStorageKeyEnum.NO_CONFIRM,
@@ -64,7 +64,7 @@ export default async (
     await requestHandler.initializeParameters(
       accounts,
       rpc,
-      items.no_confirm || [],
+      items.no_confirm || {},
     );
 
     let account = accounts.find((e) => e.name === username);
@@ -107,7 +107,7 @@ export default async (
           const key = account.keys[typeWif];
           requestHandler.setKeys(key!, publicKey!);
 
-          if (!isWhitelisted(items.no_confirm, req, domain, rpc)) {
+          if (!isWhitelisted(items.no_confirm || {}, req, domain, rpc)) {
             Logic.requestWithConfirmation(
               requestHandler,
               tab!,

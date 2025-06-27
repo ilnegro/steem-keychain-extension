@@ -10,11 +10,11 @@
   }
 
   .text {
-    @include poppins400(14px);
+    @include poppins400(12px);
     color: var(--main-font-color);
   }
   .hint {
-    @include poppins400(14px);
+    @include poppins400(12px);
     color: $lighter-grey;
     margin-left: 32px;
   }

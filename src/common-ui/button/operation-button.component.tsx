@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeychainKeyTypesLC } from '@interfaces/keychain.interface';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import { RootState } from '@popup/multichain/store';
@@ -19,7 +20,7 @@ const OperationButton = ({
   const handleClick = () => {
     if (requiredKey && !activeAccount.keys[requiredKey]) {
       setErrorMessage('popup_missing_key', [
-        chrome.i18n.getMessage(requiredKey),
+        getMessage(requiredKey),
       ]);
     } else {
       onClick();

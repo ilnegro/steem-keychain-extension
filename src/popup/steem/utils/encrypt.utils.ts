@@ -1,36 +1,61 @@
 import CryptoJS from 'crypto-js';
 import md5 from 'md5';
 import Logger from 'src/utils/logger.utils';
+import LocalStorageUtils from 'src/utils/localStorage.utils';
+import { LocalStorageKeyEnum } from '@reference-data/local-storage-key.enum';
 
 const KEY_SIZE = 256;
 const IV_SIZE = 128;
 const ITERATIONS = 100;
 
-const encryptJson = (content: any, encryptPassword: string): string => {
+//const encryptJson = (content: any, encryptPassword: string): string => {
+//  content.hash = md5(content.list);
+//  var msg = encrypt(JSON.stringify(content), encryptPassword);
+//  return msg;
+//};
+
+//const encrypt = (content: string, encryptPassword: string) => {
+//  const salt = CryptoJS.lib.WordArray.random(128 / 8);
+//  const key = CryptoJS.PBKDF2(encryptPassword, salt, {
+
+//  const iv = CryptoJS.lib.WordArray.random(128 / 8);
+
+//  const encrypted = CryptoJS.AES.encrypt(content, key, {
+//    iv: iv,
+//    padding: CryptoJS.pad.Pkcs7,
+//    mode: CryptoJS.mode.CBC,
+//  });
+  // salt, iv will be hex 32 in length
+  // append them to the ciphertext for use  in decryption
+//  const transitmessage = salt.toString() + iv.toString() + encrypted.toString();
+//  return transitmessage;
+//};
+
+const encryptJson = async (content: any): Promise<string> => {
+  const ePass = await LocalStorageUtils.getValueFromSessionStorage(LocalStorageKeyEnum.__MK);
   content.hash = md5(content.list);
-  var msg = encrypt(JSON.stringify(content), encryptPassword);
+  const msg = await encrypt(JSON.stringify(content), ePass);
   return msg;
 };
 
-const encrypt = (content: string, encryptPassword: string) => {
+const encrypt = async (content: string, encryptPassword: string): Promise<string> => {
+  const ePass = await LocalStorageUtils.getValueFromSessionStorage(LocalStorageKeyEnum.__MK);
   const salt = CryptoJS.lib.WordArray.random(128 / 8);
-  const key = CryptoJS.PBKDF2(encryptPassword, salt, {
+  const key = CryptoJS.PBKDF2(ePass, salt, {
     keySize: KEY_SIZE / 32,
     iterations: ITERATIONS,
   });
-
   const iv = CryptoJS.lib.WordArray.random(128 / 8);
-
   const encrypted = CryptoJS.AES.encrypt(content, key, {
     iv: iv,
     padding: CryptoJS.pad.Pkcs7,
     mode: CryptoJS.mode.CBC,
   });
-  // salt, iv will be hex 32 in length
-  // append them to the ciphertext for use  in decryption
-  const transitmessage = salt.toString() + iv.toString() + encrypted.toString();
-  return transitmessage;
+  const encryptedMessage = salt.toString() + iv.toString() + encrypted.toString();
+  return encryptedMessage;
 };
+
+
 
 function decrypt(transitmessage: string, pass: string) {
   var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
@@ -82,12 +107,22 @@ const decryptToJson = (msg: string, pwd: string) => {
   }
 };
 
+const hashPassword = (password: string): string => {
+  try {
+    const hashed = md5(password);
+    return hashed;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const EncryptUtils = {
   encryptJson,
   encrypt,
   decryptToJson,
   decryptToJsonWithoutMD5Check,
   decrypt,
+  hashPassword,
 };
 
 export default EncryptUtils;

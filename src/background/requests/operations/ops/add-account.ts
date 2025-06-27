@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import MkModule from '@background/mk.module';
 import { createMessage } from '@background/requests/operations/operations.utils';
 import { RequestsHandler } from '@background/requests/request-handler';
@@ -71,11 +72,11 @@ export const addAccount = async (
       );
     } else {
       // Error no corresponding keys
-      err = await chrome.i18n.getMessage('bgd_ops_add_account_error');
+      err = await getMessage('bgd_ops_add_account_error');
     }
   } else {
     // Error no such account
-    err = await chrome.i18n.getMessage('bgd_ops_add_account_error_invalid');
+    err = await getMessage('bgd_ops_add_account_error_invalid');
   }
   return await createMessage(
     !!err,
@@ -83,7 +84,7 @@ export const addAccount = async (
     data,
     err
       ? null
-      : await chrome.i18n.getMessage('bgd_ops_add_account', [username]),
+      : await getMessage('bgd_ops_add_account', [username]),
     err,
   );
 };

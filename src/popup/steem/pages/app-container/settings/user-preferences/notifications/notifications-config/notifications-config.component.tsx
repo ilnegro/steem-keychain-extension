@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { KeyType } from '@interfaces/keys.interface';
 import { setErrorMessage } from '@popup/multichain/actions/message.actions';
 import {
@@ -77,7 +78,7 @@ const NotificationConfigPage = ({
           data-testid={`${Screen.SETTINGS_NOTIFICATIONS_CONFIGURATION}-page`}
           className={`notifications-config-page`}>
           <div className="caption">
-            {chrome.i18n.getMessage(
+            {getMessage(
               'html_popup_settings_notifications_caption',
             )}
           </div>
@@ -95,7 +96,7 @@ const NotificationConfigPage = ({
           <div
             className="link-to-advanced-settings"
             onClick={openAdvancedConfiguration}>
-            {chrome.i18n.getMessage('notification_settings_advanced_settings')}
+            {getMessage('notification_settings_advanced_settings')}
           </div>
 
           <div className="fill-space"></div>

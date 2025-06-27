@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { setTitleContainerProperties } from '@popup/multichain/actions/title-container.actions';
 import { RootState } from '@popup/multichain/store';
 import { BuyCoinType } from '@popup/steem/pages/app-container/home/buy-coins/buy-coin-type.enum';
@@ -66,7 +67,7 @@ const BuyCoins = ({
               <SVGIcon icon={item.image} onClick={() => goTo(item.link)} />
               <span className="title">{item.name}</span>
               <span className="description">
-                {chrome.i18n.getMessage(item.description)}
+                {getMessage(item.description)}
               </span>
               <ButtonComponent
                 additionalClass="buy-button"
@@ -79,7 +80,7 @@ const BuyCoins = ({
         )}
         <div className="card exchanges-card">
           <div className="title">
-            {chrome.i18n.getMessage('html_popup_exchanges')}
+            {getMessage('html_popup_exchanges')}
           </div>
           <div className="exchange-list">
             {BuyCoinsListItem(

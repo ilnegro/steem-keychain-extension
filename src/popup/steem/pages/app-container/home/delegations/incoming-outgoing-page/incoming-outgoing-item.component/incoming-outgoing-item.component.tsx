@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import { TransactionOptions } from '@interfaces/keys.interface';
 import {
   addToLoadingList,
@@ -79,7 +80,7 @@ const IncomingOutgoing = ({
   const cancelDelegation = async () => {
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage(
+      message: getMessage(
         'popup_html_confirm_cancel_delegation_message',
       ),
       title: 'popup_html_cancel_delegation',
@@ -141,7 +142,7 @@ const IncomingOutgoing = ({
 
     navigateToWithParams(Screen.CONFIRMATION_PAGE, {
       method: KeychainKeyTypes.active,
-      message: chrome.i18n.getMessage('popup_html_confirm_delegation', [
+      message: getMessage('popup_html_confirm_delegation', [
         value,
         `@${username}`,
       ]),
@@ -214,7 +215,7 @@ const IncomingOutgoing = ({
                     className="edit-label"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    placeholder={chrome.i18n.getMessage(
+                    placeholder={getMessage(
                       'popup_html_favorite_user_nickname',
                     )}
                   />
@@ -253,7 +254,7 @@ const IncomingOutgoing = ({
                       onClick={() => enterEditMode()}>
                       <SVGIcon icon={SVGIcons.FAVORITE_ACCOUNTS_EDIT} />
                       <span className="label">
-                        {chrome.i18n.getMessage('html_popup_button_edit_label')}
+                        {getMessage('html_popup_button_edit_label')}
                       </span>
                     </div>
                     <div
@@ -261,7 +262,7 @@ const IncomingOutgoing = ({
                       onClick={() => cancelDelegation()}>
                       <SVGIcon icon={SVGIcons.FAVORITE_ACCOUNTS_DELETE} />
                       <span className="label">
-                        {chrome.i18n.getMessage('delete_label')}
+                        {getMessage('delete_label')}
                       </span>
                     </div>
                   </div>

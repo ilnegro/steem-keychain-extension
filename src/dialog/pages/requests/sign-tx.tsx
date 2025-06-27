@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   KeychainKeyTypesLC,
   RequestId,
@@ -22,7 +23,7 @@ const SignTx = (props: Props) => {
 
   return (
     <Operation
-      title={chrome.i18n.getMessage('dialog_title_sign_tx')}
+      title={getMessage('dialog_title_sign_tx')}
       {...props}
       canWhitelist={data.method.toLowerCase() !== KeychainKeyTypesLC.active}>
       <RequestItem title="dialog_account" content={`@${data.username}`} />

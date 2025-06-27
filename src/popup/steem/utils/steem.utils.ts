@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import * as steem from '@hiveio/hive-js';
 import { SteemTxUtils } from '@popup/steem/utils/steem-tx.utils';
 import { ExtendedAccount, Price } from '@steempro/dsteem';
@@ -118,7 +119,7 @@ const getTimeBeforeFull = (votingPower: number) => {
   // 1% every 72minutes
   let minutesNeeded = remainingPowerToGet * 72;
   if (minutesNeeded === 0) {
-    return chrome.i18n.getMessage('popup_utils_full');
+    return getMessage('popup_utils_full');
   } else {
     let fullInDays = parseInt((minutesNeeded / 1440).toString());
     let fullInHours = parseInt(
@@ -133,37 +134,37 @@ const getTimeBeforeFull = (votingPower: number) => {
       fullIn.push(
         fullInDays +
           (fullInDays > 1
-            ? ` ${chrome.i18n.getMessage('days')}`
-            : ` ${chrome.i18n.getMessage('day')}`),
+            ? ` ${getMessage('days')}`
+            : ` ${getMessage('day')}`),
       );
     }
     if (fullInHours) {
       fullIn.push(
         fullInHours +
           (fullInHours > 1
-            ? ` ${chrome.i18n.getMessage('hours')}`
-            : ` ${chrome.i18n.getMessage('hour')}`),
+            ? ` ${getMessage('hours')}`
+            : ` ${getMessage('hour')}`),
       );
     }
     if (fullInMinutes) {
       fullIn.push(
         fullInMinutes +
           (fullInMinutes > 1
-            ? ` ${chrome.i18n.getMessage('minutes')}`
-            : ` ${chrome.i18n.getMessage('minute')}`),
+            ? ` ${getMessage('minutes')}`
+            : ` ${getMessage('minute')}`),
       );
     }
 
-    let fullInString = fullIn.join(` ${chrome.i18n.getMessage('common_and')} `);
+    let fullInString = fullIn.join(` ${getMessage('common_and')} `);
 
     if (fullIn.length === 3) {
       fullInString = fullInString.replace(
-        ` ${chrome.i18n.getMessage('common_and')} `,
+        ` ${getMessage('common_and')} `,
         ', ',
       );
     }
 
-    return chrome.i18n.getMessage('full_in', [fullInString]);
+    return getMessage('full_in', [fullInString]);
   }
 };
 

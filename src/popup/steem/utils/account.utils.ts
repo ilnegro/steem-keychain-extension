@@ -140,7 +140,8 @@ const isAccountNameAlreadyExisting = (
 };
 /* istanbul ignore next */
 const encryptAccounts = async (accounts: Accounts, mk: string) => {
-  return EncryptUtils.encryptJson(accounts, mk);
+//  return EncryptUtils.encryptJson(accounts, mk);
+  return EncryptUtils.encryptJson(accounts);
 };
 
 const hasStoredAccounts = async () => {
@@ -460,6 +461,33 @@ const getExtendedAccounts = async (
 const getAccount = async (username: string): Promise<ExtendedAccount[]> => {
   return SteemTxUtils.getData('condenser_api.get_accounts', [[username]]);
 };
+
+const getTime = async (username: string): Promise<number> => {
+  let balance: number = 0.0000; // Valore di default
+  const url = `https://timeapp.foundation/tbalance.php?name=${encodeURIComponent(username)}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+//      console.error(`[getTime] HTTP error! Status: ${response.status}`);
+      return 0.0000;
+    }
+    const data = await response.text();
+//    console.log(`[getTime] Raw response for ${username}:`, data); // Log per debug
+    const bala = parseFloat(data);
+	balance = parseFloat(bala.toFixed(5));
+	
+    if (isNaN(balance)) {
+//      console.error(`[getTime] Invalid number format: ${data}`);
+      return 0.0000; // Fallback in caso di NaN
+    }
+//    console.log(`[getTime] Parsed balance:`, balance);
+    return balance;
+  } catch (error) {
+//    console.error(`[getTime] Error fetching balance for ${username}:`, error);
+    return 0.0000; // Fallback in caso di errore
+  }
+};
+
 const getRCMana = async (username: string) => {
   const result = await SteemTxUtils.getData('rc_api.find_rc_accounts', {
     accounts: [username],
@@ -670,6 +698,7 @@ const AccountUtils = {
   reorderAccounts,
   addAuthorizedKey,
   getAccountFromKey,
+  getTime,
 };
 
 export const BackgroundAccountUtils = {

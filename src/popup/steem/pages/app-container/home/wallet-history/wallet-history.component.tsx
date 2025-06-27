@@ -1,3 +1,4 @@
+import getMessage from 'src/background/utils/i18n.utils';
 import {
   ClaimReward,
   Convert,
@@ -74,6 +75,7 @@ const WalletHistory = ({
   activeAccountName,
   fetchAccountTransactions,
   setTitleContainerProperties,
+  currency,
 }: PropsFromRedux) => {
   const [isFilterOpened, setIsFilterPanelOpened] = useState(false);
   let lastOperationFetched = -1;
@@ -169,9 +171,10 @@ const WalletHistory = ({
 
     lastOperationFetched = await TransactionUtils.getLastTransaction(
       activeAccountName!,
+	  currency,
     );
     setLoading(true);
-    fetchAccountTransactions(activeAccountName!, lastOperationFetched);
+    fetchAccountTransactions(activeAccountName!, currency, lastOperationFetched);
     initFilters();
   };
 
@@ -188,6 +191,7 @@ const WalletHistory = ({
         setLoading(true);
         fetchAccountTransactions(
           activeAccountName!,
+		  currency,
           transactions.lastUsedStart - NB_TRANSACTION_FETCHED,
         );
       } else {
@@ -221,13 +225,14 @@ const WalletHistory = ({
     }
   }, [filter]);
 
-  const saveFilterInLocalStorage = () => {
-    LocalStorageUtils.saveValueInLocalStorage(
+
+  const saveFilterInLocalStorage = async () => {
+    await LocalStorageUtils.saveValueInLocalStorage(
       LocalStorageKeyEnum.WALLET_HISTORY_FILTERS,
       filter,
     );
   };
-
+  
   const filterTransactions = () => {
     const selectedTransactionsTypes = Object.keys(
       filter.selectedTransactionTypes,
@@ -337,6 +342,7 @@ const WalletHistory = ({
       setLoading(true);
       fetchAccountTransactions(
         activeAccountName!,
+ 	    currency,
         transactions.lastUsedStart - NB_TRANSACTION_FETCHED,
       );
     }
@@ -368,6 +374,7 @@ const WalletHistory = ({
     setLoading(true);
     fetchAccountTransactions(
       activeAccountName!,
+	  currency,
       Math.min(
         lastTransactionIndex,
         transactions.lastUsedStart - NB_TRANSACTION_FETCHED,
@@ -392,6 +399,8 @@ const WalletHistory = ({
   };
 
   return (
+  <>
+    <div className="whoandwhat" style={{textAlign: 'center', fontSize: '20px', marginBottom: '4px', fontWeight: 500,}}>{`User: ${activeAccountName} - Currency: ${currency === 'TIME' ? 'TIME' : 'STEEM'}`}</div>
     <div
       className="wallet-history-page"
       data-testid={`${Screen.WALLET_HISTORY_PAGE}-page`}>
@@ -429,7 +438,7 @@ const WalletHistory = ({
                             : 'not-selected')
                         }
                         onClick={() => toggleFilterType(filterOperationType)}>
-                        {chrome.i18n.getMessage(
+                        {getMessage(
                           `popup_html_filter_type_${filterOperationType}`,
                         )}{' '}
                       </div>
@@ -445,7 +454,7 @@ const WalletHistory = ({
                     (filter.inSelected ? 'selected' : 'not-selected')
                   }
                   onClick={() => toggleFilterIn()}>
-                  {chrome.i18n.getMessage(`popup_html_filter_in`)}
+                  {getMessage(`popup_html_filter_in`)}
                 </div>
                 <div
                   data-testid="filter-by-outgoing"
@@ -454,7 +463,7 @@ const WalletHistory = ({
                     (filter.outSelected ? 'selected' : 'not-selected')
                   }
                   onClick={() => toggleFilterOut()}>
-                  {chrome.i18n.getMessage(`popup_html_filter_out`)}
+                  {getMessage(`popup_html_filter_out`)}
                 </div>
               </div>
             </div>
@@ -496,12 +505,12 @@ const WalletHistory = ({
                   <SVGIcon icon={SVGIcons.MESSAGE_ERROR} />
                   <div className="text">
                     <div>
-                      {chrome.i18n.getMessage(
+                      {getMessage(
                         'popup_html_transaction_list_is_empty',
                       )}
                     </div>
                     <div>
-                      {chrome.i18n.getMessage(
+                      {getMessage(
                         'popup_html_transaction_list_is_empty_try_clear_filter',
                       )}
                     </div>
@@ -516,7 +525,7 @@ const WalletHistory = ({
           !loading && (
             <div className="load-more-panel" onClick={tryToLoadMore}>
               <span className="label">
-                {chrome.i18n.getMessage('popup_html_load_more')}
+                {getMessage('popup_html_load_more')}
               </span>
               <SVGIcon icon={SVGIcons.GLOBAL_ADD_CIRCLE}></SVGIcon>
             </div>
@@ -529,13 +538,16 @@ const WalletHistory = ({
       </div>
       {displayScrollToTop && <BackToTopButton element={walletItemList} />}
     </div>
+</>
   );
 };
+
 
 const mapStateToProps = (state: RootState) => {
   return {
     transactions: state.steem.transactions as Transactions,
     activeAccountName: state.steem.activeAccount.name,
+	currency: state.navigation.params.tokenSymbol,
   };
 };
 
